@@ -67,21 +67,24 @@
             </div>
              <br>
 
-               <%-- <c:if test="${!empty roles}">   --%>
+                <%-- <c:if test="${!empty roles}">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>Role</tr>
                     </thead>
-                    <tbody>
-                    <c:forEach items="${roles}" var="role">
-                        <tr>
-                            <td>${role.role}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                    </table>
-               <%-- </c:if> --%>
+                    <tbody>  --%>
+                    <c:forEach items="${roles}" var="rolez">
+                        <%--  <form:label path="role">${role.role}</form:label>  --%>
+                              <form:radiobutton label="${rolez.role}" path="role" value="${rolez.role} "/>
+                          <%-- <spring:message code="${role.role}"/>
+                           <tr>
+                               <td>${role.role}</td>
+                           </tr>
 
+                           </tbody>
+                           </table>
+                       </c:if>--%>
+                    </c:forEach>
                     <div class="control-group">
                 <div class="controls">
                     <input type="submit" value="Add User" class="btn btn-success"/>

@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    protected RoleRepository roleRepository;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         model.addAttribute("user", new User());
         model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("roles", roleRepository.findAll());
         return "users";
     }
 

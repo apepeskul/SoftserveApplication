@@ -27,6 +27,19 @@ public class User {
     @Basic
     private String region;
 
+    @ManyToOne (targetEntity = Role.class, cascade = {CascadeType.PERSIST}, fetch =FetchType.LAZY)
+    @JoinColumn (name = "role_id",  referencedColumnName="role_id"  )
+
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String getRegion() {
         return region;
     }
