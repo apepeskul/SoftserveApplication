@@ -66,7 +66,8 @@
             </div>
             </div>
              <br>
-                <c:if test="${!empty roles }">
+
+               <%-- <c:if test="${!empty roles}">   --%>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>Role</tr>
@@ -79,7 +80,7 @@
                     </c:forEach>
                     </tbody>
                     </table>
-                </c:if>
+               <%-- </c:if> --%>
 
                     <div class="control-group">
                 <div class="controls">
