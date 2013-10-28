@@ -1,5 +1,3 @@
-<%@ page import="java.util.*" %>
-
 <!doctype html>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -68,7 +66,22 @@
             </div>
             </div>
              <br>
-            <div class="control-group">
+                <c:if test="${!empty roles }">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>Role</tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${roles}" var="role">
+                        <tr>
+                            <td>${role.role}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                    </table>
+                </c:if>
+
+                    <div class="control-group">
                 <div class="controls">
                     <input type="submit" value="Add User" class="btn btn-success"/>
                     </form:form>
@@ -106,6 +119,7 @@
     </div>
 </div>
 </div>
+    </div>
 
 </body>
 </html>

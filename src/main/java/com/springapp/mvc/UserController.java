@@ -16,6 +16,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         model.addAttribute("user", new User());
