@@ -26,9 +26,19 @@ public class User {
 
     @Basic
     private String region;
+    @Basic
+    private Long role_int;
+
+    public Long getRole_int() {
+        return role_int;
+    }
+
+    public void setRole_int(Long role_int) {
+        this.role_int = role_int;
+    }
 
     @ManyToOne (targetEntity = Role.class, cascade = {CascadeType.PERSIST}, fetch =FetchType.LAZY)
-    @JoinColumn (name = "role_id",  referencedColumnName="role_id"  )
+    @JoinColumn (name = "role_id",  referencedColumnName="id"  )
 
     private Role role;
 
@@ -38,6 +48,7 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+
     }
 
     public String getRegion() {

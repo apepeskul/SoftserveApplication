@@ -23,7 +23,8 @@
         <div class="span8 offset2">
 
             <h1>Create new user</h1>
-            <form:form method="post" action="add" commandName="user" class="form-horizontal">
+            <form:form method="post" action="add"  commandName="user" class="form-horizontal">
+
             <div class="control-group">
                 <form:label cssClass="control-label" path="login">Login:</form:label>
                 <div class="controls">
@@ -73,10 +74,12 @@
                     <tr>Role</tr>
                     </thead>
                     <tbody>  --%>
-                    <c:forEach items="${roles}" var="rolez">
-                        <%--  <form:label path="role">${role.role}</form:label>  --%>
-                              <form:radiobutton label="${rolez.role}" path="role" value="${rolez.role} "/>
-                          <%-- <spring:message code="${role.role}"/>
+
+                <c:forEach items="${roles}" var="forrole">
+                    <%--   <input  type="radio" class="radio" value="${role.id}"/><form>
+                                     <form:label path="role">${role.role}</form:label> --%>
+                              <form:radiobutton label="${forrole.description}" path="role"  value="${forrole}"/>
+                           <%-- <spring:message code="${role.role}"/>
                            <tr>
                                <td>${role.role}</td>
                            </tr>
@@ -84,6 +87,7 @@
                            </tbody>
                            </table>
                        </c:if>--%>
+                      <%--  <form action="add/${role.id}" method="post"><input type="radio" value="${roles.id}"></form>  --%>
                     </c:forEach>
                     <div class="control-group">
                 <div class="controls">

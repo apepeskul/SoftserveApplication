@@ -27,13 +27,20 @@ public class UserController {
         return "users";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user, BindingResult result) {
-
+    @RequestMapping(value = "/add")
+    public String addUser(User user, BindingResult result) {
+        user.setRole(roleRepository.findById(user.getId()));
         userRepository.save(user);
 
         return "redirect:/";
     }
+    @RequestMapping (value = "/addRole/{userRole}")
+    public void addRole (@PathVariable ("userRole") Long id,User user, BindingResult result){
+            user.setRole(roleRepository.findById(id));
+
+    }
+
+
 
     @RequestMapping("/delete/{userId}")
     public String deleteUser(@PathVariable("userId") Long userId) {
