@@ -21,6 +21,7 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
+        model.addAttribute("temprole", new Role());
         model.addAttribute("user", new User());
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("roles", roleRepository.findAll());
@@ -28,8 +29,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add")
-    public String addUser(User user, BindingResult result) {
-        user.setRole(roleRepository.findById(user.getId()));
+    public String addUser(@ModelAttribute User user,Role role, BindingResult result) {
+        role = roleRepository.findById(role.getId());
+        user.setRole(role);
         userRepository.save(user);
 
         return "redirect:/";

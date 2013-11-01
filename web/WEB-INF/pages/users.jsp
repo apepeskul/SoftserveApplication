@@ -68,27 +68,7 @@
             </div>
              <br>
 
-                <%-- <c:if test="${!empty roles}">
-                <table class="table table-bordered table-striped table-hover">
-                    <thead>
-                    <tr>Role</tr>
-                    </thead>
-                    <tbody>  --%>
 
-                <c:forEach items="${roles}" var="forrole">
-                    <%--   <input  type="radio" class="radio" value="${role.id}"/><form>
-                                     <form:label path="role">${role.role}</form:label> --%>
-                              <form:radiobutton label="${forrole.description}" path="role"  value="${forrole}"/>
-                           <%-- <spring:message code="${role.role}"/>
-                           <tr>
-                               <td>${role.role}</td>
-                           </tr>
-
-                           </tbody>
-                           </table>
-                       </c:if>--%>
-                      <%--  <form action="add/${role.id}" method="post"><input type="radio" value="${roles.id}"></form>  --%>
-                    </c:forEach>
                     <div class="control-group">
                 <div class="controls">
                     <input type="submit" value="Add User" class="btn btn-success"/>
@@ -96,6 +76,15 @@
                 </div>
                         </div>
 
+                <div class="control-group">
+                    <div class="controls">
+                <c:forEach items="${roles}" var="forrole">
+
+                    <form:radiobutton label="${forrole.description}" path="temprole.id"  value="${forrole.id}"/>
+
+                </c:forEach>
+                    </div>
+                </div>
             <c:if test="${!empty users}">
                 <h3>Users</h3>
                 <table class="table table-bordered table-striped table-hover">

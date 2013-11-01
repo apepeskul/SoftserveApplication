@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity(name = "account")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Basic
@@ -26,18 +26,8 @@ public class User {
 
     @Basic
     private String region;
-    @Basic
-    private Long role_int;
 
-    public Long getRole_int() {
-        return role_int;
-    }
-
-    public void setRole_int(Long role_int) {
-        this.role_int = role_int;
-    }
-
-    @ManyToOne (targetEntity = Role.class, cascade = {CascadeType.PERSIST}, fetch =FetchType.LAZY)
+    @ManyToOne
     @JoinColumn (name = "role_id",  referencedColumnName="id"  )
 
     private Role role;
