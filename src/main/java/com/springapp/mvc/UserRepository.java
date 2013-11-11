@@ -2,6 +2,15 @@
 package com.springapp.mvc;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.List;
+
+public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor <User> {
+    @Query ("select u from account u where u.login = ?1")
+    List<User> findByLogin (String login);
+
+
+
 }
