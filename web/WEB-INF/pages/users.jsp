@@ -30,6 +30,7 @@
                 <div class="controls">
                     <form:input path="login"/>
                 </div>
+                </div>
             <br>
             <div class="control-group">
                 <form:label cssClass="control-label" path="firstName">First Name:</form:label>
@@ -41,6 +42,7 @@
                 <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
                 <div class="controls">
                     <form:input path="lastName"/>
+                </div>
                 </div>
                 <br>
             <div class="control-group">
@@ -85,6 +87,16 @@
                 </c:forEach>
                     </div>
                 </div>
+
+                    <form class="form-search text-center" method="get" action="search">
+                        <div class="input-append">
+
+                            <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Enter user's login" tabindex="1">
+                            <button type="submit" class="btn"><i class="icon-search"></i> </button>
+                        </div>
+                    </form>
+
+
             <c:if test="${!empty users}">
                 <h3>Users</h3>
                 <table class="table table-bordered table-striped table-hover">

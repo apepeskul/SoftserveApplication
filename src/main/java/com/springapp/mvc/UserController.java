@@ -2,13 +2,10 @@ package com.springapp.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.*;
 
 
 import org.springframework.stereotype.Service;
@@ -43,10 +40,14 @@ public class UserController {
 
         return "redirect:/";
     }
-    @RequestMapping (value = "/addRole/{userRole}")
-    public void addRole (@PathVariable ("userRole") Long id,User user, BindingResult result){
-            user.setRole(roleRepository.findById(id));
 
+    @RequestMapping (value = "/search")
+    public String search (@RequestParam (value = "q") String termSearch,Model model){
+        model.addAttribute("temprole", new Role());
+        model.addAttribute("user", new User());
+        model.addAttribute("users", userRepository.findAll(UserSpecs.loginIsLike(termSearch)));
+        model.addAttribute("roles", roleRepository.findAll());
+        return "users";
     }
 
 
