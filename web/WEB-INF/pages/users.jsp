@@ -8,13 +8,74 @@
 <head>
     <meta charset="utf-8">
     <title>Spring MVC Application</title>
-
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
 
+     <script type="text/javascript">
+         function fillTable(){
+
+             var div = document.getElementById("tableDiv");
+             div.innerHTML="";
+             var table = document.createElement("table");
+             var row = document.createElement("tr");
+             var cell1 = document.createElement("th");
+             var cell2 = document.createElement("th");
+             var cell3 = document.createElement("th");
+             var cell4 = document.createElement("th");
+             var cell5 = document.createElement("th");
+             cell1.appendChild(document.createTextNode("Name"));
+             cell2.appendChild(document.createTextNode("Login"));
+             cell3.appendChild(document.createTextNode("EMail"));
+             cell4.appendChild(document.createTextNode("Region"));
+             cell5.appendChild(document.createTextNode(""));
+             row.appendChild(cell1);
+             row.appendChild(cell2);
+             row.appendChild(cell3);
+             row.appendChild(cell4);
+             row.appendChild(cell5);
+             table.appendChild(row);
+             table.className="table table-bordered table-striped table-hover";
+             div.appendChild(table);
+
+             var ajaxArr = [], ajaxObj;
+             <c:forEach var="user1" items="${users}">
+
+             ajaxObj = {id: '${user1.id}', login: '${user1.login}', firstName:'${user1.firstName}', lastName:'${user1.lastName}', email:'${user1.email}', region:'${user1.region}' };
+
+
+
+             ajaxArr.push(ajaxObj);
+             </c:forEach>
+             for (var i =0; i <ajaxArr.length;i++){
+//                 alert(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName);
+                 var rows = document.createElement("tr");
+                 var td1 = document.createElement("td");
+                 var td2 = document.createElement("td");
+                 var td3 = document.createElement("td");
+                 var td4 = document.createElement("td");
+                 var td5 = document.createElement("td");
+                 td1.appendChild(document.createTextNode(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName));
+                 td2.appendChild(document.createTextNode(ajaxArr[i].login));
+                 td3.appendChild(document.createTextNode(ajaxArr[i].id));
+                 td4.appendChild(document.createTextNode(ajaxArr[i].region));
+                 td5.innerHTML = '<form action="delete/'+ajaxArr[i].id+'" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>' ;
+                 rows.appendChild(td1);
+                 rows.appendChild(td2);
+                 rows.appendChild(td3);
+                 rows.appendChild(td4);
+                 rows.appendChild(td5);
+                 table.appendChild(rows);
+             }
+         }
+
+
+
+     </script>
 </head>
 <body>
 
@@ -48,7 +109,7 @@
             <div class="control-group">
                     <form:label cssClass="control-label" path="password">Password:</form:label>
                     <div class="controls">
-                        <form:input path="password"/>
+                        <form:password path="password"/>
                     </div>
             </div>
             <div class="control-group">
@@ -85,18 +146,19 @@
                     <form:radiobutton label="${forrole.description}" path="temprole.id"  value="${forrole.id}"/>
 
                 </c:forEach>
-                    </div>
-                </div>
+
+        </div>
+    </div>
 
                     <form class="form-search text-center" method="get" action="search">
                         <div class="input-append">
 
-                            <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Enter user's login" tabindex="1">
-                            <button type="submit" class="btn"><i class="icon-search"></i> </button>
+                            <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Search user by login" tabindex="1">
+                            <button type="submit"  class="btn"><i class="icon-search icon-th-large"></i> </button>
                         </div>
                     </form>
-
-
+            <input type="button" value="blahvlah" id="Button1forjava" class="btn btn-success"/>
+              <div id="tableDiv">
             <c:if test="${!empty users}">
                 <h3>Users</h3>
                 <table class="table table-bordered table-striped table-hover">
@@ -124,11 +186,24 @@
                     </tbody>
                 </table>
             </c:if>
+              </div>
         </div>
     </div>
 </div>
-</div>
-    </div>
+
+<script type="text/javascript">
+    $('#search_input').keyup(function (){
+        $.ajax({
+            type: "GET",
+            url: "/search1",
+            data: {b:document.getElementById("search_input").value},
+            success: fillTable()
+        })
+
+    })
+
+</script>
+
 
 </body>
 </html>
