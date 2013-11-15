@@ -1,20 +1,16 @@
 package com.springapp.mvc;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
-
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
 
 
 @Controller
@@ -24,16 +20,46 @@ public class UserController {
     @Autowired
     protected RoleRepository roleRepository;
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
         model.addAttribute("temprole", new Role());
         model.addAttribute("user", new User());
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("roles", roleRepository.findAll());
-        //model.addAttribute("users", userRepository.findAll(UserSpecs.loginIsLike("adm")));
+
         return "users";
+
+
     }
+
+    @RequestMapping(value = "/api/users", produces={"application/json; charset=UTF-8"})
+    public
+    @ResponseBody
+    String listUsersJson(@RequestParam (value = "b") String termSearch,ModelMap model) throws JSONException {
+        JSONArray userArray = new JSONArray();
+
+        for (User user : userRepository.findAll(UserSpecs.loginIsLike(termSearch))) {
+            JSONObject userJSON = new JSONObject();
+            userJSON.put("id", user.getId());
+            userJSON.put("firstName", user.getFirstName());
+            userJSON.put("lastName", user.getLastName());
+            userJSON.put("email", user.getEmail());
+            userJSON.put("login", user.getLogin());
+            userJSON.put("region", user.getRegion());
+            userArray.put(userJSON);
+        }
+        return userArray.toString();
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchUsers(@RequestParam (value = "q") String termSearch, ModelMap model) {
+        model.addAttribute("temprole", new Role());
+        model.addAttribute("user", new User());
+        model.addAttribute("roles", roleRepository.findAll());
+        model.addAttribute("users", userRepository.findAll(UserSpecs.loginIsLike(termSearch)));
+        return "users";}
+
+
 
     @RequestMapping(value = "/add")
     public String addUser(@ModelAttribute User user,Role role, BindingResult result) {
@@ -43,14 +69,6 @@ public class UserController {
 
         return "redirect:/";
     }
-    @RequestMapping (value = "/addRole/{userRole}")
-    public void addRole (@PathVariable ("userRole") Long id,User user, BindingResult result){
-            user.setRole(roleRepository.findById(id));
-
-    }
-
-
-
     @RequestMapping("/delete/{userId}")
     public String deleteUser(@PathVariable("userId") Long userId) {
 
