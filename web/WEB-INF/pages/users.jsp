@@ -16,7 +16,9 @@
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
-
+     <style>table{
+         table-layout: fixed;
+     }</style>
     <script type="text/javascript">
         function fillTable(ajaxArr){
 
@@ -24,6 +26,7 @@
             div.innerHTML="";
 
             var table = document.createElement("table");
+            var head = document.createElement("thead");
             var row = document.createElement("tr");
             var cell1 = document.createElement("th");
             var cell2 = document.createElement("th");
@@ -40,12 +43,14 @@
             row.appendChild(cell3);
             row.appendChild(cell4);
             row.appendChild(cell5);
-            table.appendChild(row);
+            head.appendChild(row);
+            table.appendChild(head);
             table.className="table table-bordered table-striped table-hover";
             div.appendChild(table);
 
             for (var i =0; i <ajaxArr.length;i++){
 //                 alert(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName);
+                var body = document.createElement("tbody");
                 var rows = document.createElement("tr");
                 var td1 = document.createElement("td");
                 var td2 = document.createElement("td");
@@ -62,7 +67,8 @@
                 rows.appendChild(td3);
                 rows.appendChild(td4);
                 rows.appendChild(td5);
-                table.appendChild(rows);
+                body.appendChild(rows);
+                table.appendChild(body);
             }
         }
 
@@ -77,12 +83,13 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="span8 offset2">
-
+<div class="container-fluid">
+    <div class="row" >
+        <div class="span7 offset2">
+            <div class="row">
+            <div class="span4">
             <h1>Create new user</h1>
-            <form:form method="post" action="add"  commandName="user" class="form-horizontal">
+            <form:form id="userform" method="post" action="add"  commandName="user" class="form-horizontal">
 
             <div class="control-group">
                 <form:label cssClass="control-label" path="login">Login:</form:label>
@@ -90,7 +97,6 @@
                     <form:input path="login"/>
                 </div>
                 </div>
-            <br>
             <div class="control-group">
                 <form:label cssClass="control-label" path="firstName">First Name:</form:label>
                 <div class="controls">
@@ -103,11 +109,10 @@
                     <form:input path="lastName"/>
                 </div>
                 </div>
-                <br>
-            <div class="control-group">
+             <div class="control-group">
                     <form:label cssClass="control-label" path="password">Password:</form:label>
                     <div class="controls">
-                        <form:input path="password"/>
+                        <form:password path="password"/>
                     </div>
             </div>
             <div class="control-group">
@@ -128,14 +133,16 @@
             </div>
             </div>
              <br>
-                   <div class="control-group">
-                <div class="controls">
-                    <input type="submit" value="Add User" class="btn btn-success"/>
 
-                </div>
-                        </div>
             </form:form>
+            </div>
+            <div class="span2 offset1">
                 <div class="control-group">
+                    <br>
+                    <br>
+                    <br>
+                    <label class="label">Roles:</label>
+                    <br>
                     <div class="controls">
                 <c:forEach items="${roles}" var="forrole">
 
@@ -144,19 +151,35 @@
                 </c:forEach>
                     </div>
                 </div>
-                <br>
-
-            <form class="form-search text-center" method="get" action="search">
-                <div class="input-append">
-
-                    <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Enter user's login" tabindex="1">
-                    <button type="submit" class="btn"><i class="icon-search"></i> </button>
                 </div>
-            </form>
+                </div>
+            <div class="row">
+                <div class="pagination-centered">
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" form="userform" value="Add User" class="btn btn-success"/>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+                </div>
+
+            <div class="span6 offset1" style="-webkit-box-sizing: border-box">
+
 
 
             <c:if test="${!empty users}">
                 <h3>Users</h3>
+                <br>
+                <div>
+                    <form class="form-search text-center" method="get" action="search">
+                        <div class="input-append">
+
+                            <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Enter user's login" tabindex="1">
+                            <button type="submit" class="btn"><i class="icon-search"></i> </button>
+                        </div>
+                    </form>
                 <div id="tableDiv">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
@@ -184,20 +207,24 @@
                 </table>
             </c:if>
                 </div>
-        </div>
+                </div>
+            </div>
     </div>
-</div>
+    </div>
+
+
 
 <script type="text/javascript">
+
     $('#search_input').keyup(function (){
-
-
+                if ($('#search_input').val().length>1){
         $.getJSON("/api/users", {b:$('#search_input').val()}, function(users){
             fillTable(users);
         })
 
-
-    })
+    }
+    }
+    )
 
 </script>
 </body>
