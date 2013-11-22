@@ -22,7 +22,7 @@
 <div class="row">
 
         <div class="span2">
-                        <form:form id="userform" method="post" action="add"  commandName="user" class="form-horizontal">
+                        <form:form id="userform" method="post" action="save"  commandName="edituser" class="form-horizontal">
 
                         <div class="control-group">
                             <form:label cssClass="control-label" path="login">Login:</form:label>

@@ -136,7 +136,7 @@
             </div>
              <br>
 
-            </form:form>
+
             </div>
             <div class="span2 offset1">
                 <div class="control-group">
@@ -146,12 +146,14 @@
                     <label class="label">Roles:</label>
                     <br>
                     <div class="controls">
-                <c:forEach items="${roles}" var="forrole">
+                        <c:forEach items="${roles}" var="forrole">
 
-                    <form:radiobutton label="${forrole.description}" path="temprole.id"  value="${forrole.id}"/>
 
-                </c:forEach>
+                        <input type="radio" name="rid" value="${forrole.id}" >${forrole.description}</>
+                    <br>
+                    </c:forEach>
                     </div>
+                </form:form>
                     <%--<button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>--%>
                     <div class="modal fade" style="width: 720px" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" >
                         <div class="modal-dialog" >
@@ -161,11 +163,79 @@
                                     <h4 class="modal-title" id="myModalLabel">Edit user</h4>
                                 </div>
                                 <div class="modal-body" id="body">
+                                    <div class="row">
+
+                                        <div class="span2">
+                                    <form:form id="editform" method="post" action="add"  commandName="user" class="form-horizontal">
+
+                                        <div class="control-group">
+                                            <form:hidden id="modalId" path="id"/>
+                                            <form:label cssClass="control-label" path="login">Login:</form:label>
+                                            <div class="controls">
+                                                <form:input id="modalLogin" path="login"/>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <form:label cssClass="control-label" path="firstName">First Name:</form:label>
+                                            <div class="controls">
+                                                <form:input id="modalFirstName" path="firstName"/>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
+                                            <div class="controls">
+                                                <form:input id="modalLastName" path="lastName"/>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <form:label cssClass="control-label" path="password">Password:</form:label>
+                                            <div class="controls">
+                                                <form:password id="modalPassword" path="password"/>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <form:label cssClass="control-label" path="email">Email:</form:label>
+                                            <div class="controls">
+                                                <form:input id="modalEmail" path="email"/>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <form:label cssClass="control-label" path="region">Region:</form:label>
+                                            <div class="controls">
+                                                <form:select id="modalRegion" path="region">
+                                                    <form:option value="North"></form:option>
+                                                    <form:option value="West"></form:option>
+                                                    <form:option value="South"></form:option>
+                                                    <form:option value="East"></form:option>
+                                                </form:select>
+                                            </div>
+                                        </div>
+
+                                </div>
+                                        <div class="span2 offset3">
+                                            <div class="control-group">
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <label class="label">Roles:</label>
+                                                <br>
+                                                <div class="controls">
+                                                    <c:forEach items="${roles}" var="forrole">
+
+
+                                                    <input type="radio" id="modalRole${forrole.id}" name="rid" value="${forrole.id}" >${forrole.description}</>
+                                                <br>
+                                                </c:forEach>
+                                            </div>
+                                            </div>
+                                        </div>
+
 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" id="modalSubmit" class="btn btn-primary">Save changes</button>
+                                    <input type="submit" id="modalSubmit" value="Save changes" class="btn btn-primary"/>
+                            </form:form>
                                 </div>
                             </div><!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
@@ -256,25 +326,50 @@
 </script>
 <script type="text/javascript">
     $("[id^=editBtn]").click(function(){
+        $.getJSON("users/"+$(this).val(), function(user){
 
-        $('#myModal').modal({
-            keyboard: false,
-            remote: "edit/"+$(this).val()
+           //$("[id^=modalRole]").removeAttr('checked');
+            $('#myModal').modal({
+                keyboard: false
+        })
+
+            $('#modalLogin').val(user.login);
+            $('#modalFirstName').val(user.firstName);
+            $('#modalLastName').val(user.lastName);
+            $('#modalEmail').val(user.Email);
+            $('#modalRegion').val(user.region);
+            $('#modalId').val(user.id);
+
+            $("#modalRole"+user.role.id).prop('checked', true);
 
 
-        });
+
+
+
+
+        }
+        );
         $('#myModal').on('hidden', function() {
+            $("[id^=modalRole]").prop('checked', false);
             $(this).removeData('modal');
+
         });
 
-
-       /* $('body').on('hidden.bs.modal', '.modal', function () {
-            $(this).removeData('bs.modal');
+       /* $('#myModal').on('hide', function() {
+          $("#modalRole"+user.role.id).prop('checked', false);
+          $.modal.close();
         });*/
+
+
 
 
     })
 
 </script>
+<%--<script>
+    $('#modalSubmit').click(function(){
+        $.post("/add")
+    })
+</script>--%>
 </body>
 </html>
