@@ -17,10 +17,25 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
     <script src="/css/bootstrap.js"></script>
-
+    <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
      <style>table{
          table-layout: fixed;
      }</style>
+    <style>
+        label.valid {
+            width: 24px;
+            height: 24px;
+            background: url(/css/valid.png) center center no-repeat;
+            display: inline-block;
+            text-indent: -9999px;
+        }
+        label.error {
+            font-weight: bold;
+            color: red;
+            padding: 2px 8px;
+            margin-top: 2px;
+        }
+    </style>
     <script type="text/javascript">
         function fillTable(ajaxArr){
 
@@ -86,41 +101,42 @@
 <body>
 
 <div class="container-fluid">
-    <div class="row" >
-        <div class="span7 offset2">
+    <div class="row">
+        <div class="span9 offset1">
             <div class="row">
-            <div class="span4">
+            <div class="span6">
             <h1>Create new user</h1>
             <form:form id="userform" method="post" action="add"  commandName="user" class="form-horizontal">
 
-            <div class="control-group">
+            <div class="control-group inline">
                 <form:label cssClass="control-label" path="login">Login:</form:label>
-                <div class="controls">
-                    <form:input path="login"/>
+                <div  class="controls">
+                    <form:input id="login" path="login"/>
+
                 </div>
                 </div>
             <div class="control-group">
                 <form:label cssClass="control-label" path="firstName">First Name:</form:label>
                 <div class="controls">
-                    <form:input path="firstName"/>
+                    <form:input id="firstName" path="firstName"/>
                 </div>
             </div>
             <div class="control-group">
                 <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
                 <div class="controls">
-                    <form:input path="lastName"/>
+                    <form:input id="lastName" path="lastName"/>
                 </div>
                 </div>
              <div class="control-group">
                     <form:label cssClass="control-label" path="password">Password:</form:label>
                     <div class="controls">
-                        <form:password path="password"/>
+                        <form:password id="password" path="password"/>
                     </div>
             </div>
             <div class="control-group">
                 <form:label cssClass="control-label" path="email">Email:</form:label>
                 <div class="controls">
-                    <form:input path="email"/>
+                    <form:input id="email" path="email"/>
                 </div>
             </div>
                 <div class="control-group">
@@ -138,115 +154,34 @@
 
 
             </div>
-            <div class="span2 offset1">
+            <div class="span2">
                 <div class="control-group">
                     <br>
                     <br>
                     <br>
                     <label class="label">Roles:</label>
                     <br>
+
                     <div class="controls">
                         <c:forEach items="${roles}" var="forrole">
 
 
-                        <input type="radio" name="rid" value="${forrole.id}" >${forrole.description}</>
+                        <input type="radio" name="rid" value="${forrole.id}"> ${forrole.description}</>
                     <br>
                     </c:forEach>
+                    <hr>
                     </div>
                 </form:form>
                     <%--<button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>--%>
-                    <div class="modal fade" style="width: 720px" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true" >
-                        <div class="modal-dialog" >
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Edit user</h4>
-                                </div>
-                                <div class="modal-body" id="body">
-                                    <div class="row">
-
-                                        <div class="span2">
-                                    <form:form id="editform" method="post" action="add"  commandName="user" class="form-horizontal">
-
-                                        <div class="control-group">
-                                            <form:hidden id="modalId" path="id"/>
-                                            <form:label cssClass="control-label" path="login">Login:</form:label>
-                                            <div class="controls">
-                                                <form:input id="modalLogin" path="login"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <form:label cssClass="control-label" path="firstName">First Name:</form:label>
-                                            <div class="controls">
-                                                <form:input id="modalFirstName" path="firstName"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
-                                            <div class="controls">
-                                                <form:input id="modalLastName" path="lastName"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <form:label cssClass="control-label" path="password">Password:</form:label>
-                                            <div class="controls">
-                                                <form:password id="modalPassword" path="password"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <form:label cssClass="control-label" path="email">Email:</form:label>
-                                            <div class="controls">
-                                                <form:input id="modalEmail" path="email"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <form:label cssClass="control-label" path="region">Region:</form:label>
-                                            <div class="controls">
-                                                <form:select id="modalRegion" path="region">
-                                                    <form:option value="North"></form:option>
-                                                    <form:option value="West"></form:option>
-                                                    <form:option value="South"></form:option>
-                                                    <form:option value="East"></form:option>
-                                                </form:select>
-                                            </div>
-                                        </div>
-
-                                </div>
-                                        <div class="span2 offset3">
-                                            <div class="control-group">
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <label class="label">Roles:</label>
-                                                <br>
-                                                <div class="controls">
-                                                    <c:forEach items="${roles}" var="forrole">
 
 
-                                                    <input type="radio" id="modalRole${forrole.id}" name="rid" value="${forrole.id}" >${forrole.description}</>
-                                                <br>
-                                                </c:forEach>
-                                            </div>
-                                            </div>
-                                        </div>
 
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <input type="submit" id="modalSubmit" value="Save changes" class="btn btn-primary"/>
-                            </form:form>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-
-
-                    <hr />
 
                 </div>
                 </div>
-                </div>
+
+        </div>
             <div class="row">
                 <div class="pagination-centered">
                 <div class="control-group">
@@ -257,24 +192,111 @@
                 </div>
                 </div>
             </div>
-                </div>
+        <div class="row"> <div class="modal fade hide" style="width: 720px" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false" >
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Edit user</h4>
+                    </div>
+                    <div class="modal-body" id="body">
+                        <div class="row">
 
-            <div class="span6 offset1" style="-webkit-box-sizing: border-box">
+                            <div class="span2">
+                                <form:form id="editform" method="post" action="add"  commandName="user" class="form-horizontal">
+
+                                <div class="control-group">
+                                    <form:hidden id="modalId" path="id"/>
+                                    <form:label cssClass="control-label" path="login">Login:</form:label>
+                                    <div class="controls">
+                                        <form:input id="modalLogin" path="login"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <form:label cssClass="control-label" path="firstName">First Name:</form:label>
+                                    <div class="controls">
+                                        <form:input id="modalFirstName" path="firstName"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
+                                    <div class="controls">
+                                        <form:input id="modalLastName" path="lastName"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <form:label cssClass="control-label" path="password">Password:</form:label>
+                                    <div class="controls">
+                                        <form:password id="modalPassword" path="password"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <form:label cssClass="control-label" path="email">Email:</form:label>
+                                    <div class="controls">
+                                        <form:input id="modalEmail" path="email"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <form:label cssClass="control-label" path="region">Region:</form:label>
+                                    <div class="controls">
+                                        <form:select id="modalRegion" path="region">
+                                            <form:option value="North"></form:option>
+                                            <form:option value="West"></form:option>
+                                            <form:option value="South"></form:option>
+                                            <form:option value="East"></form:option>
+                                        </form:select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="span2 offset3">
+                                <div class="control-group">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <label class="label">Roles:</label>
+                                    <br>
+                                    <div class="controls">
+                                        <c:forEach items="${roles}" var="forrole">
 
 
-
-            <c:if test="${!empty users}">
-                <h3>Users</h3>
-                <br>
-                <div>
-                    <form class="form-search text-center" method="get" action="search">
-                        <div class="input-append">
-
-                            <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Enter user's login" tabindex="1">
-                            <button type="submit" class="btn"><i class="icon-search"></i> </button>
+                                        <input type="radio" id="modalRole${forrole.id}" name="rid" value="${forrole.id}" >${forrole.description}</>
+                                    <br>
+                                    </c:forEach>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                <div id="tableDiv">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" id="modalSubmit" value="Save changes" class="btn btn-primary"/>
+                        </form:form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        </div>
+        </div>
+        </div>
+    <div class="span6" style="-webkit-box-sizing: border-box">
+
+
+
+        <c:if test="${!empty users}">
+        <h3>Users</h3>
+        <br>
+        <div>
+            <form class="form-search text-center" method="get" action="search">
+                <div class="input-append">
+
+                    <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Enter user's login" tabindex="1">
+                    <button type="submit" class="btn"><i class="icon-search"></i> </button>
+                </div>
+            </form>
+            <div id="tableDiv">
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
@@ -293,23 +315,28 @@
                             <td>${user.email}</td>
                             <td>${user.region}</td>
                             <td>
-                               <div class="inline"> <form action="delete/${user.id}" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>
+                                <form action="delete/${user.id}" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>
+                            </td>
+                            <td>
                                 <button class="btn-mini btn-warning" id="editBtn${user.id}" value="${user.id}" data-toggle="modal">Edit</button>
-                                </div>
+
                             </td>
 
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-            </c:if>
-                </div>
-                </div>
+                </c:if>
             </div>
+        </div>
     </div>
     </div>
 
 
+
+
+
+</div>
 
 <script type="text/javascript">
 
@@ -365,6 +392,40 @@
 
     })
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#userform').validate(
+                {
+                    rules: {
+                        login: {
+                            minlength: 2,
+                            required: true
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        lastName: {
+                            minlength: 2,
+                            required: true
+                        },
+                        firstName: {
+                            minlength: 2,
+                            required: true
+                        }
+                    },
+                    highlight: function(element) {
+                        $(element).closest('.control-group').removeClass('success').addClass('error');
+                    },
+                    success: function(element) {
+                        element
+                                .text('OK!').addClass('valid')
+                                .closest('.control-group').removeClass('error').addClass('success');
+                    }
+                });
+    }); // end document.ready
 </script>
 <%--<script>
     $('#modalSubmit').click(function(){

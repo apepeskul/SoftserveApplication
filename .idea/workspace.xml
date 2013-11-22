@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d874e16-70df-4b6a-8761-8d0f91a79923" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\apepeskul\workspace\SoftserveApplication\web\WEB-INF\pages\edit.jsp" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/users.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/users.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SpringMVCApp.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385100829701" ignored="false" />
-    <file path="/users.jsp" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385129407442" ignored="false" />
+    <file path="/users.jsp" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385139594883" ignored="false" />
     <file path="/UserController.java" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385120070939" ignored="false" />
     <file path="/pom.xml" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1384450950552" ignored="false" />
     <file path="/web.xml" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1384757146206" ignored="false" />
@@ -110,7 +106,7 @@
       <file leaf-file-name="users.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/users.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="357" column="47" selection-start="15926" selection-end="15926" vertical-scroll-proportion="0.68342644">
+            <state line="25" column="21" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.6014898">
               <folding />
             </state>
           </provider>
@@ -909,7 +905,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/users.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="357" column="47" selection-start="15926" selection-end="15926" vertical-scroll-proportion="0.68342644">
+        <state line="25" column="21" selection-start="1077" selection-end="1077" vertical-scroll-proportion="0.6014898">
           <folding />
         </state>
       </provider>
