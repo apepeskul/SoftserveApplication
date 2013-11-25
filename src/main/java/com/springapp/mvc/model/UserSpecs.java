@@ -1,4 +1,4 @@
-package com.springapp.mvc;
+package com.springapp.mvc.model;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;

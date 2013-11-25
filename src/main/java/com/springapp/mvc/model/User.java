@@ -1,10 +1,10 @@
 
-package com.springapp.mvc;
+package com.springapp.mvc.model;
 
 import javax.persistence.*;
 import java.util.Set;
 
-     @Entity (name = "account")
+@Entity (name = "account")
      public class User {
 
         @Id
@@ -37,20 +37,12 @@ import java.util.Set;
         @JoinColumn (name = "role_id",  referencedColumnName="id"  )
         private Role role;
 
-        @OneToMany(cascade = CascadeType.ALL)
-        @JoinTable (name = "user_orders")
-        private Set<Order> ordersSet;
+
 
          public enum Region {North, South, West, East};
 
         // геттеры и сеттеры
-        public Set<Order> getOrdersSet() {
-            return ordersSet;
-        }
 
-        public void setOrdersSet(Set<Order> ordersSet) {
-            this.ordersSet = ordersSet;
-        }
 
          public Role getRole() {
             return role;

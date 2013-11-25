@@ -1,13 +1,12 @@
-package com.springapp.mvc;
+package com.springapp.mvc.controllers;
 
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.hsqldb.lib.LineGroupReader;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.springapp.mvc.model.Role;
+import com.springapp.mvc.model.User;
+import com.springapp.mvc.model.UserSpecs;
+import com.springapp.mvc.repositories.RoleRepository;
+import com.springapp.mvc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -59,7 +58,7 @@ public class UserController {
 
         @ResponseBody User searchUserById  (@PathVariable ("userId") Long userId ){
 
-        return userRepository.findById(userId);
+        return userRepository.findOne(userId);
 
 
     }

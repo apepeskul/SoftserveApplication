@@ -1,4 +1,4 @@
-package com.springapp.mvc;
+package com.springapp.mvc.model;
 
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;

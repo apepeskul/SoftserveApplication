@@ -18,9 +18,7 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
     <script src="/css/bootstrap.js"></script>
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
-     <style>table{
-         table-layout: fixed;
-     }</style>
+
     <style>
         label.valid {
             width: 24px;
