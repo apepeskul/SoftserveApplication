@@ -2,22 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d874e16-70df-4b6a-8761-8d0f91a79923" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/CreditCardInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/Dimension.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/Item.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/Order.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/OrderDetails.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/Price.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SpringMVCApp.iml" afterPath="$PROJECT_DIR$/SpringMVCApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/ant.xml" afterPath="$PROJECT_DIR$/.idea/ant.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/OrderDetails.java" afterPath="$PROJECT_DIR$/src/main/java/com/springapp/mvc/OrderDetails.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SpringMVCApp.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385384104136" ignored="false" />
+    <file path="/Dummy.txt" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385385501198" ignored="false" />
     <file path="/users.jsp" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385139594883" ignored="false" />
     <file path="/UserController.java" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385120070939" ignored="false" />
     <file path="/pom.xml" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1384450950552" ignored="false" />
@@ -25,9 +16,10 @@
     <file path="/mvc-dispatcher-servlet.xml" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1384758528616" ignored="false" />
     <file path="/edit.jsp" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385101857854" ignored="false" />
     <file path="/UserRepository.java" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385106311641" ignored="false" />
-    <file path="/persistence.xml" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385384555823" ignored="false" />
+    <file path="/persistence.xml" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385386044454" ignored="false" />
     <file path="/fragment.java" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385384755339" ignored="false" />
     <file path="/User.java" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385385122602" ignored="false" />
+    <file path="/OrderDetails.java" changelist="6d874e16-70df-4b6a-8761-8d0f91a79923" time="1385386020235" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,10 +112,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="OrderDetails.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/OrderDetails.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="8" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="users.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/users.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="21" selection-start="1077" selection-end="1077" vertical-scroll-proportion="-16.346153">
+            <state line="25" column="21" selection-start="1077" selection-end="1077" vertical-scroll-proportion="-4.576923">
               <folding />
             </state>
           </provider>
@@ -132,8 +133,10 @@
       <file leaf-file-name="UserController.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="29" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="20" column="20" selection-start="573" selection-end="573" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -141,7 +144,7 @@
       <file leaf-file-name="persistence.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="70" selection-start="970" selection-end="970" vertical-scroll-proportion="-6.8">
+            <state line="9" column="70" selection-start="893" selection-end="893" vertical-scroll-proportion="-6.12">
               <folding />
             </state>
           </provider>
@@ -156,10 +159,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="29" selection-start="109" selection-end="109" vertical-scroll-proportion="-0.09107143">
+            <state line="6" column="29" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -176,39 +179,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RoleRepository.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/RoleRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="17" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserRepository.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="UserRepository.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="28" selection-start="474" selection-end="474" vertical-scroll-proportion="0.0">
+            <state line="13" column="28" selection-start="474" selection-end="474" vertical-scroll-proportion="0.2797075">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="web.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-          <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleGeneralEditorProvider">
-            <state />
-          </provider>
-          <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorProvider">
-            <state />
-          </provider>
+      <file leaf-file-name="Item.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/Item.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="50" selection-start="717" selection-end="717" vertical-scroll-proportion="0.0">
+            <state line="15" column="22" selection-start="567" selection-end="567" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorReferencesProvider">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="Price.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/Price.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="22" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -238,8 +232,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserController.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/users.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/springapp/mvc/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/springapp/mvc/OrderDetails.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
       </list>
     </option>
   </component>
@@ -757,12 +752,16 @@
       <created>1384451223413</created>
       <updated>1384451223413</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Entities were added. Mapping is performed successfully.">
+      <created>1385385542314</created>
+      <updated>1385385542314</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1036" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -783,7 +782,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33035713" sideWeight="0.67146015" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24940476" sideWeight="0.67146015" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24940476" sideWeight="0.67146015" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32853982" sideWeight="0.49786553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -834,7 +833,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding ajax" />
+    <option name="LAST_COMMIT_MESSAGE" value="Entities were added. Mapping is performed successfully." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -849,6 +848,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="adding ajax" />
+    <MESSAGE value="Entities were added. Mapping is performed successfully." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -860,21 +860,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/3.2.0.RELEASE/spring-webmvc-3.2.0.RELEASE.jar!/org/springframework/web/servlet/mvc/annotation/AnnotationMethodHandlerAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="59" selection-start="4800" selection-end="4800" vertical-scroll-proportion="-6.32" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/3.2.0.RELEASE/spring-webmvc-3.2.0.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="28" selection-start="7532" selection-end="7532" vertical-scroll-proportion="0.6989374" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/3.2.0.RELEASE/spring-webmvc-3.2.0.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="19" selection-start="7547" selection-end="7547" vertical-scroll-proportion="0.5311751" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="64" selection-start="653" selection-end="653" vertical-scroll-proportion="0.5133215">
@@ -900,7 +885,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SpringMVCApp.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="44" selection-start="448" selection-end="448" vertical-scroll-proportion="0.019790454" />
+        <state line="9" column="44" selection-start="448" selection-end="448" vertical-scroll-proportion="0.019790454">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/mvc-dispatcher-servlet.xml">
@@ -922,30 +909,16 @@
         <state line="31" column="29" selection-start="2284" selection-end="2284" vertical-scroll-proportion="0.71868134" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="28" selection-start="474" selection-end="474" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/users.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="21" selection-start="1077" selection-end="1077" vertical-scroll-proportion="-16.346153">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="29" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="70" selection-start="970" selection-end="970" vertical-scroll-proportion="-6.8">
+        <state line="9" column="70" selection-start="893" selection-end="893" vertical-scroll-proportion="-6.12">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/Price.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="22" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -957,6 +930,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="22" selection-start="567" selection-end="567" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="20" selection-start="573" selection-end="573" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/OrderDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="8" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/users.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="21" selection-start="1077" selection-end="1077" vertical-scroll-proportion="-4.576923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="29" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/Role.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="13" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
@@ -964,12 +976,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/User.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/springapp/mvc/UserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="29" selection-start="109" selection-end="109" vertical-scroll-proportion="-0.09107143">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="13" column="28" selection-start="474" selection-end="474" vertical-scroll-proportion="0.2797075">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -9,7 +9,7 @@ package com.springapp.mvc;
  */
 import javax.persistence.*;
 @Entity
-class OrderDetails
+ public class OrderDetails
 {
 
     @Id
