@@ -14,16 +14,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
-    <script src="/css/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/filltable.js"></script>
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
 
     <style>
         label.valid {
             width: 24px;
             height: 24px;
-            background: url(/css/valid.png) center center no-repeat;
+            background: url(/static/img/valid.png) center center no-repeat;
             display: inline-block;
             text-indent: -9999px;
         }
@@ -34,77 +35,89 @@
             margin-top: 2px;
         }
     </style>
-    <script type="text/javascript">
-        function fillTable(ajaxArr){
 
-            var div = document.getElementById("tableDiv");
-            div.innerHTML="";
-
-            var table = document.createElement("table");
-            var head = document.createElement("thead");
-            var row = document.createElement("tr");
-            var cell1 = document.createElement("th");
-            var cell2 = document.createElement("th");
-            var cell3 = document.createElement("th");
-            var cell4 = document.createElement("th");
-            var cell5 = document.createElement("th");
-            cell1.appendChild(document.createTextNode("Name"));
-            cell2.appendChild(document.createTextNode("Login"));
-            cell3.appendChild(document.createTextNode("Email"));
-            cell4.appendChild(document.createTextNode("Region"));
-            cell5.appendChild(document.createTextNode(""));
-            row.appendChild(cell1);
-            row.appendChild(cell2);
-            row.appendChild(cell3);
-            row.appendChild(cell4);
-            row.appendChild(cell5);
-            head.appendChild(row);
-            table.appendChild(head);
-            table.className="table table-bordered table-striped table-hover";
-            div.appendChild(table);
-
-            for (var i =0; i <ajaxArr.length;i++){
-//                 alert(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName);
-                var body = document.createElement("tbody");
-                var rows = document.createElement("tr");
-                var td1 = document.createElement("td");
-                var td2 = document.createElement("td");
-                var td3 = document.createElement("td");
-                var td4 = document.createElement("td");
-                var td5 = document.createElement("td");
-                td1.appendChild(document.createTextNode(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName));
-                td2.appendChild(document.createTextNode(ajaxArr[i].login));
-                td3.appendChild(document.createTextNode(ajaxArr[i].email));
-                td4.appendChild(document.createTextNode(ajaxArr[i].region));
-                td5.innerHTML = '<form action="delete/'+ajaxArr[i].id+'" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>' ;
-                rows.appendChild(td1);
-                rows.appendChild(td2);
-                rows.appendChild(td3);
-                rows.appendChild(td4);
-                rows.appendChild(td5);
-                body.appendChild(rows);
-                table.appendChild(body);
-            }
+    <style>
+        .span9 > div
+        {
+            background-color:#eee;
+            border: 1px solid #888;
+            border-radius:3px;
         }
-
-
-
-    </script>
-
+    </style>
 
 
 
 
 </head>
+
 <body>
 
-<div class="container-fluid">
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Order Managment System</a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+                    <li><a href="#">Administration</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">New order</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">My orders</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">New item</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">All items</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="divider-vertical"></li>
+                    </ul>
+                <ul class="nav pull-right">
+                    <li class="dropdown ">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                        <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                            <form action="[YOUR ACTION]" method="post" accept-charset="UTF-8">
+                                <input id="user_username" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" placeholder="login:" />
+                                <input id="user_password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" placeholder="password:" />
+                                <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="user[remember_me]" value="1" />
+                                <label class="string optional" for="user_remember_me"> Remember me</label>
+
+                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+                            </form>
+                        </div>
+                    </li>
+                    </ul>
+
+
+
+            </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </div><!-- /.navbar-inner -->
+</div><!-- /.navbar -->
+
+<div class="container-fluid" style="margin-top: 40px ">
+
     <div class="row">
         <div class="span9 offset1">
-            <div class="row">
+            <div class="row" style="border-bottom: inactiveborder">
             <div class="span6">
             <h1>Create new user</h1>
-            <form:form id="userform" method="post" action="add"  commandName="user" class="form-horizontal">
+
+            <form:form id="userform"  method="post" action="add"  commandName="user" class="form-horizontal">
 
             <div class="control-group inline">
                 <form:label cssClass="control-label" path="login">Login:</form:label>
@@ -131,6 +144,14 @@
                         <form:password id="password" path="password"/>
                     </div>
             </div>
+
+                <div class="control-group">
+                    <label for="confirmPassword" class="control-label">Confirm password:</label>
+                    <div class="controls">
+
+                        <input type="password" id="confirmPassword" name="confirmPassword"/>
+                    </div>
+                </div>
             <div class="control-group">
                 <form:label cssClass="control-label" path="email">Email:</form:label>
                 <div class="controls">
@@ -169,28 +190,22 @@
                     </c:forEach>
                     <hr>
                     </div>
-                </form:form>
-                    <%--<button type="button" data-toggle="modal" data-target="#myModal">Launch modal</button>--%>
-
-
-
-
 
                 </div>
                 </div>
 
         </div>
-            <div class="row">
+            <div class="row" style="border-top: InactiveBorder; border-bottom: inactiveborder">
                 <div class="pagination-centered">
                 <div class="control-group">
                     <div class="controls">
-                        <input type="submit" form="userform" value="Add User" class="btn btn-success"/>
-
+                        <input type="submit"  value="Add User" class="btn btn-success"/>
+                        </form:form>
                     </div>
                 </div>
                 </div>
             </div>
-        <div class="row"> <div class="modal fade hide" style="width: 720px" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false" >
+        <div class="row"> <div class="modal fade hide" style="width: 740px" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false" >
             <div class="modal-dialog" >
                 <div class="modal-content">
                     <div class="modal-header">
@@ -200,8 +215,8 @@
                     <div class="modal-body" id="body">
                         <div class="row">
 
-                            <div class="span2">
-                                <form:form id="editform" method="post" action="add"  commandName="user" class="form-horizontal">
+                            <div class="span5" >
+                                <form:form  method="post" action="add"  commandName="user" class="form-horizontal" >
 
                                 <div class="control-group">
                                     <form:hidden id="modalId" path="id"/>
@@ -228,6 +243,14 @@
                                         <form:password id="modalPassword" path="password"/>
                                     </div>
                                 </div>
+
+                                    <div class="control-group">
+                                        <label for="confirmPassword" class="control-label">Confirm password:</label>
+                                        <div class="controls">
+
+                                            <input type="password" id="modalConfirmPassword" name="confirmPassword"/>
+                                        </div>
+                                    </div>
                                 <div class="control-group">
                                     <form:label cssClass="control-label" path="email">Email:</form:label>
                                     <div class="controls">
@@ -247,7 +270,7 @@
                                 </div>
 
                             </div>
-                            <div class="span2 offset3">
+                            <div class="span2">
                                 <div class="control-group">
                                     <br>
                                     <br>
@@ -331,9 +354,6 @@
     </div>
 
 
-
-
-
 </div>
 
 <script type="text/javascript">
@@ -361,16 +381,12 @@
             $('#modalLogin').val(user.login);
             $('#modalFirstName').val(user.firstName);
             $('#modalLastName').val(user.lastName);
-            $('#modalEmail').val(user.Email);
+            $('#modalEmail').val(user.email);
+            $('#modalPassword').val(user.password);
             $('#modalRegion').val(user.region);
             $('#modalId').val(user.id);
 
             $("#modalRole"+user.role.id).prop('checked', true);
-
-
-
-
-
 
         }
         );
@@ -380,21 +396,14 @@
 
         });
 
-       /* $('#myModal').on('hide', function() {
-          $("#modalRole"+user.role.id).prop('checked', false);
-          $.modal.close();
-        });*/
-
-
-
-
     })
 
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('form').each(function () {
+            $(this).validate(
 
-        $('#userform').validate(
                 {
                     rules: {
                         login: {
@@ -408,11 +417,24 @@
                         lastName: {
                             minlength: 2,
                             required: true
+
                         },
                         firstName: {
                             minlength: 2,
                             required: true
+
+                        },
+
+                        password:  {
+                            minlength:2,
+                            required: true
+                        },
+
+                        confirmPassword :{
+                            required: true,
+                            equalTo: password
                         }
+
                     },
                     highlight: function(element) {
                         $(element).closest('.control-group').removeClass('success').addClass('error');
@@ -422,13 +444,15 @@
                                 .text('OK!').addClass('valid')
                                 .closest('.control-group').removeClass('error').addClass('success');
                     }
-                });
-    }); // end document.ready
+
+                })
+    }
+    )
+    }
+
+    );
+    // end document.ready
 </script>
-<%--<script>
-    $('#modalSubmit').click(function(){
-        $.post("/add")
-    })
-</script>--%>
+
 </body>
 </html>
