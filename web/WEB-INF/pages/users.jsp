@@ -205,14 +205,14 @@
                 </div>
                 </div>
             </div>
-        <div class="row"> <div class="modal fade hide" style="width: 740px" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false" >
+        <div class="row"> <div class="modal fade hide" style="width: 740px" id="myModal"  tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false" >
             <div class="modal-dialog" >
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">Edit user</h4>
                     </div>
-                    <div class="modal-body" id="body">
+                    <div class="modal-body" id="body" style="max-height: 600px">
                         <div class="row">
 
                             <div class="span5" >
@@ -431,7 +431,7 @@
                         },
 
                         confirmPassword :{
-                            required: true,
+
                             equalTo: password
                         }
 
