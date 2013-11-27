@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Spring MVC Application</title>
+    <title>Order Managment System</title>
 
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,7 +77,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">New item</a></li>
+                            <li><a href="/rest/item/new">New item</a></li>
                             <li class="divider"></li>
                             <li><a href="#">All items</a></li>
 
@@ -240,15 +240,15 @@
                                 <div class="control-group">
                                     <form:label cssClass="control-label" path="password">Password:</form:label>
                                     <div class="controls">
-                                        <form:password id="modalPassword" path="password"/>
+                                        <form:password id="modalpassword" path="password"/>
                                     </div>
                                 </div>
 
                                     <div class="control-group">
-                                        <label for="confirmPassword" class="control-label">Confirm password:</label>
+                                        <label for="confirmpassword" class="control-label">Confirm password:</label>
                                         <div class="controls">
 
-                                            <input type="password" id="modalConfirmPassword" name="confirmPassword"/>
+                                            <input type="password" id="modalconfirmpassword" name="modalconfirmpassword"/>
                                         </div>
                                     </div>
                                 <div class="control-group">
@@ -396,8 +396,8 @@
 
         });
 
-    })
 
+    })
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -433,9 +433,20 @@
                         confirmPassword :{
 
                             equalTo: password
-                        }
+
 
                     },
+                    modalpassword:  {
+                        minlength:2,
+                        required: true
+                    },
+
+                    modalconfirmpassword :{
+
+                        equalTo: modalpassword
+                    }
+
+                },
                     highlight: function(element) {
                         $(element).closest('.control-group').removeClass('success').addClass('error');
                     },

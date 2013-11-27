@@ -1,3 +1,4 @@
+
 function fillTable(ajaxArr){
 
     var div = document.getElementById("tableDiv");
@@ -27,25 +28,30 @@ function fillTable(ajaxArr){
     div.appendChild(table);
 
     for (var i =0; i <ajaxArr.length;i++){
-//                 alert(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName);
-        var body = document.createElement("tbody");
-        var rows = document.createElement("tr");
-        var td1 = document.createElement("td");
-        var td2 = document.createElement("td");
-        var td3 = document.createElement("td");
-        var td4 = document.createElement("td");
-        var td5 = document.createElement("td");
-        td1.appendChild(document.createTextNode(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName));
-        td2.appendChild(document.createTextNode(ajaxArr[i].login));
-        td3.appendChild(document.createTextNode(ajaxArr[i].email));
-        td4.appendChild(document.createTextNode(ajaxArr[i].region));
-        td5.innerHTML = '<form action="delete/'+ajaxArr[i].id+'" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>' ;
-        rows.appendChild(td1);
-        rows.appendChild(td2);
-        rows.appendChild(td3);
-        rows.appendChild(td4);
-        rows.appendChild(td5);
-        body.appendChild(rows);
-        table.appendChild(body);
+    var body = document.createElement("tbody");
+    var rows = document.createElement("tr");
+    var td1 = document.createElement("td");
+    var td2 = document.createElement("td");
+    var td3 = document.createElement("td");
+    var td4 = document.createElement("td");
+    var td5 = document.createElement("td");
+    var td6 = document.createElement("td");
+    td1.appendChild(document.createTextNode(ajaxArr[i].lastName + ", " +  ajaxArr[i].firstName));
+    td2.appendChild(document.createTextNode(ajaxArr[i].login));
+    td3.appendChild(document.createTextNode(ajaxArr[i].email));
+    td4.appendChild(document.createTextNode(ajaxArr[i].region));
+    td5.innerHTML = '<form action="delete/'+ajaxArr[i].id+'" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>' ;
+    td6.innerHTML = '<button class="btn-mini btn-warning" id="editBtn'+ajaxArr[i].id+'" value="'+ajaxArr[i].id+'" data-toggle="modal">Edit</button>';
+    rows.appendChild(td1);
+    rows.appendChild(td2);
+    rows.appendChild(td3);
+    rows.appendChild(td4);
+    rows.appendChild(td5);
+    rows.appendChild(td6);
+    body.appendChild(rows);
+    table.appendChild(body);
     }
 }
+
+
+
