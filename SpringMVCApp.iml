@@ -24,6 +24,9 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset1" name="XML Application Context" removed="false">
+          <dependency>MVC mvc-dispatcher servlet context</dependency>
+          <dependency>MVC mvc-dispatcher servlet context</dependency>
+          <dependency>MVC mvc-dispatcher servlet context</dependency>
           <file>file://$MODULE_DIR$/web/WEB-INF/mvc-dispatcher-servlet.xml</file>
           <file>file://$MODULE_DIR$/web/WEB-INF/spring/root-context.xml</file>
           <file>file://$MODULE_DIR$/web/WEB-INF/spring/security-context.xml</file>
