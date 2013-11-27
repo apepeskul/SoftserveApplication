@@ -1,13 +1,16 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <http use-expressions="true">
-        <intercept-url pattern="/delete/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/delete/**" access="hasRole('Admin')"/>
+        <intercept-url pattern="/add/**" access="hasRole('Admin')"/>
+        <intercept-url pattern="/edit/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/" access="permitAll"/>
 
         <form-login default-target-url="/"
@@ -15,12 +18,17 @@
     </http>
 
     <authentication-manager alias="authenticationManager">
-        <!--<authentication-provider ref="customAuthenticationProvider" />-->
-        <authentication-provider>
-            <user-service>
-                <user name="admin" password="pass" authorities="ROLE_ADMIN" />
-                <user name="user" password="pass" authorities="ROLE_USER" />
-            </user-service>
-        </authentication-provider>
+        <authentication-provider ref="customAuthenticationProvider" />
+    <!--<authentication-provider>
+        <user-service>
+            <user name="admin" password="pass" authorities="ROLE_ADMIN" />
+            <user name="user" password="pass" authorities="ROLE_USER" />
+        </user-service>
+    </authentication-provider>-->
     </authentication-manager>
+
+    <beans:bean id="customAuthenticationProvider"
+                class="com.springapp.mvc.security.CustomAuthenticationProvider">
+    </beans:bean>
+
 </beans:beans>

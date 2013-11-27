@@ -12,7 +12,4 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Query ("select u from account u where u.login = ?1")
     List<User> findByLogin (String login);
     User findById (Long id);
-
-
-
 }

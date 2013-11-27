@@ -1,8 +1,9 @@
 package com.springapp.mvc.security;
 
 import java.util.Collection;
+import java.util.List;
 
-import com.springapp.mvc.services.UserService;
+import com.springapp.mvc.repositories.UserRepository;
 import com.springapp.mvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,14 +27,17 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
-
-        User user = (User)userService.loadUserByUsername(username);
+        List<User> users = userRepository.findByLogin(username);
+        if(users.isEmpty()){
+            throw new UsernameNotFoundException("User not found");
+        }
+        User user = users.get(0);
         if (!password.equals(user.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
         }
