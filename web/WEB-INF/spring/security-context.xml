@@ -11,20 +11,24 @@
         <intercept-url pattern="/delete/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/add/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/edit/**" access="hasRole('Admin')"/>
-        <intercept-url pattern="/" access="permitAll"/>
 
-        <form-login default-target-url="/"
-                    authentication-failure-url="/spring_security_login"/>
+        <!--You'll change isAuthenticated() to permitAll if you fed to login every time-->
+        <intercept-url pattern="/" access="isAuthenticated()"/>
+
+        <form-login login-page="/login"
+                    default-target-url="/"
+                    authentication-failure-url="/login"/>
+        <logout logout-url="/logout"
+                logout-success-url="/login"  />
     </http>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="customAuthenticationProvider" />
-    <!--<authentication-provider>
+    <authentication-provider>
         <user-service>
-            <user name="admin" password="pass" authorities="ROLE_ADMIN" />
-            <user name="user" password="pass" authorities="ROLE_USER" />
+            <user name="admin" password="admin" authorities="Admin" />
         </user-service>
-    </authentication-provider>-->
+    </authentication-provider>
     </authentication-manager>
 
     <beans:bean id="customAuthenticationProvider"
