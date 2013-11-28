@@ -35,6 +35,14 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/datatables", produces={"application/json; charset=UTF-8"})
+    public
+    @ResponseBody
+    List<User> listUsersDatatables() {
+
+        return userRepository.findAll();
+    }
+
     @RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
     public String editUser(@PathVariable ("userId") Long userId, ModelMap model) {
      //   model.addAttribute("temprole", new Role());

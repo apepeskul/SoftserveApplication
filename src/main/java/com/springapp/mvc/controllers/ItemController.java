@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,6 +52,18 @@ public class ItemController {
 
         return itemArray.toString();
     }
+
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String listUsers(ModelMap model) {
+        //   model.addAttribute("temprole", new Role());
+        model.addAttribute("item", new Item());
+
+
+        return "item";
+
+
+    }
+
 
     @RequestMapping(value = "/edit", method = RequestMethod.PUT, produces={"application/json; charset=UTF-8"})
     public String editItem(Item item){

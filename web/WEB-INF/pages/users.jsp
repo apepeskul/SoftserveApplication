@@ -14,9 +14,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/DT_bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
+
     <script src="/static/js/bootstrap.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="static/js/DT_bootstrap.js"></script>
+
     <script src="/static/js/filltable.js"></script>
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
 
@@ -37,7 +43,7 @@
     </style>
 
     <style>
-        .span9 > div
+        .span5 > div
         {
             background-color:#eee;
             border: 1px solid #888;
@@ -118,11 +124,11 @@
 
 <div class="container-fluid" style="margin-top: 40px ">
 
-    <div class="row">
-        <div class="span9 offset1">
+    <div class="row-fluid">
+        <div class="span5 offset4">
             <div class="row" style="border-bottom: inactiveborder">
-                <div class="span6">
-                    <h1>Create new user</h1>
+                <div class="span7">
+                    <h1 align="center">Create new user</h1>
 
                     <form:form id="userform"  method="post" action="add"  commandName="user" class="form-horizontal">
 
@@ -222,7 +228,7 @@
                     <div class="modal-body" id="body" style="max-height: 600px">
                         <div class="row">
 
-                            <div class="span5" >
+                            <div class="span8" >
                                 <form:form  method="post" action="add"  commandName="user" class="form-horizontal" >
 
                                 <div class="control-group">
@@ -247,15 +253,15 @@
                                 <div class="control-group">
                                     <form:label cssClass="control-label" path="password">Password:</form:label>
                                     <div class="controls">
-                                        <form:password id="modalpassword" path="password"/>
+                                        <form:password id="modalPassword" path="password"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label for="confirmpassword" class="control-label">Confirm password:</label>
+                                    <label for="modalConfirmPassword" class="control-label">Confirm password:</label>
                                     <div class="controls">
 
-                                        <input type="password" id="modalconfirmpassword" name="modalconfirmpassword"/>
+                                        <input type="password" id="modalConfirmPassword" name="modalConfirmPassword"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
@@ -309,59 +315,85 @@
         </div>
     </div>
 </div>
-<div class="span6" style="-webkit-box-sizing: border-box">
+
+</div>
+<div class="row">
 
 
+    <div class="span 4 offset4 pagination-centered " style="margin-top: 40px">
+        <h2>All users</h2>
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="example">
+            <thead>
+            <tr>
+                <th>Login</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Email</th>
+                <th>Region</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
 
-    <c:if test="${!empty users}">
-    <h3>Users</h3>
-    <br>
-    <div>
-        <form class="form-search text-center" method="get" action="search">
-            <div class="input-append">
-
-                <input type="search" id="search_input" class="span2 search-query" name="q"  autocomplete="off" placeholder="Enter user's login" tabindex="1">
-                <button type="submit" class="btn"><i class="icon-search"></i> </button>
-            </div>
-        </form>
-        <div id="tableDiv">
-            <table class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Login</th>
-                    <th>Email</th>
-                    <th>Region</th>
-                    <th>&nbsp;</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${users}" var="user">
-                    <tr>
-                        <td>${user.lastName}, ${user.firstName}</td>
-                        <td>${user.login}</td>
-                        <td>${user.email}</td>
-                        <td>${user.region}</td>
-                        <td>
-                            <form action="delete/${user.id}" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>
-                        </td>
-                        <td>
-                            <button class="btn-mini btn-warning" id="editBtn${user.id}" value="${user.id}" data-toggle="modal">Edit</button>
-
-                        </td>
-
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            </c:if>
-        </div>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Login</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Email</th>
+                <th>Region</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+            </tfoot>
+        </table>
     </div>
 </div>
-</div>
 
 
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+         $('#example').dataTable( {
+            "sAjaxSource": "/datatables" ,
+             "sAjaxDataProp": "",
+             "aoColumns": [
+                 { "mDataProp": "login" },
+                 { "mDataProp": "lastName" },
+                 { "mDataProp": "firstName" },
+                 { "mDataProp": "email" },
+                 { "mDataProp": "region" },
+                 {   "sDefaultContent": "",
+                     "fnRender": function(o) { return '<form action="delete/' + o.aData["id"] + '" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
+                 },
+                 {   "sDefaultContent": "",
+                     "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
+                 }
+             ],
+            "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+            "sPaginationType": "bootstrap",
+        "oLanguage": {
+                "sLengthMenu": "_MENU_ records per page"
+            },
+            "iDisplayLength": 5,
+            "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            "bProcessing": true
+
+
+
+
+
+
+
+
+
+        } );
+
+    } );
+
+</script>
 
 <script type="text/javascript">
 
@@ -377,7 +409,8 @@
 
 </script>
 <script type="text/javascript">
-    $("[id^=editBtn]").click(function(){
+    $(document).on("click", "[id^=editBtn]", function() {
+
         $.getJSON("users/"+$(this).val(), function(user){
 
                     //$("[id^=modalRole]").removeAttr('checked');
@@ -443,14 +476,14 @@
 
 
                                             },
-                                            modalpassword:  {
+                                            modalPassword:  {
                                                 minlength:2,
                                                 required: true
                                             },
 
-                                            modalconfirmpassword :{
+                                            modalConfirmPassword :{
 
-                                                equalTo: modalpassword
+                                                equalTo: modalPassword
                                             }
 
                                         },
