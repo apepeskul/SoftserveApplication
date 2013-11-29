@@ -3,11 +3,11 @@ package com.springapp.mvc.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity (name = "account")
 public class User implements UserDetails {
@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String email;
 
     @Basic
-    @Column(length = 10)
+    @Column(length = 60)
     private String password;
 
     @Basic
@@ -65,8 +65,6 @@ public class User implements UserDetails {
         return login;
     }
 
-
-
     public void setLogin(String login) {
         this.login = login;
     }
@@ -77,7 +75,16 @@ public class User implements UserDetails {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+       /*
+        * 60 is the length of encoded password
+        * if password is already encoded then it is attempt to edit this user
+        */
+        if(password.length() == 60){
+            this.password = password;
+        } else {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            this.password = encoder.encode(password);
+        }
     }
 
     public Long getId() {

@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,6 +32,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
         List<User> users = userRepository.findByLogin(username);
@@ -38,13 +41,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException("User not found");
         }
         User user = users.get(0);
+        if(!encoder.matches(password, user.getPassword())){
+            throw new BadCredentialsException("Wrong password.");
+        }/*
         if (!password.equals(user.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
-        }
+        }*/
 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
 
-        return new UsernamePasswordAuthenticationToken(username, password, authorities);
+        return new UsernamePasswordAuthenticationToken(username, user.getPassword(), authorities);
     }
 
     @Override

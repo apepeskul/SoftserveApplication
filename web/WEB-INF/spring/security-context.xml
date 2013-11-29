@@ -11,6 +11,7 @@
         <intercept-url pattern="/delete/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/add/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/edit/**" access="hasRole('Admin')"/>
+        <intercept-url pattern="/users/**" access="hasRole('Admin')"/>
 
         <!--You'll change isAuthenticated() to permitAll if you fed to login every time-->
         <intercept-url pattern="/" access="isAuthenticated()"/>
@@ -23,7 +24,7 @@
     </http>
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider ref="customAuthenticationProvider" />
+        <authentication-provider ref="customAuthenticationProvider"/>
     <authentication-provider>
         <user-service>
             <user name="admin" password="admin" authorities="Admin" />
