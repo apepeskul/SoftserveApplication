@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Order Managment System</title>
+    <title>Order Management System</title>
 
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +25,7 @@
 
     <script src="/static/js/filltable.js"></script>
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
+    <script src="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/media/js/jquery.dataTables.columnFilter.js"></script>
 
     <style>
         label.valid {
@@ -326,8 +327,8 @@
             <thead>
             <tr>
                 <th>Login</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
+                <th>Name</th>
+                <th>Role</th>
                 <th>Email</th>
                 <th>Region</th>
                 <th>&nbsp;</th>
@@ -340,8 +341,8 @@
             <tfoot>
             <tr>
                 <th>Login</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
+                <th>Name</th>
+                <th>Role</th>
                 <th>Email</th>
                 <th>Region</th>
                 <th>&nbsp;</th>
@@ -361,8 +362,11 @@
              "sAjaxDataProp": "",
              "aoColumns": [
                  { "mDataProp": "login" },
-                 { "mDataProp": "lastName" },
-                 { "mDataProp": "firstName" },
+
+                 {   "mData": "lastName"
+                           },
+                 {   "sDefaultContent": "",
+                     "mDataProp": "role.description" },
                  { "mDataProp": "email" },
                  { "mDataProp": "region" },
                  {   "sDefaultContent": "",
@@ -372,6 +376,7 @@
                      "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
                  }
              ],
+
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
         "oLanguage": {
@@ -380,16 +385,15 @@
             "iDisplayLength": 5,
             "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
             "bProcessing": true
-
-
-
-
-
-
-
-
-
-        } );
+       } ).columnFilter({
+                     aoColumns: [
+                         {type: "text"},
+                         {type: "text"},
+                         {type: "select", values : ['Admin', 'Customer', 'Merchandiser', 'Superviser']},
+                         {type: "text"},
+                         {type:"select", values : ['North', 'South', 'West', 'East']},
+                         null,
+                         null]});
 
     } );
 
