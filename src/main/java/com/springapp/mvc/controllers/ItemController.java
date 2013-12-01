@@ -41,16 +41,16 @@ public class ItemController {
     @RequestMapping(value = "/{id}")
     @ResponseBody
     public String getItem(@PathVariable("id") Long id) throws JSONException {
-        JSONArray itemArray = new JSONArray();
+
         Item item = itemRepositrory.findOne(id);
             JSONObject itemJSON = new JSONObject();
             itemJSON.put("id", item.getId());
             itemJSON.put("description", item.getDescription());
             itemJSON.put("name", item.getName());
             itemJSON.put("quantity", item.getQuantity());
-        itemArray.put(itemJSON);
 
-        return itemArray.toString();
+
+        return itemJSON.toString();
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -63,7 +63,15 @@ public class ItemController {
 
 
     }
+    @RequestMapping(value = "/items",  method = RequestMethod.GET)
+    public String listItems(ModelMap model) {
+        model.addAttribute("item", new Item());
 
+
+        return "items";
+
+
+    }
 
     @RequestMapping(value = "/edit", method = RequestMethod.PUT, produces={"application/json; charset=UTF-8"})
     public String editItem(Item item){
@@ -77,10 +85,10 @@ public class ItemController {
         return "redirect:/"; //TODO: URL
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteItem(@PathVariable("id") Long id) {
         itemRepositrory.delete(itemRepositrory.findOne(id));
-        return "redirect:/"; //TODO: URL
+        return "redirect:/rest/item/items";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})

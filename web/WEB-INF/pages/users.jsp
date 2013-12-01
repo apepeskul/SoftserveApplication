@@ -70,8 +70,8 @@
             <a class="brand" href="#">Order Managment System</a>
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
-                    <li><a href="#">Administration</a></li>
+                    <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+                    <li class="active"><a href="#"><i class="icon-user icon white"></i> Administration</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -86,7 +86,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="/rest/item/new">New item</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">All items</a></li>
+                            <li><a href="/rest/item/items">All items</a></li>
 
                         </ul>
                     </li>

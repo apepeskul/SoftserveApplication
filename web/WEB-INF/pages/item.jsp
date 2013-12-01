@@ -78,7 +78,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="/rest/item/new">New item</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">All items</a></li>
+                            <li><a href="/rest/item/items">All items</a></li>
 
                         </ul>
                     </li>
@@ -139,7 +139,7 @@
                 </div>
 
 
-                <input style="margin-left: 200px" type="submit"  value="Add User" class="btn btn-success"/>
+                <input style="margin-left: 200px" type="submit"  value="Add item" class="btn btn-success"/>
 
             </form:form>
         </div>
