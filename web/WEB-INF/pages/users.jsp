@@ -1,8 +1,8 @@
 <!doctype html>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="select" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="select" %>
 
 
 <html>
@@ -26,6 +26,17 @@
     <script src="/static/js/filltable.js"></script>
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
     <script src="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/media/js/jquery.dataTables.columnFilter.js"></script>
+
+    <!-- Стиль для отображения имени пользователя -->
+    <style  type="text/css">
+       .username
+       {
+           position: absolute;
+           top: 0px;
+           right: 100px;
+           color: navajowhite;
+       }
+    </style>
 
     <style>
         label.valid {
@@ -58,6 +69,11 @@
 </head>
 
 <body>
+
+<!--Блок для отображения имени пользователя-->
+<div class="username">
+    <h4><%= request.getRemoteUser() %></h4>
+</div>
 
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
