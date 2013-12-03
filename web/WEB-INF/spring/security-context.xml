@@ -12,15 +12,19 @@
         <intercept-url pattern="/add/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/edit/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/users/**" access="hasRole('Admin')"/>
+        <intercept-url pattern="/rest/**" access="hasRole('Merchandiser')"/>
 
         <!--You'll change isAuthenticated() to permitAll if you fed to login every time-->
-        <intercept-url pattern="/" access="isAuthenticated()"/>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
 
         <form-login login-page="/login"
                     default-target-url="/"
                     authentication-failure-url="/login"/>
         <logout logout-url="/logout"
                 logout-success-url="/login"  />
+
+        <access-denied-handler ref="customAccessDeniedHandler"/>
     </http>
 
     <authentication-manager alias="authenticationManager">
@@ -34,6 +38,10 @@
 
     <beans:bean id="customAuthenticationProvider"
                 class="com.springapp.mvc.security.CustomAuthenticationProvider">
+    </beans:bean>
+
+    <beans:bean id="customAccessDeniedHandler"
+                class="com.springapp.mvc.security.CustomAccessDeniedHandler">
     </beans:bean>
 
 </beans:beans>
