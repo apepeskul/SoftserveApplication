@@ -12,10 +12,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -55,8 +53,11 @@ public class ItemController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
-        //   model.addAttribute("temprole", new Role());
+
         model.addAttribute("item", new Item());
+        model.addAttribute("items", itemRepositrory.findAll());
+        model.addAttribute("dimensions", dimensionRepository.findAll() );
+        model.addAttribute("price", new Price());
 
 
         return "item";
@@ -82,7 +83,7 @@ public class ItemController {
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
     public String addItem(Item item){
         itemRepositrory.save(item);
-        return "redirect:/"; //TODO: URL
+        return "redirect:/rest/item/new"; //TODO: URL
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
@@ -143,10 +144,13 @@ public class ItemController {
         return "redirect:/"; //TODO: URL
     }
 
-    @RequestMapping(value = "/price/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
-    public String addPrice(Price price){
+    @RequestMapping(value = "/price/add")
+    public String addPrice(@ModelAttribute Price price,  @RequestParam (value = "itm") Long itemId,
+                           @RequestParam (value = "dm") Long dimensionId, BindingResult result) {
+        price.setItemId(itemRepositrory.findOne(itemId));
+        price.setDimensionId(dimensionRepository.findOne(dimensionId));
         priceRepository.save(price);
-        return "redirect:/"; //TODO: URL
+        return "redirect:/rest/item/new"; //TODO: URL
     }
 
 }
