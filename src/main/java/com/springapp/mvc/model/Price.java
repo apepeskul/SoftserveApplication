@@ -1,12 +1,5 @@
 package com.springapp.mvc.model;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Рамазан
- * Date: 11/4/13
- * Time: 11:54 PM
- * To change this template use File | Settings | File Templates.
- */
 import javax.persistence.*;
 
 @Entity
@@ -20,10 +13,12 @@ public class Price
     @Basic
     private Long price;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item itemId;
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "dimension_id", referencedColumnName = "id")
     private Dimension dimensionId;
 
     // геттеры и сеттеры

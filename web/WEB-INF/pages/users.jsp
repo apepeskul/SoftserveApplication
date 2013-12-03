@@ -445,6 +445,7 @@
                     $('#modalPassword').val(user.password);
                     $('#modalRegion').val(user.region);
                     $('#modalId').val(user.id);
+                    $('#modalConfirmPassword').val(user.password);
 
                     $("#modalRole"+user.role.id).prop('checked', true);
 

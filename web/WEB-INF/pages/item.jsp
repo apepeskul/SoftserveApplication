@@ -111,7 +111,7 @@
 <div class="container" style="margin-top: 40px ">
 
     <div class="row-fluid">
-        <div class="span12 offset2">
+        <div class="span4">
 
 
             <h1>Add item</h1>
@@ -141,6 +141,42 @@
 
                 <input style="margin-left: 200px" type="submit"  value="Add item" class="btn btn-success"/>
 
+            </form:form>
+        </div>
+        <div class="span4 offset1">
+            <h1>Add price</h1>
+
+            <form:form id="priceform"  method="post" action="/rest/item/price/add"  commandName="price" class="form-horizontal">
+            <div class="control-group">
+                <label for="dimensions" class="control-label">Dimension:</label>
+                <div class="controls">
+            <select id="dimensions" name="dm" >
+
+            <c:forEach items="${dimensions}" var="dimension">
+                <option value=${dimension.dimensionId}>${dimension.name}</option>
+            </c:forEach>
+            </select>
+                </div>
+            </div>
+
+                <div class="control-group">
+                    <label for="items" class="control-label">Item:</label>
+                    <div class="controls">
+            <select id="items" name="itm">
+                <c:forEach items="${items}" var="item">
+                    <option value=${item.id}>${item.name}</option>
+                </c:forEach>
+            </select>
+                        </div>
+                    </div>
+
+            <div class="control-group">
+                <form:label cssClass="control-label" path="price">Price:</form:label>
+                <div class="controls">
+                    <form:input id="price" path="price"/>
+                    </div>
+                </div>
+                <input style="margin-left: 200px" type="submit"  value="Add item" class="btn btn-success"/>
             </form:form>
         </div>
     </div>
