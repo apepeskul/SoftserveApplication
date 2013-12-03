@@ -12,6 +12,8 @@ import java.util.Collection;
 @Entity (name = "account")
 public class User implements UserDetails {
 
+    private final byte bCryptHashLength = 60;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -76,10 +78,10 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
        /*
-        * 60 is the length of encoded password
+        * bCryptHashLength is the length of encoded password
         * if password is already encoded then it is attempt to edit this user
         */
-        if(password.length() == 60){
+        if(password.length() == bCryptHashLength){
             this.password = password;
         } else {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
