@@ -38,41 +38,21 @@ public class ItemController {
 
     @RequestMapping(value = "/{id}")
     @ResponseBody
-    public String getItem(@PathVariable("id") Long id) throws JSONException {
+    public Item getItem(@PathVariable("id") Long id) throws JSONException {
 
-        Item item = itemRepositrory.findOne(id);
-            JSONObject itemJSON = new JSONObject();
+       return itemRepositrory.findOne(id);
+      //  return  priceRepository.findByItemId(id);
+            /*JSONObject itemJSON = new JSONObject();
             itemJSON.put("id", item.getId());
             itemJSON.put("description", item.getDescription());
             itemJSON.put("name", item.getName());
             itemJSON.put("quantity", item.getQuantity());
 
 
-        return itemJSON.toString();
+        return itemJSON.toString();*/
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
 
-        model.addAttribute("item", new Item());
-        model.addAttribute("items", itemRepositrory.findAll());
-        model.addAttribute("dimensions", dimensionRepository.findAll() );
-        model.addAttribute("price", new Price());
-
-
-        return "item";
-
-
-    }
-    @RequestMapping(value = "/items",  method = RequestMethod.GET)
-    public String listItems(ModelMap model) {
-        model.addAttribute("item", new Item());
-
-
-        return "items";
-
-
-    }
 
     @RequestMapping(value = "/edit", method = RequestMethod.PUT, produces={"application/json; charset=UTF-8"})
     public String editItem(Item item){

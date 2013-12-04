@@ -28,6 +28,18 @@ import javax.persistence.*;
     @OneToOne (cascade = CascadeType.ALL)
     private Dimension dimension;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     // геттеры и сеттеры
     public Price getPrice() {
         return price;

@@ -3,9 +3,11 @@ package com.springapp.mvc.controllers;
 import com.springapp.mvc.model.CreditCardInfo;
 import com.springapp.mvc.model.Order;
 import com.springapp.mvc.model.OrderDetails;
+import com.springapp.mvc.model.User;
 import com.springapp.mvc.repositories.CreditCardInfoRepository;
 import com.springapp.mvc.repositories.OrderDetaitlsRepositrory;
 import com.springapp.mvc.repositories.OrderRepository;
+import com.springapp.mvc.repositories.UserRepository;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +35,9 @@ public class OrderController {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     OrderDetaitlsRepositrory orderDetaitlsRepositrory;
@@ -89,36 +96,42 @@ public class OrderController {
       *GET read
       * /rest/order/all
      */
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
+    @RequestMapping(value = "/all{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getAllOrders() throws JSONException {
+    public String getAllOrders(@PathVariable ("id") Long customerId, User user  ) throws JSONException{
+
+
+
+        user = userRepository.findOne(customerId);
+        List <Order> ordersList =  orderRepository.findByCustomerId(user);
 
         JSONArray orderArray = new JSONArray();
-        for(Order order : orderRepository.findAll()){
-        JSONObject orderJSON = new JSONObject();
-        orderJSON.put("id", order.getId());
-        orderJSON.put("creationDate", order.getCreationDate());
-        orderJSON.put("customer", order.getCustomer());
-        orderJSON.put("deliveryDate", order.getDeliveryDate());
-        orderJSON.put("merchId", order.getMerchId());
-        orderJSON.put("orderDetailsSet", order.getOrderDetailsSet());
-        orderJSON.put("orderNumber", order.getOrderNumber());
-        orderJSON.put("payment", order.getPayment());
-        orderJSON.put("preferableDate", order.getPreferableDate());
-        orderJSON.put("status", order.getStatus());
-        orderJSON.put("totalPrice", order.getTotalPrice());
+       for (Order order: ordersList){
+           JSONObject orderJSON = new JSONObject();
+           orderJSON.put("id", order.getId());
+           orderJSON.put("creationDate", order.getCreationDate());
+           orderJSON.put("customer", order.getCustomer());
+           orderJSON.put("deliveryDate", order.getDeliveryDate());
+           orderJSON.put("merchId", order.getMerchId());
+          // orderJSON.put("orderDetailsSet", order.getOrderDetailsSet());
+           orderJSON.put("orderNumber", order.getOrderNumber());
+           orderJSON.put("payment", order.getPayment());
+           orderJSON.put("preferableDate", order.getPreferableDate());
+           orderJSON.put("status", order.getStatus());
+           orderJSON.put("totalPrice", order.getTotalPrice());
 
-        orderArray.put(orderJSON);
-        }
+           orderArray.put(orderJSON);}
+
         return orderArray.toString();
     }
+
 
 
     /*
     * DELETE
     * rest/order/delete/{id}
     * */
-    @RequestMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteOrder(@PathVariable("id") Long id) {
         orderRepository.delete(orderRepository.findOne(id));
         return "redirect:/"; //TODO: URL

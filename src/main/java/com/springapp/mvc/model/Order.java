@@ -44,11 +44,12 @@ public class Order
     @Basic
     private BigDecimal totalPrice;
 
-    @OneToMany (cascade = CascadeType.ALL)
-    @JoinTable(name = "items_list")
+    @OneToMany
+    @JoinColumn( name="order_deteails_id", referencedColumnName = "id")
+
     private Set<OrderDetails> orderDetailsSet; // список товаров данного заказа
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User customerId;
 
     @OneToOne(cascade = CascadeType.ALL)
