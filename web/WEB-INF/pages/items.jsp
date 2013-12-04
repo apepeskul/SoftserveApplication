@@ -63,8 +63,6 @@
 
 <body>
 
-<!--Блок для отображения имени пользователя-->
-
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container">
@@ -118,12 +116,6 @@
     </div><!-- /.navbar-inner -->
 </div><!-- /.navbar -->
 
-<ul class="divider">
-    <form action="/logout" method="post" accept-charset="UTF-8">
-        <input class="btn btn-primary" style="width: 100px; height: 32px;
-        font-size: 13px;" type="submit" name="logout" value="Logout" />
-    </form>
-</ul>
 
 <div class="container-fluid" style="margin-top: 40px ">
 

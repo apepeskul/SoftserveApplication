@@ -63,13 +63,13 @@ public class ItemController {
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
     public String addItem(Item item){
         itemRepositrory.save(item);
-        return "redirect:/rest/item/new"; //TODO: URL
+        return "redirect:/item"; //TODO: URL
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteItem(@PathVariable("id") Long id) {
         itemRepositrory.delete(itemRepositrory.findOne(id));
-        return "redirect:/rest/item/items";
+        return "redirect:/items";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
@@ -130,7 +130,7 @@ public class ItemController {
         price.setItemId(itemRepositrory.findOne(itemId));
         price.setDimensionId(dimensionRepository.findOne(dimensionId));
         priceRepository.save(price);
-        return "redirect:/rest/item/new"; //TODO: URL
+        return "redirect:/item"; //TODO: URL
     }
 
 }

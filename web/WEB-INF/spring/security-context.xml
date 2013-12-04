@@ -12,11 +12,14 @@
         <intercept-url pattern="/add/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/edit/**" access="hasRole('Admin')"/>
         <intercept-url pattern="/users/**" access="hasRole('Admin')"/>
-        <intercept-url pattern="/rest/**" access="hasRole('Merchandiser')"/>
+        <intercept-url pattern="/item/**" access="hasRole('Merchandiser')"/>
+        <intercept-url pattern="/items/**" access="hasRole('Merchandiser')"/>
+        <intercept-url pattern="/rest/item/**" access="hasRole('Merchandiser')"/>
 
         <!--You'll change isAuthenticated() to permitAll if you fed to login every time-->
         <intercept-url pattern="/login" access="permitAll"/>
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/static/**" access="permitAll"/>
+        <!--<intercept-url pattern="/**" access="isAuthenticated()"/>-->
 
         <form-login login-page="/login"
                     default-target-url="/"

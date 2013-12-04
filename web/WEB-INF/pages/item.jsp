@@ -64,7 +64,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
-                    <li><a href="/">Administration</a></li>
+                    <li><a href="/"><i class="icon-user icon white"></i> Administration</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -75,7 +75,7 @@
                         </ul>
                     </li>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gift icon white"></i> Items <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-gift icon white"> </i> Items <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/item">New item</a></li>
                             <li class="divider"></li>
@@ -88,7 +88,7 @@
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown ">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="color: #ffdead"> <sec:authentication  property="name" /> <strong class="caret"></strong></a>
+                        <a class="dropdown-toggle" id="userlogin" href="#" data-toggle="dropdown" style="color: #ffdead"> <sec:authentication  property="name" /> <strong class="caret"></strong></a>
                         <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                             <form action="/logout" method="post" accept-charset="UTF-8">
 
@@ -144,6 +144,18 @@
             <h1>Add price</h1>
 
             <form:form id="priceform"  method="post" action="/rest/item/price/add"  commandName="price" class="form-horizontal">
+
+                <div class="control-group">
+                    <label for="items" class="control-label">Item:</label>
+                    <div class="controls">
+                        <select id="items" name="itm">
+                            <c:forEach items="${items}" var="item">
+                                <option value=${item.id}>${item.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+
             <div class="control-group">
                 <label for="dimensions" class="control-label">Dimension:</label>
                 <div class="controls">
@@ -156,16 +168,7 @@
                 </div>
             </div>
 
-                <div class="control-group">
-                    <label for="items" class="control-label">Item:</label>
-                    <div class="controls">
-            <select id="items" name="itm">
-                <c:forEach items="${items}" var="item">
-                    <option value=${item.id}>${item.name}</option>
-                </c:forEach>
-            </select>
-                        </div>
-                    </div>
+
 
             <div class="control-group">
                 <form:label cssClass="control-label" path="price">Price:</form:label>
@@ -191,12 +194,12 @@
                                                 required: true
                                             },
                                             description: {
-
+                                                required: true,
                                                 minlength: 8
                                             },
                                             quantity: {
 
-                                                required: true
+                                                digits: true
 
                                             }
 

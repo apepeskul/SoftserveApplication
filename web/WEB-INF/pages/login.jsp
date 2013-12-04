@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
-    <script src="/static/js/bootstrap.js"></script>
+    <%--<script src="/static/js/bootstrap.js"></script>--%>
 </head>
 
 <body>
