@@ -24,9 +24,6 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset1" name="XML Application Context" removed="false">
-          <dependency>MVC mvc-dispatcher servlet context</dependency>
-          <dependency>MVC mvc-dispatcher servlet context</dependency>
-          <dependency>MVC mvc-dispatcher servlet context</dependency>
           <file>file://$MODULE_DIR$/web/WEB-INF/mvc-dispatcher-servlet.xml</file>
           <file>file://$MODULE_DIR$/web/WEB-INF/spring/root-context.xml</file>
           <file>file://$MODULE_DIR$/web/WEB-INF/spring/security-context.xml</file>
@@ -88,6 +85,8 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.2" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20080701" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-nop:1.7.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-taglibs:3.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-acl:3.1.0.RELEASE" level="project" />
   </component>
 </module>
 

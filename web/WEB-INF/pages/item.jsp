@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="select" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <html>
@@ -14,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
     <script src="/static/js/bootstrap.js"></script>
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
@@ -62,23 +63,23 @@
             <a class="brand" href="#">Order Managment System</a>
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
-                    <li><a href="/">Administration</a></li>
+                    <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+                    <li><a href="/"><i class="icon-user icon white"></i> Administration</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">New order</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">My orders</a></li>
+                            <li><a href="/orders">My orders</a></li>
 
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items <b class="caret"></b></a>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-gift icon white"> </i> Items <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/rest/item/new">New item</a></li>
+                            <li><a href="/item">New item</a></li>
                             <li class="divider"></li>
-                            <li><a href="/rest/item/items">All items</a></li>
+                            <li><a href="/items">All items</a></li>
 
                         </ul>
                     </li>
@@ -87,15 +88,11 @@
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown ">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                        <a class="dropdown-toggle" id="userlogin" href="#" data-toggle="dropdown" style="color: #ffdead"> <sec:authentication  property="name" /> <strong class="caret"></strong></a>
                         <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                            <form action="[YOUR ACTION]" method="post" accept-charset="UTF-8">
-                                <input id="user_username" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" placeholder="login:" />
-                                <input id="user_password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" placeholder="password:" />
-                                <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="user[remember_me]" value="1" />
-                                <label class="string optional" for="user_remember_me"> Remember me</label>
+                            <form action="/logout" method="post" accept-charset="UTF-8">
 
-                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Log out" />
                             </form>
                         </div>
                     </li>
@@ -111,7 +108,7 @@
 <div class="container" style="margin-top: 40px ">
 
     <div class="row-fluid">
-        <div class="span4">
+        <div class="span5">
 
 
             <h1>Add item</h1>
@@ -143,10 +140,22 @@
 
             </form:form>
         </div>
-        <div class="span4 offset1">
+        <div class="span4">
             <h1>Add price</h1>
 
             <form:form id="priceform"  method="post" action="/rest/item/price/add"  commandName="price" class="form-horizontal">
+
+                <div class="control-group">
+                    <label for="items" class="control-label">Item:</label>
+                    <div class="controls">
+                        <select id="items" name="itm">
+                            <c:forEach items="${items}" var="item">
+                                <option value=${item.id}>${item.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+
             <div class="control-group">
                 <label for="dimensions" class="control-label">Dimension:</label>
                 <div class="controls">
@@ -159,16 +168,7 @@
                 </div>
             </div>
 
-                <div class="control-group">
-                    <label for="items" class="control-label">Item:</label>
-                    <div class="controls">
-            <select id="items" name="itm">
-                <c:forEach items="${items}" var="item">
-                    <option value=${item.id}>${item.name}</option>
-                </c:forEach>
-            </select>
-                        </div>
-                    </div>
+
 
             <div class="control-group">
                 <form:label cssClass="control-label" path="price">Price:</form:label>
@@ -194,12 +194,12 @@
                                                 required: true
                                             },
                                             description: {
-
+                                                required: true,
                                                 minlength: 8
                                             },
                                             quantity: {
 
-                                                required: true
+                                                digits: true
 
                                             }
 

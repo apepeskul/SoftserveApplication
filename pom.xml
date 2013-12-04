@@ -29,6 +29,7 @@
         </dependency>
 
 
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -92,6 +93,7 @@
             <artifactId>spring-security-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
 
         <!--<dependency>
             <groupId>org.springframework</groupId>
@@ -163,7 +165,13 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-nop</artifactId>
             <version>1.7.5</version>
-        </dependency></dependencies>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>3.1.0.RELEASE</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <finalName>SpringMVCApp</finalName>

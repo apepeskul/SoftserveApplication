@@ -26,7 +26,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     private String getAccessDeniedMessage(String requestURL){
         String[] adminPages = {"/add", "/edit", "/users", "/delete"};
-        String[] merchandiserPages = {"/rest/item/", "/rest/items"};
+        String[] merchandiserPages = {"/rest/item/", "/items", "/item"};
         String result = "This page is only for ";
 
         if(containsStartsWith(adminPages, requestURL)){

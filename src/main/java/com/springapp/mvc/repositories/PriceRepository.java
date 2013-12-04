@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * To change this template use File | Settings | File Templates.
  */
 public interface PriceRepository extends JpaRepository<Price, Long> {
-    Price findById(Long id);
+    Price findByItemId(Long id);
+
 }

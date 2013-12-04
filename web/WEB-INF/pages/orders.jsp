@@ -6,6 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,20 +17,28 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/DT_bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/DT_bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap-responsive.css" />
 
     <script src="/static/js/bootstrap.js"></script>
 
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="/static/js/DT_bootstrap.js"></script>
+    <script type="text/javascript" src="../../static/js/DT_bootstrap.js"></script>
 
 
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
     <script src="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/media/js/jquery.dataTables.columnFilter.js"></script>
 
     <!-- Стиль для отображения имени пользователя -->
-
+    <style  type="text/css">
+        .username
+        {
+            position: absolute;
+            top: 0px;
+            right: 100px;
+            color: navajowhite;
+        }
+    </style>
 
     <style>
         label.valid {
@@ -63,6 +72,12 @@
 
 <body>
 
+<!--Блок для отображения имени пользователя-->
+<%--<div class="username">
+    <h4><%= request.getRemoteUser() %></h4>
+</div>--%>
+
+
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container">
@@ -76,17 +91,17 @@
                 <ul class="nav">
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
                     <li><a href="/"><i class="icon-user icon white"></i> Administration</a></li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">New order</a></li>
                             <li class="divider"></li>
-                            <li><a href="/orders">My orders</a></li>
+                            <li><a href="#">My orders</a></li>
 
                         </ul>
                     </li>
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-gift icon white"> </i> Items <b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gift icon white"></i> Items <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/item">New item</a></li>
                             <li class="divider"></li>
@@ -99,11 +114,11 @@
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown ">
-                        <a class="dropdown-toggle" id="userlogin" href="#" data-toggle="dropdown" style="color: #ffdead"> <sec:authentication  property="name" /> <strong class="caret"></strong></a>
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="color: #ffdead"> <sec:authentication  property="name" /> <strong class="caret"></strong></a>
                         <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                             <form action="/logout" method="post" accept-charset="UTF-8">
 
-                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Log out" />
+                                 <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Log out" />
                             </form>
                         </div>
                     </li>
@@ -117,90 +132,65 @@
 </div><!-- /.navbar -->
 
 
+
 <div class="container-fluid" style="margin-top: 40px ">
 
+
     <div class="span 4 offset4 pagination-centered " style="margin-top: 40px">
-                    <h1 align="center">All items</h1>
-                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="itemtable">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+        <a href="order.jsp">Create new order</a>
+        <h1 align="center">My orders</h1>
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="itemtable">
+            <thead>
+            <tr>
+                <th>Order #</th>
+                <th>Total price</th>
+                <th>Delivery date</th>
+                <th>Status</th>
+                <th>Assignee</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
 
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                        </tfoot>
-                    </table>
-</div>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Order #</th>
+                <th>Total price</th>
+                <th>Delivery date</th>
+                <th>Status</th>
+                <th>Assignee</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+            </tfoot>
+        </table>
     </div>
- <div class="modal fade hide"  id="myModal"  tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false" >
-    <div class="modal-dialog" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Edit item</h4>
-            </div>
-            <div class="modal-body" id="body" style="max-height: 600px">
-                <form:form id="itemform"  method="post" action="/rest/item/add"  commandName="item" class="form-horizontal">
+</div>
 
-                <div class="control-group">
-                    <form:hidden path="id" id="id"/>
-                    <form:label cssClass="control-label" path="name">Name:</form:label>
-                    <div  class="controls">
-                        <form:input id="name" path="name"/>
-
-                    </div>
-                </div>
-                <div class="control-group">
-                    <form:label cssClass="control-label" path="description">Description:</form:label>
-                    <div class="controls">
-                        <form:textarea id="description" path="description"/>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <form:label cssClass="control-label" path="quantity">Quantity:</form:label>
-                    <div class="controls">
-                        <form:input id="quantity" path="quantity"/>
-                    </div>
-                </div>
-
-
-                <input style="margin-left: 200px" type="submit"  value="Add item" class="btn btn-success"/>
-
-                </form:form>
-                </div>
-            </div>
-        </div>
-     </div>
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
+
         $('#itemtable').dataTable( {
-            "sAjaxSource": "/rest/item/" ,
+            "sAjaxSource": "/rest/order/all"+${user.id} ,
             "sAjaxDataProp": "",
             "aoColumns": [
-                { "mDataProp": "name" },
+                { "mDataProp": "orderNumber" },
 
-                {   "mData": "description"
+                {   "mData": "totalPrice"
                 },
 
-                { "mDataProp": "quantity" },
+                { "mDataProp": "deliveryDate" },
+
+                {   "mDataProp": "status"},
 
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<form action="delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
+                    "mDataProp":  "merchId"},
+
+                {   "sDefaultContent": "",
+                    "fnRender": function(o) { return '<form action="/rest/order/delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
                 },
                 {   "sDefaultContent": "",
                     "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
@@ -223,7 +213,7 @@
 <script type="text/javascript">
     $(document).on("click", "[id^=editBtn]", function() {
 
-        $.getJSON("/rest/item/"+$(this).val(), function(item){
+        $.getJSON($(this).val(), function(item){
 
                     //$("[id^=modalRole]").removeAttr('checked');
                     $('#myModal').modal({

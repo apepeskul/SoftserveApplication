@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="select" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <html>
@@ -27,16 +28,6 @@
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
     <script src="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/media/js/jquery.dataTables.columnFilter.js"></script>
 
-    <!-- Стиль для отображения имени пользователя -->
-    <style  type="text/css">
-       .username
-       {
-           position: absolute;
-           top: 0px;
-           right: 100px;
-           color: navajowhite;
-       }
-    </style>
 
     <style>
         label.valid {
@@ -70,11 +61,6 @@
 
 <body>
 
-<!--Блок для отображения имени пользователя-->
-<div class="username">
-    <h4><%= request.getRemoteUser() %></h4>
-</div>
-
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container">
@@ -89,20 +75,20 @@
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
                     <li class="active"><a href="#"><i class="icon-user icon white"></i> Administration</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">New order</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">My orders</a></li>
+                            <li><a href="/orders"><i class="icon-shopping-cart icon white"></i> My orders</a></li>
 
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-gift icon white"></i> Items <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/rest/item/new">New item</a></li>
+                            <li><a href="/item">New item</a></li>
                             <li class="divider"></li>
-                            <li><a href="/rest/item/items">All items</a></li>
+                            <li><a href="/items">All items</a></li>
 
                         </ul>
                     </li>
@@ -111,15 +97,11 @@
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown ">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="color: #ffdead"> <sec:authentication  property="name" /> <strong class="caret"></strong></a>
                         <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                            <form action="[YOUR ACTION]" method="post" accept-charset="UTF-8">
-                                <input id="user_username" style="margin-bottom: 15px;" type="text" name="user[username]" size="30" placeholder="login:" />
-                                <input id="user_password" style="margin-bottom: 15px;" type="password" name="user[password]" size="30" placeholder="password:" />
-                                <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="user[remember_me]" value="1" />
-                                <label class="string optional" for="user_remember_me"> Remember me</label>
+                            <form action="/logout" method="post" accept-charset="UTF-8">
 
-                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+                                <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Log out" />
                             </form>
                         </div>
                     </li>
@@ -132,12 +114,7 @@
     </div><!-- /.navbar-inner -->
 </div><!-- /.navbar -->
 
-<ul class="divider">
-    <form action="/logout" method="post" accept-charset="UTF-8">
-        <input class="btn btn-primary" style="width: 100px; height: 32px;
-        font-size: 13px;" type="submit" name="logout" value="Logout" />
-    </form>
-</ul>
+
 
 <div class="container-fluid" style="margin-top: 40px ">
 
