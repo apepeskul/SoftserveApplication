@@ -1,13 +1,7 @@
 package com.springapp.mvc.controllers;
 
-import com.springapp.mvc.model.CreditCardInfo;
-import com.springapp.mvc.model.Order;
-import com.springapp.mvc.model.OrderDetails;
-import com.springapp.mvc.model.User;
-import com.springapp.mvc.repositories.CreditCardInfoRepository;
-import com.springapp.mvc.repositories.OrderDetaitlsRepositrory;
-import com.springapp.mvc.repositories.OrderRepository;
-import com.springapp.mvc.repositories.UserRepository;
+import com.springapp.mvc.model.*;
+import com.springapp.mvc.repositories.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,8 +12,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,14 +41,25 @@ public class OrderController {
 
     @Autowired
     CreditCardInfoRepository creditCardInfoRepository;
-
+    @Autowired
+    DimensionRepository dimensionRepository;
+    @Autowired
+    ItemRepositrory itemRepository;
     /*
       *GET read
       * /rest/order/{id}
      */
     @InitBinder
-    public void initBinder(WebDataBinder binder) {
+    public void userBinder(WebDataBinder binder) {
         binder.registerCustomEditor(User.class, new UserEditor(userRepository));
+    }
+    @InitBinder
+    public void dimensionBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Dimension.class, new DimensionEditor(dimensionRepository));
+    }
+    @InitBinder
+    public void itemBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Item.class, new ItemEditor(itemRepository));
     }
     @InitBinder
     private void dateBinder(WebDataBinder binder) {
@@ -108,6 +115,15 @@ public class OrderController {
         return "redirect:/orders";
     }
 
+
+    @RequestMapping(value = "/addorderdetail", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
+
+    public String addOrderDetail (@ModelAttribute("order") Order order ){
+
+        orderRepository.save(order);
+        return "redirect:/orders";
+    }
+
     /*
       *GET read
       * /rest/order/all
@@ -149,7 +165,7 @@ public class OrderController {
         OrderDetails orderDetails = orderDetaitlsRepositrory.findOne(id);
         JSONObject orderDetailsJSON = new JSONObject();
         orderDetailsJSON.put("id", orderDetails.getId());
-        orderDetailsJSON.put("dimension", orderDetails.getDimension());
+        //orderDetailsJSON.put("dimension", orderDetails.getDimension());
         orderDetailsJSON.put("price", orderDetails.getPrice());
         orderDetailsArray.put(orderDetailsJSON);
 
@@ -171,9 +187,13 @@ public class OrderController {
      * /rest/order/details/add
     */
     @RequestMapping(value = "/details/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
-    public String addOrderDetails(OrderDetails orderDetails){
+    public String addOrderDetails(OrderDetails orderDetails, @ModelAttribute ("order") Order order ){
+        Set <OrderDetails> temp = order.getOrderDetailsSet();
+        temp.add(orderDetails);
+        order.setOrderDetailsSet(temp);
         orderDetaitlsRepositrory.save(orderDetails);
-        return "redirect:/"; //TODO: URL
+
+        return "redirect:/order"; //TODO: URL
     }
 
     /*
@@ -187,7 +207,7 @@ public class OrderController {
         for(OrderDetails orderDetails : orderDetaitlsRepositrory.findAll()){
             JSONObject orderDetailsJSON = new JSONObject();
             orderDetailsJSON.put("id", orderDetails.getId());
-            orderDetailsJSON.put("creationDate", orderDetails.getDimension());
+            //orderDetailsJSON.put("creationDate", orderDetails.getDimension());
             orderDetailsJSON.put("customer", orderDetails.getPrice());
 
             orderDetailsArray.put(orderDetailsJSON);

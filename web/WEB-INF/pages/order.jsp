@@ -332,37 +332,44 @@
                     </tr>
                     </tfoot>
                 </table>
-                <form class="form-horizontal" action="/rest/order/details/add">
+                <form:form class="form-horizontal" commandName="orderdetail" action="/rest/order/details/add">
 
-
+                     <%--<form:hidden path="order" value="${order.id}"/>--%>
                  <div class="control-group">
-                        <label for="item" class="control-label">Item:</label>
+                     <form:hidden id="priceId" path="price.id"></form:hidden>
+                        <form:label cssClass="control-label" path="price.itemId">Item:</form:label>
                     <div class="controls">
-                        <input id="item" type="text" disabled/>
+                        <form:input id="item" type="text" path="price.itemId" disabled="true"/>
                     </div>
                      </div>
 
                      <div class="control-group">
-                         <label for="price" class="control-label">Price:</label>
+                         <form:label path="price.price" cssClass="control-label">Price:</form:label>
                          <div class="controls">
-                             <input id="price" type="text" disabled/>
+                             <form:input id="price" path="price.price" type="text" disabled="true"/>
                          </div>
                      </div>
                      <div class="control-group">
-                         <label for="quantity" class="control-label">Quantity:</label>
+                         <form:label path="quantity" cssClass="control-label">Quantity:</form:label>
                          <div class="controls">
-                             <input id="quantity" type="text"/>
+                             <form:input path="quantity" id="quantity" type="text"/>
                          </div>
                      </div>
+               <%-- <div class="control-group">
+                    <label for="quantity" class="control-label">Quantity:</label>
+                    <div class="controls">
+                        <input type="text" name="quantity" id="quantity"/>
+                    </div>
+                </div>--%>
                      <div class="control-group">
-                         <label for="dimensions" class="control-label">Dimension:</label>
+                         <form:label path="price.dimensionId" cssClass="control-label">Dimension:</form:label>
                          <div class="controls">
-                             <select id="dimensions" name="dm" >
+                             <form:select id="dimensionId" name="dm" path="price.dimensionId" >
 
                                  <c:forEach items="${dimensions}" var="dimension">
-                                     <option value=${dimension.dimensionId}>${dimension.name}</option>
+                                     <form:option value="${dimension.dimensionId}"> ${dimension.name} </form:option>
                                  </c:forEach>
-                             </select>
+                             </form:select>
                          </div>
                      </div>
 
@@ -374,7 +381,7 @@
                     <input type="submit" id="modalSubmit" value="Add to order" class="btn btn-primary"/>
 
                 </div>
-                </form>
+                </form:form>
 
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -384,6 +391,31 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    $(document).on("click", "[id^=addBtn]", function() {
+
+        $.getJSON("rest/item/price/"+$(this).val(), function setPrice(priceArr){
+             window.jsonArray = priceArr;
+            for (var i =0; i <priceArr.length;i++){
+             if (priceArr[i].dimensionId.dimensionId == $('#dimensionId').val()){
+                  $('#item').val(priceArr[i].itemId.name);
+                 $('#price').val(priceArr[i].price);
+             }   $('#priceId').val(priceArr[i].id);
+            }
+    });
+    })
+</script>
+<script type="text/javascript">
+    $('#dimensionId').change(function(){
+        for (var i =0; i <jsonArray.length;i++){
+            if (jsonArray[i].dimensionId.dimensionId == $('#dimensionId').val()){
+                $('#item').val(jsonArray[i].itemId.name);
+                $('#price').val(jsonArray[i].price);
+
+            }
+        }
+    });
+</script>
 <script type="text/javascript">
 
     $(function() {
@@ -428,7 +460,7 @@
                 {   "mData": "description"
                 },
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<button class="btn-mini btn-success" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Add</button>'}
+                    "fnRender": function(o) { return '<button class="btn-mini btn-success" id="addBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Add</button>'}
                 }
 
             ],

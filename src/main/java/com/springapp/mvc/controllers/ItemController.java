@@ -15,6 +15,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: WinJavaEnv
@@ -103,19 +105,12 @@ public class ItemController {
         return dimensionArray.toString();
     }
 
-    @RequestMapping(value = "/price/{id}", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
+    @RequestMapping(value = "/price/{itemId}", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getPrice(@PathVariable("id") Long id) throws JSONException {
-        JSONArray priceArray = new JSONArray();
-        Price price = priceRepository.findOne(id);
-        JSONObject priceJSON = new JSONObject();
-        priceJSON.put("id", price.getId());
-        priceJSON.put("dimension", price.getDimensionId());
-        priceJSON.put("itemId", price.getItemId());
-        priceJSON.put("price", price.getPrice());
-        priceArray.put(priceJSON);
+    public List <Price> getPrices(@PathVariable("itemId") Long id) {
 
-        return priceArray.toString();
+
+        return priceRepository.findByItemId(itemRepositrory.findOne(id));
     }
 
     @RequestMapping(value = "/price/edit", method = RequestMethod.PUT, produces={"application/json; charset=UTF-8"})

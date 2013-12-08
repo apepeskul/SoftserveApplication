@@ -16,6 +16,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <%--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">--%>
     <link rel="stylesheet" type="text/css" href="/static/css/DT_bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
 

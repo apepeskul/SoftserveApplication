@@ -44,7 +44,7 @@ public class UrlController {
         order.setCreationDate(new Date());
        // orderRepository.save(order);
         String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+        model.addAttribute("orderdetail", new OrderDetails());
         model.addAttribute("user", userRepository.findByLogin(userName));
         model.addAttribute("order", order);
         model.addAttribute("dimensions", dimensionRepository.findAll());

@@ -16,19 +16,17 @@ import javax.persistence.*;
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     @Basic
     private Integer quantity;
 
-    @OneToOne (cascade = CascadeType.ALL)
-    private Item itemId;
-
-    @OneToOne (cascade = CascadeType.ALL)
-    private Price price;
-
-    @OneToOne (cascade = CascadeType.ALL)
-    private Dimension dimension;
 
     @ManyToOne
+    private Price price;
+
+
+    /*@ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
@@ -38,9 +36,18 @@ import javax.persistence.*;
 
     public void setOrder(Order order) {
         this.order = order;
-    }
+    }*/
 
     // геттеры и сеттеры
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public Price getPrice() {
         return price;
     }
@@ -48,12 +55,12 @@ import javax.persistence.*;
         this.price = price;
     }
 
-    public Dimension getDimension() {
+   /* public Dimension getDimension() {
         return dimension;
     }
     public void setDimension(Dimension dimension) {
         this.dimension = dimension;
-    }
+    }*/
 
     public Long getId() {
         return id;
@@ -63,20 +70,14 @@ import javax.persistence.*;
         this.id = id;
     }
 
-    Item getItemId() {
+   /* Item getItemId() {
         return itemId;
     }
 
     void setItemId(Item itemId) {
         this.itemId = itemId;
-    }
+    }*/
 
-    Integer getQuantity() {
-        return quantity;
-    }
 
-    void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
 }
 

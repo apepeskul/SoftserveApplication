@@ -2,8 +2,7 @@ package com.springapp.mvc.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,10 +43,11 @@ public class Order
     @Basic
     private BigDecimal totalPrice;
 
-    @OneToMany  (fetch = FetchType.EAGER)
+    @OneToMany  (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn( name="order_deteails_id", referencedColumnName = "id")
 
-    private Set<OrderDetails> orderDetailsSet; // список товаров данного заказа
+    private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
+     // список товаров данного заказа
 
     @ManyToOne
     private User customerId;
@@ -138,12 +138,13 @@ public class Order
         this.payment = payment;
     }
 
-    public Set<OrderDetails> getOrderDetailsSet() {
+    public Set <OrderDetails> getOrderDetailsSet() {
         return orderDetailsSet;
     }
 
     public void setOrderDetailsSet(Set<OrderDetails> orderDetailsSet) {
         this.orderDetailsSet = orderDetailsSet;
     }
+
 }
 
