@@ -1,6 +1,7 @@
 
 package com.springapp.mvc.repositories;
 
+import com.springapp.mvc.model.Role;
 import com.springapp.mvc.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,4 +13,5 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Query ("select u from account u where u.login = ?1")
     User findByLogin (String login);
     User findById (Long id);
+    List <User> findByRole (Role role);
 }

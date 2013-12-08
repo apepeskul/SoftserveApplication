@@ -79,7 +79,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">New order</a></li>
+                            <li><a href="/order">New order</a></li>
                             <li class="divider"></li>
                             <li><a href="/orders">My orders</a></li>
 
@@ -200,7 +200,7 @@
                 { "mDataProp": "quantity" },
 
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<form action="delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
+                    "fnRender": function(o) { return '<form action="/rest/item/delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
                 },
                 {   "sDefaultContent": "",
                     "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}

@@ -20,8 +20,8 @@ public class Order
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Basic
-    private Long merchId;
+    @ManyToOne
+    private User merchId;
 
     @Basic
     private Long orderNumber;
@@ -44,7 +44,7 @@ public class Order
     @Basic
     private BigDecimal totalPrice;
 
-    @OneToMany
+    @OneToMany  (fetch = FetchType.EAGER)
     @JoinColumn( name="order_deteails_id", referencedColumnName = "id")
 
     private Set<OrderDetails> orderDetailsSet; // список товаров данного заказа
@@ -52,7 +52,7 @@ public class Order
     @ManyToOne
     private User customerId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private CreditCardInfo payment;
 
     public enum Status { Created, Pending, Ordered, Delivered } //  возможные состояния заказа
@@ -66,7 +66,7 @@ public class Order
         this.id = id;
     }
 
-    public User getCustomer() {
+    public User getCustomerId() {
         return customerId;
     }
 
@@ -74,11 +74,11 @@ public class Order
         this.customerId = customerId;
     }
 
-    public Long getMerchId() {
+    public User getMerchId() {
         return merchId;
     }
 
-    public void setMerchId(Long merchId) {
+    public void setMerchId(User merchId) {
         this.merchId = merchId;
     }
 

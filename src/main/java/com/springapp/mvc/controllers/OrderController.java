@@ -12,12 +12,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,6 +50,19 @@ public class OrderController {
       *GET read
       * /rest/order/{id}
      */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(User.class, new UserEditor(userRepository));
+    }
+    @InitBinder
+    private void dateBinder(WebDataBinder binder) {
+        //The date format to parse or output your dates
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //Create a new CustomDateEditor
+        CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+        //Register it as custom editor for the Date type
+        binder.registerCustomEditor(Date.class, editor);
+    }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getOrder(@PathVariable("id") Long id) throws JSONException {
@@ -57,7 +71,7 @@ public class OrderController {
         JSONObject orderJSON = new JSONObject();
         orderJSON.put("id", order.getId());
         orderJSON.put("creationDate", order.getCreationDate());
-        orderJSON.put("customer", order.getCustomer());
+        orderJSON.put("customer", order.getCustomerId());
         orderJSON.put("deliveryDate", order.getDeliveryDate());
         orderJSON.put("merchId", order.getMerchId());
         orderJSON.put("orderDetailsSet", order.getOrderDetailsSet());
@@ -87,9 +101,11 @@ public class OrderController {
       * /rest/order/add
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
-    public String addOrder(Order order){
+
+    public String addOrder(@ModelAttribute("order") Order order){
+
         orderRepository.save(order);
-        return "redirect:/"; //TODO: URL
+        return "redirect:/orders";
     }
 
     /*
@@ -98,31 +114,16 @@ public class OrderController {
      */
     @RequestMapping(value = "/all{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getAllOrders(@PathVariable ("id") Long customerId, User user  ) throws JSONException{
+    public List <Order> getAllOrders(@PathVariable ("id") Long customerId,@ModelAttribute ("user") User user  ) throws JSONException{
 
 
 
         user = userRepository.findOne(customerId);
         List <Order> ordersList =  orderRepository.findByCustomerId(user);
 
-        JSONArray orderArray = new JSONArray();
-       for (Order order: ordersList){
-           JSONObject orderJSON = new JSONObject();
-           orderJSON.put("id", order.getId());
-           orderJSON.put("creationDate", order.getCreationDate());
-           orderJSON.put("customer", order.getCustomer());
-           orderJSON.put("deliveryDate", order.getDeliveryDate());
-           orderJSON.put("merchId", order.getMerchId());
-          // orderJSON.put("orderDetailsSet", order.getOrderDetailsSet());
-           orderJSON.put("orderNumber", order.getOrderNumber());
-           orderJSON.put("payment", order.getPayment());
-           orderJSON.put("preferableDate", order.getPreferableDate());
-           orderJSON.put("status", order.getStatus());
-           orderJSON.put("totalPrice", order.getTotalPrice());
 
-           orderArray.put(orderJSON);}
 
-        return orderArray.toString();
+        return ordersList;
     }
 
 
@@ -134,7 +135,7 @@ public class OrderController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteOrder(@PathVariable("id") Long id) {
         orderRepository.delete(orderRepository.findOne(id));
-        return "redirect:/"; //TODO: URL
+        return "redirect:/orders";
     }
 
     /*

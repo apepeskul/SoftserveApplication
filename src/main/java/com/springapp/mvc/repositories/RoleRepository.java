@@ -3,4 +3,5 @@ package com.springapp.mvc.repositories;
  import org.springframework.data.jpa.repository.JpaRepository;
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Role findById (Long id);
+    Role findByDescription (String description);
 }
