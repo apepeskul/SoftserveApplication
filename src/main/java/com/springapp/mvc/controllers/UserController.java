@@ -7,6 +7,8 @@ import com.springapp.mvc.model.UserSpecs;
 import com.springapp.mvc.repositories.RoleRepository;
 import com.springapp.mvc.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -92,13 +94,38 @@ public class UserController {
 
     }
 
-
-
     @RequestMapping("/delete/{userId}")
     public String deleteUser(@PathVariable("userId") Long userId) {
 
         userRepository.delete(userRepository.findOne(userId));
 
         return "redirect:/";
+    }
+    /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getPageUser(@PathVariable ("page") int page,
+                                  @PathVariable("size") int size) {
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<User> users = userRepository.findAll(new PageRequest(page, size));
+        return users.getContent();
+    }
+
+    //TODO: @param name
+    @RequestMapping(value = "/page/starting/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getSomeUsersByName(
+            @PathVariable ("page") int page,
+            @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+
+        Page<User> users = userRepository.findByFirstNameStartingWith("Ad",
+                new PageRequest(page, size));
+        return users.getContent();
     }
 }
