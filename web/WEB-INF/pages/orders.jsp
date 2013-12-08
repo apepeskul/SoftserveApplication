@@ -177,7 +177,7 @@
             "sAjaxSource": "/rest/order/all"+${user.id} ,
             "sAjaxDataProp": "",
             "aoColumns": [
-                { "mDataProp": "orderNumber" },
+                { "mDataProp": "id" },
 
                 {   "mData": "totalPrice"
                 },

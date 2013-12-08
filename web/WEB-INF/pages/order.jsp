@@ -390,7 +390,7 @@
         $( '#creationDate, #preferableDate, #deliveryDate, #startDate, #expiryDate'  ).datepicker({
 
             firstDay: 1,
-            dateFormat: 'dd-mm-yyyy'
+            dateFormat: 'dd/mm/yy'
         });
     });
 </script>
