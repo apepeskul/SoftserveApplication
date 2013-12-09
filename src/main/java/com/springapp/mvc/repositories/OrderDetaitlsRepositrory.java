@@ -1,6 +1,8 @@
 package com.springapp.mvc.repositories;
 
 import com.springapp.mvc.model.OrderDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * To change this template use File | Settings | File Templates.
  */
 public interface OrderDetaitlsRepositrory extends JpaRepository<OrderDetails, Long> {
-    OrderDetails findById(Long id);
+    Page<OrderDetails> findAll(Pageable pageable);
 }

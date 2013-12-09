@@ -1,6 +1,8 @@
 package com.springapp.mvc.repositories;
 
 import com.springapp.mvc.model.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,5 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * To change this template use File | Settings | File Templates.
  */
 public interface ItemRepositrory extends JpaRepository<Item, Long> {
-    Item findById(Long id);
+    Page<Item> findByNameStartingWith(String name, Pageable pageable);
+    Page<Item> findAll(Pageable pageable);
 }

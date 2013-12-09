@@ -8,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -136,8 +138,6 @@ public class OrderController {
     @ResponseBody
     public List <Order> getAllOrders(@PathVariable ("id") Long customerId,@ModelAttribute ("user") User user  ) throws JSONException{
 
-
-
         user = userRepository.findOne(customerId);
         List <Order> ordersList =  orderRepository.findByCustomerId(user);
 
@@ -146,7 +146,20 @@ public class OrderController {
         return ordersList;
     }
 
+     /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
 
+    @RequestMapping(value = "/order/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Order> getPageOrder(@PathVariable ("page") int page,
+                                    @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<Order> orders = orderRepository.findAll(new PageRequest(page, size));
+        return orders.getContent();
+    }
 
     /*
     * DELETE
@@ -241,25 +254,28 @@ public class OrderController {
     }
 
     /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/details/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<OrderDetails> getPageOrderDetails(@PathVariable ("page") int page,
+                                                  @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<OrderDetails> orderDetailses = orderDetaitlsRepositrory.findAll(new PageRequest(page, size));
+        return orderDetailses.getContent();
+    }
+
+    /*
       *GET read
       * /rest/order/card/{id}
      */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getCardInfo(@PathVariable("id") Long id) throws JSONException {
-        JSONArray creditCardInfoArray = new JSONArray();
-        CreditCardInfo creditCardInfo = creditCardInfoRepository.findOne(id);
-        JSONObject creditCardInfoJSON = new JSONObject();
-        creditCardInfoJSON.put("id", creditCardInfo.getId());
-        creditCardInfoJSON.put("creditCardNumber", creditCardInfo.getCreditCardNumber());
-        creditCardInfoJSON.put("CVV2Code", creditCardInfo.getCVV2Code());
-        creditCardInfoJSON.put("expiryDate", creditCardInfo.getExpiryDate());
-        creditCardInfoJSON.put("issueNumber", creditCardInfo.getIssueNumber());
-        creditCardInfoJSON.put("startDate", creditCardInfo.getStartDate());
-        creditCardInfoJSON.put("type", creditCardInfo.getType());
-
-        creditCardInfoArray.put(creditCardInfoJSON);
-        return creditCardInfoArray.toString();
+    public CreditCardInfo getCardInfo(@PathVariable("id") Long id) throws JSONException {
+        return creditCardInfoRepository.findOne(id);
     }
 
     /*
@@ -280,6 +296,40 @@ public class OrderController {
     public String addCardInfo(CreditCardInfo creditCardInfo){
         creditCardInfoRepository.save(creditCardInfo);
         return "redirect:/"; //TODO: URL
+    }
+
+    @RequestMapping( value = "/delete/{id}")
+    public String deleteCreditCardInfo(@PathVariable("id") Long id) {
+        creditCardInfoRepository.delete(creditCardInfoRepository.findOne(id));
+        return "redirect:/";  //TODO: URL
+    }
+
+    /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/card/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CreditCardInfo> getPageInfo(@PathVariable ("page") int page,
+                                            @PathVariable("size") int size) {
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<CreditCardInfo> infos = creditCardInfoRepository.findAll(new PageRequest(page, size));
+        return infos.getContent();
+    }
+
+    //TODO: @param name
+    @RequestMapping(value = "/card/page/starting/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CreditCardInfo> getSomeInfoByName(
+            @PathVariable ("page") int page,
+            @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+
+        Page<CreditCardInfo> infos = creditCardInfoRepository.findByCreditCardNumberStartingWith("32",
+                new PageRequest(page, size));
+        return infos.getContent();
     }
 
 }
