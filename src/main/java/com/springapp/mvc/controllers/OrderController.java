@@ -1,24 +1,23 @@
 package com.springapp.mvc.controllers;
 
-import com.springapp.mvc.model.CreditCardInfo;
-import com.springapp.mvc.model.Order;
-import com.springapp.mvc.model.OrderDetails;
-import com.springapp.mvc.model.User;
-import com.springapp.mvc.repositories.CreditCardInfoRepository;
-import com.springapp.mvc.repositories.OrderDetaitlsRepositrory;
-import com.springapp.mvc.repositories.OrderRepository;
-import com.springapp.mvc.repositories.UserRepository;
+import com.springapp.mvc.model.*;
+import com.springapp.mvc.repositories.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,11 +43,35 @@ public class OrderController {
 
     @Autowired
     CreditCardInfoRepository creditCardInfoRepository;
-
+    @Autowired
+    DimensionRepository dimensionRepository;
+    @Autowired
+    ItemRepositrory itemRepository;
     /*
       *GET read
       * /rest/order/{id}
      */
+    @InitBinder
+    public void userBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(User.class, new UserEditor(userRepository));
+    }
+    @InitBinder
+    public void dimensionBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Dimension.class, new DimensionEditor(dimensionRepository));
+    }
+    @InitBinder
+    public void itemBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Item.class, new ItemEditor(itemRepository));
+    }
+    @InitBinder
+    private void dateBinder(WebDataBinder binder) {
+        //The date format to parse or output your dates
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //Create a new CustomDateEditor
+        CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+        //Register it as custom editor for the Date type
+        binder.registerCustomEditor(Date.class, editor);
+    }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getOrder(@PathVariable("id") Long id) throws JSONException {
@@ -57,7 +80,7 @@ public class OrderController {
         JSONObject orderJSON = new JSONObject();
         orderJSON.put("id", order.getId());
         orderJSON.put("creationDate", order.getCreationDate());
-        orderJSON.put("customer", order.getCustomer());
+        orderJSON.put("customer", order.getCustomerId());
         orderJSON.put("deliveryDate", order.getDeliveryDate());
         orderJSON.put("merchId", order.getMerchId());
         orderJSON.put("orderDetailsSet", order.getOrderDetailsSet());
@@ -87,9 +110,20 @@ public class OrderController {
       * /rest/order/add
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
-    public String addOrder(Order order){
+
+    public String addOrder(@ModelAttribute("order") Order order){
+
         orderRepository.save(order);
-        return "redirect:/"; //TODO: URL
+        return "redirect:/orders";
+    }
+
+
+    @RequestMapping(value = "/addorderdetail", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
+
+    public String addOrderDetail (@ModelAttribute("order") Order order ){
+
+        orderRepository.save(order);
+        return "redirect:/orders";
     }
 
     /*
@@ -98,34 +132,30 @@ public class OrderController {
      */
     @RequestMapping(value = "/all{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getAllOrders(@PathVariable ("id") Long customerId, User user  ) throws JSONException{
-
-
+    public List <Order> getAllOrders(@PathVariable ("id") Long customerId,@ModelAttribute ("user") User user  ) throws JSONException{
 
         user = userRepository.findOne(customerId);
         List <Order> ordersList =  orderRepository.findByCustomerId(user);
 
-        JSONArray orderArray = new JSONArray();
-       for (Order order: ordersList){
-           JSONObject orderJSON = new JSONObject();
-           orderJSON.put("id", order.getId());
-           orderJSON.put("creationDate", order.getCreationDate());
-           orderJSON.put("customer", order.getCustomer());
-           orderJSON.put("deliveryDate", order.getDeliveryDate());
-           orderJSON.put("merchId", order.getMerchId());
-          // orderJSON.put("orderDetailsSet", order.getOrderDetailsSet());
-           orderJSON.put("orderNumber", order.getOrderNumber());
-           orderJSON.put("payment", order.getPayment());
-           orderJSON.put("preferableDate", order.getPreferableDate());
-           orderJSON.put("status", order.getStatus());
-           orderJSON.put("totalPrice", order.getTotalPrice());
 
-           orderArray.put(orderJSON);}
 
-        return orderArray.toString();
+        return ordersList;
     }
 
+     /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
 
+    @RequestMapping(value = "/order/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Order> getPageOrder(@PathVariable ("page") int page,
+                                    @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<Order> orders = orderRepository.findAll(new PageRequest(page, size));
+        return orders.getContent();
+    }
 
     /*
     * DELETE
@@ -134,7 +164,7 @@ public class OrderController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteOrder(@PathVariable("id") Long id) {
         orderRepository.delete(orderRepository.findOne(id));
-        return "redirect:/"; //TODO: URL
+        return "redirect:/orders";
     }
 
     /*
@@ -148,7 +178,7 @@ public class OrderController {
         OrderDetails orderDetails = orderDetaitlsRepositrory.findOne(id);
         JSONObject orderDetailsJSON = new JSONObject();
         orderDetailsJSON.put("id", orderDetails.getId());
-        orderDetailsJSON.put("dimension", orderDetails.getDimension());
+        //orderDetailsJSON.put("dimension", orderDetails.getDimension());
         orderDetailsJSON.put("price", orderDetails.getPrice());
         orderDetailsArray.put(orderDetailsJSON);
 
@@ -170,9 +200,13 @@ public class OrderController {
      * /rest/order/details/add
     */
     @RequestMapping(value = "/details/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
-    public String addOrderDetails(OrderDetails orderDetails){
+    public String addOrderDetails(OrderDetails orderDetails, @ModelAttribute ("order") Order order ){
+        Set <OrderDetails> temp = order.getOrderDetailsSet();
+        temp.add(orderDetails);
+        order.setOrderDetailsSet(temp);
         orderDetaitlsRepositrory.save(orderDetails);
-        return "redirect:/"; //TODO: URL
+
+        return "redirect:/order"; //TODO: URL
     }
 
     /*
@@ -186,7 +220,7 @@ public class OrderController {
         for(OrderDetails orderDetails : orderDetaitlsRepositrory.findAll()){
             JSONObject orderDetailsJSON = new JSONObject();
             orderDetailsJSON.put("id", orderDetails.getId());
-            orderDetailsJSON.put("creationDate", orderDetails.getDimension());
+            //orderDetailsJSON.put("creationDate", orderDetails.getDimension());
             orderDetailsJSON.put("customer", orderDetails.getPrice());
 
             orderDetailsArray.put(orderDetailsJSON);
@@ -205,25 +239,28 @@ public class OrderController {
     }
 
     /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/details/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<OrderDetails> getPageOrderDetails(@PathVariable ("page") int page,
+                                                  @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<OrderDetails> orderDetailses = orderDetaitlsRepositrory.findAll(new PageRequest(page, size));
+        return orderDetailses.getContent();
+    }
+
+    /*
       *GET read
       * /rest/order/card/{id}
      */
     @RequestMapping(value = "/card/{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getCardInfo(@PathVariable("id") Long id) throws JSONException {
-        JSONArray creditCardInfoArray = new JSONArray();
-        CreditCardInfo creditCardInfo = creditCardInfoRepository.findOne(id);
-        JSONObject creditCardInfoJSON = new JSONObject();
-        creditCardInfoJSON.put("id", creditCardInfo.getId());
-        creditCardInfoJSON.put("creditCardNumber", creditCardInfo.getCreditCardNumber());
-        creditCardInfoJSON.put("CVV2Code", creditCardInfo.getCVV2Code());
-        creditCardInfoJSON.put("expiryDate", creditCardInfo.getExpiryDate());
-        creditCardInfoJSON.put("issueNumber", creditCardInfo.getIssueNumber());
-        creditCardInfoJSON.put("startDate", creditCardInfo.getStartDate());
-        creditCardInfoJSON.put("type", creditCardInfo.getType());
-
-        creditCardInfoArray.put(creditCardInfoJSON);
-        return creditCardInfoArray.toString();
+    public CreditCardInfo getCardInfo(@PathVariable("id") Long id) throws JSONException {
+        return creditCardInfoRepository.findOne(id);
     }
 
     /*
@@ -244,6 +281,40 @@ public class OrderController {
     public String addCardInfo(CreditCardInfo creditCardInfo){
         creditCardInfoRepository.save(creditCardInfo);
         return "redirect:/"; //TODO: URL
+    }
+
+    @RequestMapping( value = "/delete/{id}")
+    public String deleteCreditCardInfo(@PathVariable("id") Long id) {
+        creditCardInfoRepository.delete(creditCardInfoRepository.findOne(id));
+        return "redirect:/";  //TODO: URL
+    }
+
+    /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/card/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CreditCardInfo> getPageInfo(@PathVariable ("page") int page,
+                                            @PathVariable("size") int size) {
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<CreditCardInfo> infos = creditCardInfoRepository.findAll(new PageRequest(page, size));
+        return infos.getContent();
+    }
+
+    //TODO: @param name
+    @RequestMapping(value = "/card/page/starting/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CreditCardInfo> getSomeInfoByName(
+            @PathVariable ("page") int page,
+            @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+
+        Page<CreditCardInfo> infos = creditCardInfoRepository.findByCreditCardNumberStartingWith("32",
+                new PageRequest(page, size));
+        return infos.getContent();
     }
 
 }

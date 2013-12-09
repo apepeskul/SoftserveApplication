@@ -1,12 +1,8 @@
 package com.springapp.mvc.controllers;
 
 
-import com.springapp.mvc.model.Item;
-import com.springapp.mvc.model.Price;
-import com.springapp.mvc.model.User;
-import com.springapp.mvc.repositories.DimensionRepository;
-import com.springapp.mvc.repositories.ItemRepositrory;
-import com.springapp.mvc.repositories.UserRepository;
+import com.springapp.mvc.model.*;
+import com.springapp.mvc.repositories.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sun.util.resources.LocaleData;
+
+import java.util.Date;
 
 @Controller
 public class UrlController {
@@ -24,6 +23,10 @@ public class UrlController {
     ItemRepositrory itemRepository;
     @Autowired
     DimensionRepository dimensionRepository;
+    @Autowired
+    OrderRepository orderRepository;
+    @Autowired
+    RoleRepository roleRepository;
     @RequestMapping(value = "/orders",  method = RequestMethod.GET)
     public String listOrders(ModelMap model) {
 
@@ -34,6 +37,27 @@ public class UrlController {
 
 
     }
+
+    @RequestMapping(value = "/order",  method = RequestMethod.GET)
+    public String showOrder(ModelMap model) {
+        Order order = new Order();
+        order.setCreationDate(new Date());
+       // orderRepository.save(order);
+        String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("orderdetail", new OrderDetails());
+        model.addAttribute("user", userRepository.findByLogin(userName));
+        model.addAttribute("order", order);
+        model.addAttribute("dimensions", dimensionRepository.findAll());
+        model.addAttribute("merchs", userRepository.findByRole(roleRepository.findByDescription("Merchandiser")));
+       /* String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        model.addAttribute("user", userRepository.findByLogin(userName));*/
+        return "order";
+
+
+    }
+
+
     @RequestMapping(value = "/item", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
 

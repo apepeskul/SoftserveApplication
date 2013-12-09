@@ -16,6 +16,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <%--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">--%>
     <link rel="stylesheet" type="text/css" href="/static/css/DT_bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
 
@@ -46,7 +47,7 @@
     </style>
 
     <style>
-        .span5 > div
+        .span5
         {
             background-color:#eee;
             border: 1px solid #888;
@@ -77,7 +78,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">New order</a></li>
+                            <li><a href="/order">New order</a></li>
                             <li class="divider"></li>
                             <li><a href="/orders"><i class="icon-shopping-cart icon white"></i> My orders</a></li>
 

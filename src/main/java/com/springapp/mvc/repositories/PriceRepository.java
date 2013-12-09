@@ -1,7 +1,12 @@
 package com.springapp.mvc.repositories;
 
+import com.springapp.mvc.model.Item;
 import com.springapp.mvc.model.Price;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * To change this template use File | Settings | File Templates.
  */
 public interface PriceRepository extends JpaRepository<Price, Long> {
-    Price findByItemId(Long id);
+    List<Price> findByItemId(Item itemId);
+    Page<Price> findAll(Pageable pageable);
 
 }

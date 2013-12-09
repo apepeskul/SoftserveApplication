@@ -2,6 +2,8 @@ package com.springapp.mvc.repositories;
 
 
 import com.springapp.mvc.model.Dimension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,5 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * To change this template use File | Settings | File Templates.
  */
 public interface DimensionRepository extends JpaRepository<Dimension, Long> {
-    Dimension findById(Long id);
+    Page<Dimension> findByNameStartingWith(String name, Pageable pageable);
+    Page<Dimension> findAll(Pageable pageable);
 }

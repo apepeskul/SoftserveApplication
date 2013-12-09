@@ -56,14 +56,7 @@
         }
     </style>
 
-    <style>
-        .span5 > div
-        {
-            background-color:#eee;
-            border: 1px solid #888;
-            border-radius:3px;
-        }
-    </style>
+
 
 
 
@@ -94,7 +87,7 @@
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">New order</a></li>
+                            <li><a href="/order">New order</a></li>
                             <li class="divider"></li>
                             <li><a href="#">My orders</a></li>
 
@@ -136,7 +129,7 @@
 <div class="container-fluid" style="margin-top: 40px ">
 
 
-    <div class="span 4 offset4 pagination-centered " style="margin-top: 40px">
+    <div class="span  offset3 pagination-centered " style="margin-top: 40px">
         <a href="order.jsp">Create new order</a>
         <h1 align="center">My orders</h1>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="itemtable">
@@ -177,7 +170,7 @@
             "sAjaxSource": "/rest/order/all"+${user.id} ,
             "sAjaxDataProp": "",
             "aoColumns": [
-                { "mDataProp": "orderNumber" },
+                { "mDataProp": "id" },
 
                 {   "mData": "totalPrice"
                 },
@@ -187,7 +180,7 @@
                 {   "mDataProp": "status"},
 
                 {   "sDefaultContent": "",
-                    "mDataProp":  "merchId"},
+                    "mDataProp":  "merchId.login"},
 
                 {   "sDefaultContent": "",
                     "fnRender": function(o) { return '<form action="/rest/order/delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}

@@ -10,10 +10,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,18 +45,7 @@ public class ItemController {
     public Item getItem(@PathVariable("id") Long id) throws JSONException {
 
        return itemRepositrory.findOne(id);
-      //  return  priceRepository.findByItemId(id);
-            /*JSONObject itemJSON = new JSONObject();
-            itemJSON.put("id", item.getId());
-            itemJSON.put("description", item.getDescription());
-            itemJSON.put("name", item.getName());
-            itemJSON.put("quantity", item.getQuantity());
-
-
-        return itemJSON.toString();*/
     }
-
-
 
     @RequestMapping(value = "/edit", method = RequestMethod.PUT, produces={"application/json; charset=UTF-8"})
     public String editItem(Item item){
@@ -74,48 +67,81 @@ public class ItemController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getAllItems() throws JSONException{
-        JSONArray itemArray = new JSONArray();
-        for (Item item : itemRepositrory.findAll()) {
-            JSONObject itemJSON = new JSONObject();
-            itemJSON.put("id", item.getId());
-            itemJSON.put("description", item.getDescription());
-            itemJSON.put("name", item.getName());
-            itemJSON.put("quantity", item.getQuantity());
+    public List<Item> getAllItems() throws JSONException{
+        return itemRepositrory.findAll();
+    }
 
-            itemArray.put(itemJSON);
-        }
-        return itemArray.toString();
+    /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/item/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Item> getPegaItems(@PathVariable ("page") int page,
+                                   @PathVariable("size") int size) throws JSONException {
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<Item> items = itemRepositrory.findAll(new PageRequest(page, size));
+        return items.getContent();
+    }
+
+    //TODO: @param name
+    @RequestMapping(value = "/item/page/starting/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Item> getSomeItemsByName(//@RequestParam (value = "q") String termSearch,
+                                         @PathVariable ("page") int page,
+                                         @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+
+        Page<Item> items = itemRepositrory.findByNameStartingWith("qw" ,new PageRequest(page, size));
+        return items.getContent();
     }
 
     @RequestMapping(value = "/dimension/{itemId}", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
     @ResponseBody
-    public String getDimension(@PathVariable("itemId") Long itemId) throws JSONException {
-        JSONArray dimensionArray = new JSONArray();
-        Dimension dimension = dimensionRepository.findOne(itemId);
-            JSONObject dimensionJSON = new JSONObject();
-            dimensionJSON.put("id", dimension.getDimensionId());
-            dimensionJSON.put("name", dimension.getName());
-            dimensionJSON.put("dimension", dimension.getDimensionId());
-            dimensionJSON.put("multiplex", dimension.getMultiplex());
-            dimensionArray.put(dimensionJSON);
-
-        return dimensionArray.toString();
+    public Dimension getDimension(@PathVariable("itemId") Long itemId) throws JSONException {
+        return dimensionRepository.findOne(itemId);
     }
 
-    @RequestMapping(value = "/price/{id}", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public String getPrice(@PathVariable("id") Long id) throws JSONException {
-        JSONArray priceArray = new JSONArray();
-        Price price = priceRepository.findOne(id);
-        JSONObject priceJSON = new JSONObject();
-        priceJSON.put("id", price.getId());
-        priceJSON.put("dimension", price.getDimensionId());
-        priceJSON.put("itemId", price.getItemId());
-        priceJSON.put("price", price.getPrice());
-        priceArray.put(priceJSON);
+    public List<Dimension> getAllDimension() throws JSONException {
+        return dimensionRepository.findAll();
 
-        return priceArray.toString();
+    }
+
+    /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/dimension/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Dimension> getPageDimension(@PathVariable ("page") int page,
+                                            @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<Dimension> dimensions = dimensionRepository.findAll(new PageRequest(page, size));
+        return dimensions.getContent();
+    }
+
+    //TODO: @param name
+    @RequestMapping(value = "/dimension/page/starting/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Dimension> getSomeDimensionByName(//@RequestParam (value = "q") String termSearch,
+                                                  @PathVariable ("page") int page,
+                                                  @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+
+        Page<Dimension> dimensions = dimensionRepository.findByNameStartingWith("qw" ,new PageRequest(page, size));
+        return dimensions.getContent();
+    }
+
+    @RequestMapping(value = "/price/{itemId}", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
+    @ResponseBody
+    public List <Price> getPrices(@PathVariable("itemId") Long id) {
+        return priceRepository.findByItemId(itemRepositrory.findOne(id));
     }
 
     @RequestMapping(value = "/price/edit", method = RequestMethod.PUT, produces={"application/json; charset=UTF-8"})
@@ -131,6 +157,20 @@ public class ItemController {
         price.setDimensionId(dimensionRepository.findOne(dimensionId));
         priceRepository.save(price);
         return "redirect:/item"; //TODO: URL
+    }
+    /*
+    update
+     */
+    //TODO:     sort field
+    //TODO:     desc asc
+
+    @RequestMapping(value = "/price/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Price> getPagePrice(@PathVariable ("page") int page,
+                                    @PathVariable("size") int size) {
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<Price> prices = priceRepository.findAll(new PageRequest(page, size));
+        return prices.getContent();
     }
 
 }

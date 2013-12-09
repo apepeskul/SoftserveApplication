@@ -2,8 +2,7 @@ package com.springapp.mvc.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,8 +19,8 @@ public class Order
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Basic
-    private Long merchId;
+    @ManyToOne
+    private User merchId;
 
     @Basic
     private Long orderNumber;
@@ -44,15 +43,16 @@ public class Order
     @Basic
     private BigDecimal totalPrice;
 
-    @OneToMany
+    @OneToMany  (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn( name="order_deteails_id", referencedColumnName = "id")
 
-    private Set<OrderDetails> orderDetailsSet; // список товаров данного заказа
+    private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
+     // список товаров данного заказа
 
     @ManyToOne
     private User customerId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private CreditCardInfo payment;
 
     public enum Status { Created, Pending, Ordered, Delivered } //  возможные состояния заказа
@@ -66,7 +66,7 @@ public class Order
         this.id = id;
     }
 
-    public User getCustomer() {
+    public User getCustomerId() {
         return customerId;
     }
 
@@ -74,11 +74,11 @@ public class Order
         this.customerId = customerId;
     }
 
-    public Long getMerchId() {
+    public User getMerchId() {
         return merchId;
     }
 
-    public void setMerchId(Long merchId) {
+    public void setMerchId(User merchId) {
         this.merchId = merchId;
     }
 
@@ -138,12 +138,13 @@ public class Order
         this.payment = payment;
     }
 
-    public Set<OrderDetails> getOrderDetailsSet() {
+    public Set <OrderDetails> getOrderDetailsSet() {
         return orderDetailsSet;
     }
 
     public void setOrderDetailsSet(Set<OrderDetails> orderDetailsSet) {
         this.orderDetailsSet = orderDetailsSet;
     }
+
 }
 

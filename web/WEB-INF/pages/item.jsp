@@ -68,7 +68,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">New order</a></li>
+                            <li><a href="/order">New order</a></li>
                             <li class="divider"></li>
                             <li><a href="/orders">My orders</a></li>
 
@@ -176,7 +176,7 @@
                     <form:input id="price" path="price"/>
                     </div>
                 </div>
-                <input style="margin-left: 200px" type="submit"  value="Add item" class="btn btn-success"/>
+                <input style="margin-left: 200px" type="submit"  value="Add price" class="btn btn-success"/>
             </form:form>
         </div>
     </div>
