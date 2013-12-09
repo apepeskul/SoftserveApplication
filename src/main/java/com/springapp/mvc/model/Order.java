@@ -1,5 +1,7 @@
 package com.springapp.mvc.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.*;
@@ -43,10 +45,37 @@ public class Order
     @Basic
     private BigDecimal totalPrice;
 
-    @OneToMany  (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn( name="order_deteails_id", referencedColumnName = "id")
+    /*@OneToMany  (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn( name="order_deteails_id", referencedColumnName = "id")*/
+    @OneToMany (fetch = FetchType.EAGER, mappedBy = "order")
 
-    private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
+    private Collection<OrderDetails> orderDetailsArray;
+
+    public void addOrderDetail(OrderDetails orderDetails) {
+
+        if (orderDetailsArray==null) {
+
+            orderDetailsArray = new ArrayList <OrderDetails>();
+
+        }
+
+        if (!orderDetailsArray.contains(orderDetails)) {
+
+            orderDetailsArray.add(orderDetails);
+
+        }
+
+    }
+
+
+
+    public Collection<OrderDetails> getOrderDetails() {
+
+        return orderDetailsArray;
+
+    }
+
+    // private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
      // список товаров данного заказа
 
     @ManyToOne
@@ -138,13 +167,13 @@ public class Order
         this.payment = payment;
     }
 
-    public Set <OrderDetails> getOrderDetailsSet() {
+    /*public Set <OrderDetails> getOrderDetailsSet() {
         return orderDetailsSet;
     }
 
     public void setOrderDetailsSet(Set<OrderDetails> orderDetailsSet) {
         this.orderDetailsSet = orderDetailsSet;
-    }
+    }*/
 
 }
 

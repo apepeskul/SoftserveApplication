@@ -26,8 +26,7 @@ import javax.persistence.*;
     private Price price;
 
 
-    /*@ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @ManyToOne
     private Order order;
 
     public Order getOrder() {
@@ -36,7 +35,7 @@ import javax.persistence.*;
 
     public void setOrder(Order order) {
         this.order = order;
-    }*/
+    }
 
     // геттеры и сеттеры
 

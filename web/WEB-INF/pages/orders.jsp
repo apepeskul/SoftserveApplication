@@ -186,8 +186,8 @@
                     "fnRender": function(o) { return '<form action="/rest/order/delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
                 },
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
-                }
+                    "fnRender": function(o) { return  '<a href="/order/'+o.aData["id"]+'" >Edit</button>'}
+                }                                     //'<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] +
             ],
 
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
@@ -203,7 +203,7 @@
     } );
 
 </script>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     $(document).on("click", "[id^=editBtn]", function() {
 
         $.getJSON($(this).val(), function(item){
@@ -229,6 +229,6 @@
 
 
     })
-</script>
+</script>--%>
 
 </html>
