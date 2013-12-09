@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -84,14 +85,23 @@ public class UserController {
 
 
     @RequestMapping(value = "/add")
-    public String addUser(@ModelAttribute User user, @RequestParam (value = "rid", required = false) Long roleId, Role role, BindingResult result) {
+    public String addUser(@ModelAttribute User user, @RequestParam (value = "rid", required = false) Long roleId,
+                          Role role, BindingResult result, HttpServletRequest request) {
+        String userExistsError = userExistsError(user);
+        if(userExistsError != null){
+            request.getSession().setAttribute("errorCause", userExistsError);
+            return "redirect:/error";
+        }
         role = roleRepository.findById(roleId);
         user.setRole(role);
         userRepository.save(user);
-
-
         return "redirect:/";
+    }
 
+    @RequestMapping(value = "/error")
+    public String userExistsError(ModelMap model, HttpServletRequest request) {
+        model.addAttribute("errorCause", request.getSession().getAttribute("errorCause"));
+        return "/error";
     }
 
     @RequestMapping("/delete/{userId}")
@@ -127,5 +137,14 @@ public class UserController {
         Page<User> users = userRepository.findByFirstNameStartingWith("Ad",
                 new PageRequest(page, size));
         return users.getContent();
+    }
+
+    private String userExistsError(User user){
+        if(userRepository.findByLogin(user.getLogin()) != null){
+            return "login";
+        } else if(userRepository.findByEmail(user.getEmail()) != null){
+            return "email";
+        };
+        return null;
     }
 }

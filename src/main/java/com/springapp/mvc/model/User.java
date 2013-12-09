@@ -4,8 +4,10 @@ package com.springapp.mvc.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.hibernate.validator.constraints.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -20,28 +22,35 @@ public class User implements UserDetails {
 
     @Basic
     @Column(length = 50)
+    @NotEmpty
     private String firstName;
 
     @Basic
     @Column(length = 50)
+    @NotEmpty
     private String lastName;
 
     @Basic
+    @Email
     private String email;
 
     @Basic
     @Column(length = 60)
+    @NotEmpty
     private String password;
 
     @Basic
     @Column(length = 10)
+    @NotEmpty
     private String login;
 
     @Basic
+    @NotNull
     private Region region;
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @NotNull
     private Role role;
 
     public enum Region {North, South, West, East};

@@ -14,6 +14,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor <User> {
     @Query ("select u from account u where u.login = ?1")
     User findByLogin (String login);
+    User findByEmail (String email);
     List <User> findByRole (Role role);
     Page<User> findByFirstNameStartingWith(String firstName, Pageable pageable);
     Page<User> findAll(Pageable pageable);
