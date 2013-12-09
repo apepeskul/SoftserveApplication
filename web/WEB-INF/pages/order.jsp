@@ -245,6 +245,7 @@
 
         <div class=" span5 offset1" style="margin-top: 40px">
             <div class="control-group">
+                <%--<input type="hidden" value="${order.id}">--%>
                 <form:label cssClass="control-label" path="payment.type">Credit card type:</form:label>
                 <div class="controls">
                     <form:select path="payment.type">
@@ -336,7 +337,7 @@
 
                      <%--<form:hidden path="order" value="${order.id}"/>--%>
                  <div class="control-group">
-                     <form:hidden id="priceId" path="price.id"></form:hidden>
+                     <input type="hidden" name="pid"  id="priceId"/>
                         <form:label cssClass="control-label" path="price.itemId">Item:</form:label>
                     <div class="controls">
                         <form:input id="item" type="text" path="price.itemId" disabled="true"/>
@@ -478,6 +479,36 @@
                         {type: "text"},
                         {type: "text"},
                         null]});
+
+    });
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#orderDetailsTable').dataTable( {
+            "sAjaxSource": "/rest/order/details/all" ,
+            "sAjaxDataProp": "",
+            "aoColumns": [
+                { "mDataProp": "name" },
+
+                {   "mData": "description"
+                },
+                {   "sDefaultContent": "",
+                    "fnRender": function(o) { return '<button class="btn-mini btn-success" id="addBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Add</button>'}
+                }
+
+            ],
+
+            "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+            "sPaginationType": "bootstrap",
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ records per page"
+            },
+            "iDisplayLength": 5,
+            "aLengthMenu": [[5], [5]],
+            "bProcessing": true
+        } )
 
     });
 
