@@ -47,7 +47,8 @@ public class Order
 
     /*@OneToMany  (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn( name="order_deteails_id", referencedColumnName = "id")*/
-    @OneToMany (fetch = FetchType.EAGER, mappedBy = "order")
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn (name = "details_id")
 
     private Collection<OrderDetails> orderDetailsArray;
 
@@ -74,7 +75,9 @@ public class Order
         return orderDetailsArray;
 
     }
-
+    public void  setOrderDetailsArray (Collection <OrderDetails> orderDetailsArray){
+        this.orderDetailsArray=orderDetailsArray;
+    }
     // private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
      // список товаров данного заказа
 

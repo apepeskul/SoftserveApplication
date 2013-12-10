@@ -12,9 +12,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import sun.util.resources.LocaleData;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class UrlController {
@@ -28,6 +30,11 @@ public class UrlController {
     OrderRepository orderRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    PriceRepository priceRepository;
+    @Autowired
+    ItemRepositrory itemRepositrory;
+
     @RequestMapping(value = "/orders",  method = RequestMethod.GET)
     public String listOrders(ModelMap model) {
 
@@ -38,7 +45,11 @@ public class UrlController {
 
 
     }
-
+    @RequestMapping(value = "order/rest/item/price/{itemId}", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
+    @ResponseBody
+    public List<Price> getPrices(@PathVariable("itemId") Long id) {
+        return priceRepository.findByItemId(itemRepositrory.findOne(id));
+    }
     @RequestMapping(value = "/order",  method = RequestMethod.GET)
     public String showOrder(ModelMap model) {
         Order order = new Order();

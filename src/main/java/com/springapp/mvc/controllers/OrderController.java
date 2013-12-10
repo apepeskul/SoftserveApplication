@@ -115,8 +115,9 @@ public class OrderController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
 
-    public String addOrder(@ModelAttribute("order") Order order){
-
+    public String addOrder(@ModelAttribute("order") Order order, @RequestParam (value = "orderId", required = false) Long oid ){
+        Order temporder= orderRepository.findOne(oid);
+        order.setOrderDetailsArray(temporder.getOrderDetails());
         orderRepository.save(order);
         return "redirect:/orders";
     }
@@ -204,22 +205,27 @@ public class OrderController {
      * /rest/order/details/add
     */
     @RequestMapping(value = "/details/add", method = RequestMethod.POST)
-    public void addOrderDetails(@ModelAttribute ("order") Order order, OrderDetails orderDetails, @RequestParam ("pid") Long id ){
+    public String addOrderDetails(@RequestParam ("oid") Long oid, OrderDetails orderDetails, @RequestParam ("pid") Long id ){
         /*Set <OrderDetails> temp = order.getOrderDetailsSet();
         temp.add(orderDetails);
         order.setOrderDetailsSet(temp);*/
+        Order order= orderRepository.findOne(oid);
         orderDetails.setPrice(priceRepository.findOne(id));
-         order.addOrderDetail(orderDetails);
-
-
+       // orderDetails.setOrder(order);
+        //
+        order.addOrderDetail(orderDetails);
+        orderDetaitlsRepositrory.save(orderDetails);
+        //orderDetaitlsRepositrory.save(orderDetails);
+        orderRepository.save(order);
+        return "redirect:/order/"+order.getId();
 
     }
 
 
-    @RequestMapping(value = "/details/all", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
+    @RequestMapping(value = "/details/all/{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
-    public Collection <OrderDetails> getOrderDetails(@ModelAttribute ("order") Order order  ) {
-
+    public Collection <OrderDetails> getOrderDetailsForOrder(@PathVariable (value = "id") Long id   ) {
+       Order order = orderRepository.findOne(id);
        return order.getOrderDetails();
     }
 

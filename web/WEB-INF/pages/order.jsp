@@ -245,7 +245,7 @@
 
         <div class=" span5 offset1" style="margin-top: 40px">
             <div class="control-group">
-                <%--<input type="hidden" value="${order.id}">--%>
+                <input type="hidden" id="orderId" name="orderId" value="${order.id}">
                 <form:label cssClass="control-label" path="payment.type">Credit card type:</form:label>
                 <div class="controls">
                     <form:select path="payment.type">
@@ -335,7 +335,7 @@
                 </table>
                 <form:form class="form-horizontal" commandName="orderdetail" action="/rest/order/details/add">
 
-                     <%--<form:hidden path="order" value="${order.id}"/>--%>
+                     <input type="hidden" id="oid" name="oid" value="${order.id}"/>
                  <div class="control-group">
                      <input type="hidden" name="pid"  id="priceId"/>
                         <form:label cssClass="control-label" path="price.itemId">Item:</form:label>
@@ -401,7 +401,8 @@
              if (priceArr[i].dimensionId.dimensionId == $('#dimensionId').val()){
                   $('#item').val(priceArr[i].itemId.name);
                  $('#price').val(priceArr[i].price);
-             }   $('#priceId').val(priceArr[i].id);
+                 $('#priceId').val(priceArr[i].id);
+             }
             }
     });
     })
@@ -412,7 +413,7 @@
             if (jsonArray[i].dimensionId.dimensionId == $('#dimensionId').val()){
                 $('#item').val(jsonArray[i].itemId.name);
                 $('#price').val(jsonArray[i].price);
-
+                $('#priceId').val(jsonArray[i].id);
             }
         }
     });
@@ -487,15 +488,33 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#orderDetailsTable').dataTable( {
-            "sAjaxSource": "/rest/order/details/all" ,
+            "fnDrawCallback": function ( oSettings ) {
+                /* Need to redo the counters if filtered or sorted */
+                if ( oSettings.bSorted || oSettings.bFiltered )
+                {
+                    for ( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ )
+                    {
+                        $('td:eq(0)', oSettings.aoData[ oSettings.aiDisplay[i] ].nTr ).html( i+1 );
+                    }
+                }
+            },
+            "aoColumnDefs": [
+                { "bSortable": false, "aTargets": [ 0 ] }
+            ],
+            "aaSorting": [[ 1, 'asc' ]],
+            "sAjaxSource": "/rest/order/details/all/"+${order.id} ,
             "sAjaxDataProp": "",
             "aoColumns": [
-                { "mDataProp": "name" },
+                { "mDataProp": "price.itemId.id" },
+                { "mDataProp": "price.itemId.name" },
+                { "mDataProp": "price.itemId.description" },
+                { "mDataProp": "price.dimensionId.name" },
+                { "mDataProp": "price.price" },
+                { "mDataProp": null },
+                { "mDataProp": "quantity" },
 
-                {   "mData": "description"
-                },
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<button class="btn-mini btn-success" id="addBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Add</button>'}
+                    "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="deleteBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Add</button>'}
                 }
 
             ],
