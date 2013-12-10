@@ -54,6 +54,7 @@ public class UrlController {
     public String showOrder(ModelMap model) {
         Order order = new Order();
         order.setCreationDate(new Date());
+        orderRepository.save(order);
         //orderRepository.save(order);
         String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("orderdetail", new OrderDetails());
@@ -64,7 +65,7 @@ public class UrlController {
        /* String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         model.addAttribute("user", userRepository.findByLogin(userName));*/
-        return "order";
+        return "redirect:order/"+order.getId();
 
 
     }

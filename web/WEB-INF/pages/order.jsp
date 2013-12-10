@@ -131,10 +131,10 @@
         </div><!-- /.container -->
     </div><!-- /.navbar-inner -->
 </div><!-- /.navbar -->
-<div class="container-fluid" style="margin-top: 40px ">
+<div class="container" style="margin-top: 40px ">
 
    <div class="row" style="margin-top: 40px">
-    <div class="span 4 offset4 pagination-centered " style="margin-top: 40px">
+    <div class="span 12" style="margin-top: 40px">
         <button class="btn btn-primary" id="add_item" name = "add_item">Add item</button>
         <h1 align="center">Order details</h1>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="orderDetailsTable">
@@ -171,7 +171,7 @@
     </div>
    </div>
 
-        <div class="span12 offset4">
+        <div class="span12">
             <div class="row">
         <form:form id="orderform"  method="post" action="/rest/order/add"  commandName="order" class="form-horizontal">
         <div class="span5" style="margin-top: 40px">

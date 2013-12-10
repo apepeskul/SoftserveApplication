@@ -126,10 +126,10 @@
 
 
 
-<div class="container-fluid" style="margin-top: 40px ">
+<div class="container" style="margin-top: 40px ">
 
 
-    <div class="span  offset3 pagination-centered " style="margin-top: 40px">
+    <div class="span12" style="margin-top: 40px">
         <a href="order.jsp">Create new order</a>
         <h1 align="center">My orders</h1>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="itemtable">

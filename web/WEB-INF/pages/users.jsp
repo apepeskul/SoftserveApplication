@@ -47,7 +47,7 @@
     </style>
 
     <style>
-        .span5
+        .span10
         {
             background-color:#eee;
             border: 1px solid #888;
@@ -64,7 +64,7 @@
 
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
-        <div class="container">
+        <div class="container-fluid">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -117,10 +117,10 @@
 
 
 
-<div class="container-fluid" style="margin-top: 40px ">
+<div class="container" style="margin-top: 40px ">
 
-    <div class="row-fluid">
-        <div class="span5 offset4">
+    <div class="row">
+        <div class="span10 offset1">
             <div class="row" style="border-bottom: inactiveborder">
                 <div class="span7">
                     <h1 align="center">Create new user</h1>
@@ -221,7 +221,7 @@
                         <h4 class="modal-title" id="myModalLabel">Edit user</h4>
                     </div>
                     <div class="modal-body" id="body" style="max-height: 600px">
-                        <div class="row">
+                        <div class="row-fluid">
 
                             <div class="span8" >
                                 <form:form  method="post" action="add"  commandName="user" class="form-horizontal" >
@@ -278,7 +278,7 @@
                                 </div>
 
                             </div>
-                            <div class="span2">
+                            <div class="span3 offset1">
                                 <div class="control-group">
                                     <br>
                                     <br>
@@ -312,12 +312,14 @@
 </div>
 
 </div>
+
+
 <div class="row">
 
+      <div class="span12">
 
-    <div class="span 4 offset4 pagination-centered " style="margin-top: 40px">
         <h2>All users</h2>
-        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="example">
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="userstable">
             <thead>
             <tr>
                 <th>Login</th>
@@ -344,14 +346,14 @@
             </tr>
             </tfoot>
         </table>
-    </div>
-</div>
 
+</div>
+</div>
 
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-         $('#example').dataTable( {
+         $('#userstable').dataTable( {
             "sAjaxSource": "/datatables" ,
              "sAjaxDataProp": "",
              "aoColumns": [
@@ -371,6 +373,8 @@
                  }
              ],
 
+
+
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
         "oLanguage": {
@@ -379,7 +383,8 @@
             "iDisplayLength": 5,
             "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
             "bProcessing": true
-       } ).columnFilter({
+       } )
+                 /*.columnFilter({
                      aoColumns: [
                          {type: "text"},
                          {type: "text"},
@@ -387,7 +392,7 @@
                          {type: "text"},
                          {type:"select", values : ['North', 'South', 'West', 'East']},
                          null,
-                         null]});
+                         null]});*/
 
     } );
 

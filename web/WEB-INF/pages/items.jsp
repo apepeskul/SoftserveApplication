@@ -117,9 +117,9 @@
 </div><!-- /.navbar -->
 
 
-<div class="container-fluid" style="margin-top: 40px ">
+<div class="container" style="margin-top: 40px ">
 
-    <div class="span 4 offset4 pagination-centered " style="margin-top: 40px">
+    <div class="span 12 " style="margin-top: 40px">
                     <h1 align="center">All items</h1>
                     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="itemtable">
                         <thead>
@@ -206,8 +206,10 @@
                     "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
                 }
             ],
+            "bFilter":false,
 
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+
             "sPaginationType": "bootstrap",
             "oLanguage": {
                 "sLengthMenu": "_MENU_ records per page"
