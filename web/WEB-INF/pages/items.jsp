@@ -118,7 +118,7 @@
 
 
 <div class="container" style="margin-top: 40px ">
-
+  <div class="row">
     <div class="span 12 " style="margin-top: 40px">
                     <h1 align="center">All items</h1>
                     <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="itemtable">
@@ -145,6 +145,7 @@
                         </tfoot>
                     </table>
 </div>
+  </div>
     </div>
  <div class="modal fade hide"  id="myModal"  tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false" >
     <div class="modal-dialog" >

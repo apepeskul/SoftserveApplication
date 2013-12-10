@@ -128,9 +128,9 @@
 
 <div class="container" style="margin-top: 40px ">
 
-
+  <div class="row">
     <div class="span12" style="margin-top: 40px">
-        <a href="order.jsp">Create new order</a>
+
         <h1 align="center">My orders</h1>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="itemtable">
             <thead>
@@ -160,6 +160,7 @@
             </tfoot>
         </table>
     </div>
+  </div>
 </div>
 
 </body>
@@ -186,8 +187,8 @@
                     "fnRender": function(o) { return '<form action="/rest/order/delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
                 },
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return  '<a href="/order/'+o.aData["id"]+'" >Edit</button>'}
-                }                                     //'<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] +
+                    "fnRender": function(o) { return '<form action="order/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-warning btn-mini" value="Edit"/></form>'}
+                }
             ],
 
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",

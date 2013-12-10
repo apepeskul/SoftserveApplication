@@ -55,7 +55,23 @@
         }
     </style>
 
-
+  <style>
+      input.text_filter
+      {
+        max-width: 160px;
+      }
+  </style>
+    <style>
+        select.search_init.select_filter
+        {
+            max-width: 160px;
+        }
+    </style>
+    <%--<style>
+        th{
+            max-width: 165px;
+        }
+    </style>--%>
 
 
 </head>
@@ -122,7 +138,7 @@
     <div class="row">
         <div class="span10 offset1">
             <div class="row" style="border-bottom: inactiveborder">
-                <div class="span7">
+                <div class="span6">
                     <h1 align="center">Create new user</h1>
 
                     <form:form id="userform"  method="post" action="add"  commandName="user" class="form-horizontal">
@@ -224,7 +240,7 @@
                         <div class="row-fluid">
 
                             <div class="span8" >
-                                <form:form  method="post" action="add"  commandName="user" class="form-horizontal" >
+                                <form:form  method="post" action="update"  commandName="user" class="form-horizontal" >
 
                                 <div class="control-group">
                                     <form:hidden id="modalId" path="id"/>
@@ -316,9 +332,9 @@
 
 <div class="row">
 
-      <div class="span12">
+      <div class="span12" style="margin-top: 40px">
 
-        <h2>All users</h2>
+        <h2 align="center">All users</h2>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="userstable">
             <thead>
             <tr>
@@ -384,7 +400,7 @@
             "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
             "bProcessing": true
        } )
-                 /*.columnFilter({
+                 .columnFilter({
                      aoColumns: [
                          {type: "text"},
                          {type: "text"},
@@ -392,7 +408,7 @@
                          {type: "text"},
                          {type:"select", values : ['North', 'South', 'West', 'East']},
                          null,
-                         null]});*/
+                         null]});
 
     } );
 

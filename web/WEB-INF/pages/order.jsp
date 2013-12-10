@@ -134,7 +134,7 @@
 <div class="container" style="margin-top: 40px ">
 
    <div class="row" style="margin-top: 40px">
-    <div class="span 12" style="margin-top: 40px">
+    <div class="span 12">
         <button class="btn btn-primary" id="add_item" name = "add_item">Add item</button>
         <h1 align="center">Order details</h1>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="orderDetailsTable">
@@ -148,7 +148,7 @@
                 <th>Price per line</th>
                 <th>Quantity</th>
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
+
             </tr>
             </thead>
             <tbody>
@@ -164,13 +164,13 @@
                 <th>Price per line</th>
                 <th>Quantity</th>
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
+
             </tr>
             </tfoot>
         </table>
     </div>
    </div>
-
+     <div class="row">
         <div class="span12">
             <div class="row">
         <form:form id="orderform"  method="post" action="/rest/order/add"  commandName="order" class="form-horizontal">
@@ -302,7 +302,7 @@
     </div>
 
     </div>
-
+     </div>
         </div>
     </div>
 </div>
@@ -485,6 +485,7 @@
 
 
 </script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('#orderDetailsTable').dataTable( {
@@ -510,14 +511,24 @@
                 { "mDataProp": "price.itemId.description" },
                 { "mDataProp": "price.dimensionId.name" },
                 { "mDataProp": "price.price" },
-                { "mDataProp": null },
+                {
+                    "mData":"quantity",
+                    "mRender": function ( data, type, row ) {
+            return data*row.price.price
+        }},
                 { "mDataProp": "quantity" },
 
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="deleteBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Add</button>'}
+                    "fnRender": function(o) { return '<button class="btn-mini btn-danger" id="deleteBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Delete</button>'}
                 }
 
             ],
+
+            /*"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+
+            },*/
+
+
 
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "sPaginationType": "bootstrap",
@@ -527,10 +538,15 @@
             "iDisplayLength": 5,
             "aLengthMenu": [[5], [5]],
             "bProcessing": true
+
+
+
+
         } )
 
     });
 
 
 </script>
+
 </html>

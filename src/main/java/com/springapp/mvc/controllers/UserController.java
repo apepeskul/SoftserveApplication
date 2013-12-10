@@ -92,6 +92,16 @@ public class UserController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/update")
+    public String updateUser(@ModelAttribute User user, @RequestParam (value = "rid", required = false) Long roleId,
+                          Role role, BindingResult result, HttpServletRequest request) {
+
+        role = roleRepository.findById(roleId);
+        user.setRole(role);
+        userRepository.save(user);
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/error")
     public String userExistsError(ModelMap model, HttpServletRequest request) {
         model.addAttribute("errorCause", request.getSession().getAttribute("errorCause"));

@@ -107,11 +107,11 @@
 
 <div class="container" style="margin-top: 40px ">
 
-    <div class="row-fluid">
-        <div class="span5">
+    <div class="row">
+        <div class="span6">
 
 
-            <h1>Add item</h1>
+            <h1 align="center">Add item</h1>
 
             <form:form id="itemform"  method="post" action="/rest/item/add"  commandName="item" class="form-horizontal">
 
@@ -140,8 +140,8 @@
 
             </form:form>
         </div>
-        <div class="span4">
-            <h1>Add price</h1>
+        <div class="span6">
+            <h1 align="center">Add price</h1>
 
             <form:form id="priceform"  method="post" action="/rest/item/price/add"  commandName="price" class="form-horizontal">
 
