@@ -17,14 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: WinJavaEnv
- * Date: 24.11.13
- * Time: 21:22
- * To change this template use File | Settings | File Templates.
- */
-
 @Controller
 @RequestMapping(value = "/rest/order")
 
@@ -41,12 +33,16 @@ public class OrderController {
 
     @Autowired
     CreditCardInfoRepository creditCardInfoRepository;
+
     @Autowired
     DimensionRepository dimensionRepository;
+
     @Autowired
     ItemRepositrory itemRepository;
+
     @Autowired
     PriceRepository priceRepository;
+
     /*
       *GET read
       * /rest/order/{id}
@@ -55,6 +51,7 @@ public class OrderController {
     public void priceBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Price.class, new PriceEditor(priceRepository));
     }*/
+
     @InitBinder
     public void userBinder(WebDataBinder binder) {
         binder.registerCustomEditor(User.class, new UserEditor(userRepository));
@@ -63,6 +60,7 @@ public class OrderController {
     public void dimensionBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Dimension.class, new DimensionEditor(dimensionRepository));
     }
+
    /* @InitBinder
     public void itemBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Item.class, new ItemEditor(itemRepository));
@@ -76,6 +74,7 @@ public class OrderController {
         //Register it as custom editor for the Date type
         binder.registerCustomEditor(Date.class, editor);
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getOrder(@PathVariable("id") Long id) throws JSONException {
@@ -93,10 +92,9 @@ public class OrderController {
         orderJSON.put("preferableDate", order.getPreferableDate());
         orderJSON.put("status", order.getStatus());
         orderJSON.put("totalPrice", order.getTotalPrice());
-
         orderArray.put(orderJSON);
-        return orderArray.toString();
 
+        return orderArray.toString();
     }
 
     /*
@@ -122,9 +120,7 @@ public class OrderController {
         return "redirect:/orders";
     }
 
-
     @RequestMapping(value = "/addorderdetail", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
-
     public String addOrderDetail (@ModelAttribute("order") Order order ){
 
         orderRepository.save(order);
@@ -138,28 +134,10 @@ public class OrderController {
     @RequestMapping(value = "/all{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
     public List <Order> getAllOrders(@PathVariable ("id") Long customerId,@ModelAttribute ("user") User user  ) throws JSONException{
-
         user = userRepository.findOne(customerId);
         List <Order> ordersList =  orderRepository.findByCustomerId(user);
 
-
-
         return ordersList;
-    }
-
-     /*
-    update
-     */
-    //TODO:     sort field
-    //TODO:     desc asc
-
-    @RequestMapping(value = "/order/page/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Order> getPageOrder(@PathVariable ("page") int page,
-                                    @PathVariable("size") int size){
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<Order> orders = orderRepository.findAll(new PageRequest(page, size));
-        return orders.getContent();
     }
 
     /*
@@ -197,6 +175,7 @@ public class OrderController {
     @RequestMapping(value = "/details/edit", method = RequestMethod.PUT)
     public String editOrderDetails(OrderDetails orderDetails){
         orderDetaitlsRepositrory.save(orderDetails);
+
         return "redirect:/"; //TODO: URL
     }
 
@@ -212,20 +191,19 @@ public class OrderController {
         Order order= orderRepository.findOne(oid);
         orderDetails.setPrice(priceRepository.findOne(id));
        // orderDetails.setOrder(order);
-        //
         order.addOrderDetail(orderDetails);
         orderDetaitlsRepositrory.save(orderDetails);
         //orderDetaitlsRepositrory.save(orderDetails);
         orderRepository.save(order);
+
         return "redirect:/order/"+order.getId();
-
     }
-
 
     @RequestMapping(value = "/details/all/{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
     @ResponseBody
     public Collection <OrderDetails> getOrderDetailsForOrder(@PathVariable (value = "id") Long id   ) {
        Order order = orderRepository.findOne(id);
+
        return order.getOrderDetails();
     }
 
@@ -256,22 +234,8 @@ public class OrderController {
     @RequestMapping( value = "/details/delete/{id}", method = RequestMethod.DELETE)
     public String deleteOrderDetails(@PathVariable("id") Long id) {
         orderDetaitlsRepositrory.delete(orderDetaitlsRepositrory.findOne(id));
+
         return "redirect:/";  //TODO: URL
-    }
-
-    /*
-    update
-     */
-    //TODO:     sort field
-    //TODO:     desc asc
-
-    @RequestMapping(value = "/details/page/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<OrderDetails> getPageOrderDetails(@PathVariable ("page") int page,
-                                                  @PathVariable("size") int size){
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<OrderDetails> orderDetailses = orderDetaitlsRepositrory.findAll(new PageRequest(page, size));
-        return orderDetailses.getContent();
     }
 
     /*
@@ -301,41 +265,15 @@ public class OrderController {
     @RequestMapping(value = "/card/add", method = RequestMethod.POST, produces={"application/json; charset=UTF-8"})
     public String addCardInfo(CreditCardInfo creditCardInfo){
         creditCardInfoRepository.save(creditCardInfo);
+
         return "redirect:/"; //TODO: URL
     }
 
     @RequestMapping( value = "/delete/{id}")
     public String deleteCreditCardInfo(@PathVariable("id") Long id) {
         creditCardInfoRepository.delete(creditCardInfoRepository.findOne(id));
+
         return "redirect:/";  //TODO: URL
-    }
-
-    /*
-    update
-     */
-    //TODO:     sort field
-    //TODO:     desc asc
-
-    @RequestMapping(value = "/card/page/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<CreditCardInfo> getPageInfo(@PathVariable ("page") int page,
-                                            @PathVariable("size") int size) {
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<CreditCardInfo> infos = creditCardInfoRepository.findAll(new PageRequest(page, size));
-        return infos.getContent();
-    }
-
-    //TODO: @param name
-    @RequestMapping(value = "/card/page/starting/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<CreditCardInfo> getSomeInfoByName(
-            @PathVariable ("page") int page,
-            @PathVariable("size") int size){
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-
-        Page<CreditCardInfo> infos = creditCardInfoRepository.findByCreditCardNumberStartingWith("32",
-                new PageRequest(page, size));
-        return infos.getContent();
     }
 
 }

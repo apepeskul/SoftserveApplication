@@ -1,12 +1,5 @@
 package com.springapp.mvc.model;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Рамазан
- * Date: 11/4/13
- * Time: 11:58 PM
- * To change this template use File | Settings | File Templates.
- */
 import javax.persistence.*;
 @Entity
 public class Dimension
@@ -21,7 +14,6 @@ public class Dimension
     @Basic
     private Integer multiplex;
 
-    // геттеры и сеттеры
     public Long getDimensionId() {
         return id;
     }

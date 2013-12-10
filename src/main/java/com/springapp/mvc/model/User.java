@@ -53,9 +53,31 @@ public class User implements UserDetails {
     @NotNull
     private Role role;
 
+    @Basic
+    @Column(length = 32)
+    private String hashCheck;
+
+    @Basic
+    private Boolean validation = false;
+
+    public String getHashCheck() {
+        return hashCheck;
+    }
+
+    public void setHashCheck(String hashCheck) {
+        this.hashCheck = hashCheck;
+    }
+
+    public Boolean getValidation() {
+        return validation;
+    }
+
+    public void setValidation(Boolean validation) {
+        this.validation = validation;
+    }
+
     public enum Region {North, South, West, East};
 
-    // геттеры и сеттеры
     public Role getRole() {
         return role;
     }

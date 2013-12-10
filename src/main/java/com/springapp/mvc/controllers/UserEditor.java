@@ -11,7 +11,6 @@ public class UserEditor extends PropertyEditorSupport {
     UserRepository userRepository;
     UserEditor(UserRepository userRepository){
      this.userRepository=userRepository;
-
     }
 
     @Override
@@ -23,6 +22,7 @@ public class UserEditor extends PropertyEditorSupport {
     @Override
     public String getAsText() {
         User user = (User) this.getValue();
+
         return Long.toString(user.getId());
     }
 }

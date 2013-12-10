@@ -1,27 +1,18 @@
 package com.springapp.mvc.model;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Рамазан
- * Date: 11/11/13
- * Time: 6:14 PM
- * To change this template use File | Settings | File Templates.
- */
-
 import javax.persistence.*;
 
 @Entity
-public class UserInfo
-{
+public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Basic
-    private CustomerType customerType; // статус пользователя
+    private CustomerType customerType;
 
     @Basic
-    private Long balance; //  общее количество потраченных денег
+    private Long balance;
 
     @OneToOne (cascade = CascadeType.ALL)
     private User userId;
@@ -36,7 +27,6 @@ public class UserInfo
 
     public enum CustomerType {Standard, Silver, Gold, Platinum};
 
-    // геттеры и сеттеры
     public User getUserId() {
         return userId;
     }

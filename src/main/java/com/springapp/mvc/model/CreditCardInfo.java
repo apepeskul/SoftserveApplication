@@ -1,12 +1,5 @@
 package com.springapp.mvc.model;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Рамазан
- * Date: 11/4/13
- * Time: 11:59 PM
- * To change this template use File | Settings | File Templates.
- */
 import javax.persistence.*;
 import java.util.Date;
 @Entity
@@ -37,7 +30,6 @@ public class CreditCardInfo
     @Basic
     private Long issueNumber; // maestro only
 
-    // геттеры и сеттеры
     public Long getId() {
         return id;
     }

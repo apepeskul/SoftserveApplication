@@ -1,12 +1,5 @@
 package com.springapp.mvc.model;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Рамазан
- * Date: 11/4/13
- * Time: 11:51 PM
- * To change this template use File | Settings | File Templates.
- */
 import javax.persistence.*;import javax.persistence.Basic;import javax.persistence.Entity;import javax.persistence.GeneratedValue;import javax.persistence.GenerationType;import javax.persistence.Id;import java.lang.Integer;import java.lang.Long;import java.lang.String;
 @Entity
 public class Item
@@ -24,7 +17,6 @@ public class Item
     @Basic
     private Integer quantity;
 
-    // геттеры и сеттеры
     public void setId (Long id)
     {
         this.id = id;

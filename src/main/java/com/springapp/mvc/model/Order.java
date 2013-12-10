@@ -6,13 +6,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Рамазан
- * Date: 11/4/13
- * Time: 11:57 PM
- * To change this template use File | Settings | File Templates.
- */
 @Entity (name = "order_")
 public class Order
 {
@@ -53,19 +46,12 @@ public class Order
     private Collection<OrderDetails> orderDetailsArray;
 
     public void addOrderDetail(OrderDetails orderDetails) {
-
         if (orderDetailsArray==null) {
-
             orderDetailsArray = new ArrayList <OrderDetails>();
-
         }
-
         if (!orderDetailsArray.contains(orderDetails)) {
-
             orderDetailsArray.add(orderDetails);
-
         }
-
     }
 
 
@@ -79,7 +65,6 @@ public class Order
         this.orderDetailsArray=orderDetailsArray;
     }
     // private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
-     // список товаров данного заказа
 
     @ManyToOne
     private User customerId;
@@ -87,9 +72,8 @@ public class Order
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private CreditCardInfo payment;
 
-    public enum Status { Created, Pending, Ordered, Delivered } //  возможные состояния заказа
+    public enum Status { Created, Pending, Ordered, Delivered }
 
-    // геттеры и сеттеры
     public Long getId() {
         return id;
     }

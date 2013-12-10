@@ -1,4 +1,5 @@
 package com.springapp.mvc.model;
+
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,12 +13,14 @@ public class UserSpecs {
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query,
                                          CriteriaBuilder builder) {
                 String likePattern = getLikePattern(searchTerm);
+
                 return builder.like(builder.lower(root.get(User_.login)), likePattern);
             }
           private String getLikePattern (final String searchTerm){
               StringBuilder pattern = new StringBuilder();
               pattern.append(searchTerm.toLowerCase());
               pattern.append("%");
+
               return pattern.toString();
           }
         };

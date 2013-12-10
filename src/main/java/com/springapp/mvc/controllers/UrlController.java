@@ -1,6 +1,5 @@
 package com.springapp.mvc.controllers;
 
-
 import com.springapp.mvc.model.*;
 import com.springapp.mvc.repositories.*;
 
@@ -37,19 +36,18 @@ public class UrlController {
 
     @RequestMapping(value = "/orders",  method = RequestMethod.GET)
     public String listOrders(ModelMap model) {
-
         String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         model.addAttribute("user", userRepository.findByLogin(userName));
+
        return "orders";
-
-
     }
+
     @RequestMapping(value = "order/rest/item/price/{itemId}", method = RequestMethod.GET, produces = {"application/json; charset=UTF-8"})
     @ResponseBody
     public List<Price> getPrices(@PathVariable("itemId") Long id) {
         return priceRepository.findByItemId(itemRepositrory.findOne(id));
     }
+
     @RequestMapping(value = "/order",  method = RequestMethod.GET)
     public String showOrder(ModelMap model) {
         Order order = new Order();
@@ -63,35 +61,26 @@ public class UrlController {
         model.addAttribute("dimensions", dimensionRepository.findAll());
         model.addAttribute("merchs", userRepository.findByRole(roleRepository.findByDescription("Merchandiser")));
        /* String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         model.addAttribute("user", userRepository.findByLogin(userName));*/
+
         return "redirect:order/"+order.getId();
-
-
     }
 
 
     @RequestMapping(value = "/item", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
-
         model.addAttribute("item", new Item());
         model.addAttribute("items", itemRepository.findAll());
         model.addAttribute("dimensions", dimensionRepository.findAll() );
         model.addAttribute("price", new Price());
 
-
         return "item";
-
-
     }
     @RequestMapping(value = "/items",  method = RequestMethod.GET)
     public String listItems(ModelMap model) {
         model.addAttribute("item", new Item());
 
-
         return "items";
-
-
     }
 
     @RequestMapping(value = "/order/{id}",  method = RequestMethod.GET)
@@ -104,7 +93,5 @@ public class UrlController {
         model.addAttribute("merchs", userRepository.findByRole(roleRepository.findByDescription("Merchandiser")));
 
         return "order";
-
-
     }
 }

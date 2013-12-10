@@ -21,7 +21,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.sendRedirect("/403");
         String message = getAccessDeniedMessage(requestURL);
         request.getSession().setAttribute("message", message);
-
     }
 
     private String getAccessDeniedMessage(String requestURL){

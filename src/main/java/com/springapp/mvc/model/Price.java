@@ -3,9 +3,7 @@ package com.springapp.mvc.model;
 import javax.persistence.*;
 
 @Entity
-public class Price
-
-{
+public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +19,6 @@ public class Price
     @JoinColumn(name = "dimension_id", referencedColumnName = "id")
     private Dimension dimensionId;
 
-    // геттеры и сеттеры
     public Long getId() {
         return id;
     }

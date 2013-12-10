@@ -25,6 +25,7 @@ public class AuthenticationController {
     public String accessDenied(ModelMap model, HttpServletRequest request){
         String message = (String) request.getSession().getAttribute("message");
         model.addAttribute("message", message);
+
         return "403";
     }
 }
