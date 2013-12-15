@@ -19,7 +19,8 @@ public class Sender {
     public Sender() {
         properties = new Properties();
         try {
-            properties.load(new InputStreamReader(new FileInputStream("C:\\Users\\alex\\anotherSS\\SoftserveApplication\\src\\main\\resources\\META-INF\\config.properties"),"UTF-8"));
+            properties.load(new InputStreamReader(new FileInputStream( "C:\\GITvers\\SoftserveApplication\\src\\main\\resources\\" +
+                    "META-INF\\config.properties"),"UTF-8"));
         } catch(FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

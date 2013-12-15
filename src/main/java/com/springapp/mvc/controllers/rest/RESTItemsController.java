@@ -1,12 +1,11 @@
 package com.springapp.mvc.controllers.rest;
 
 import com.springapp.mvc.model.Item;
-import com.springapp.mvc.repositories.ItemRepositrory;
+import com.springapp.mvc.repositories.ItemRepository;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,37 +16,37 @@ import java.util.List;
 public class RESTItemsController {
 
     @Autowired
-    private ItemRepositrory itemRepositrory;
+    private ItemRepository itemRepository;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Item getItemById(@PathVariable("id") Long id) throws JSONException {
-        return itemRepositrory.findOne(id);
+        return itemRepository.findOne(id);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     public List<Item> getAllItems() throws JSONException {
-        return itemRepositrory.findAll();
+        return itemRepository.findAll();
     }
 
     @RequestMapping( value = "/delete/{id}")
     public String deleteItem(@PathVariable("id") Long id) {
-        itemRepositrory.delete(itemRepositrory.findOne(id));
+        itemRepository.delete(itemRepository.findOne(id));
 
         return "redirect:/";  //TODO: URL
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addItem(@ModelAttribute("creditCardInfo")Item item){
-        itemRepositrory.save(item);
+        itemRepository.save(item);
 
         return "redirect:/"; //TODO: URL
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public String updateItem(@ModelAttribute("creditCardInfo")Item item){
-        itemRepositrory.save(item);
+        itemRepository.save(item);
 
         return "redirect:/"; //TODO: URL
     }
@@ -63,7 +62,7 @@ public class RESTItemsController {
      public List<Item> getPegaItems(@PathVariable ("page") int page,
                                     @PathVariable("size") int size) throws JSONException {
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<Item> items = itemRepositrory.findAll(new PageRequest(page, size));
+        Page<Item> items = itemRepository.findAll(new PageRequest(page, size));
 
         return items.getContent();
     }
@@ -75,7 +74,7 @@ public class RESTItemsController {
                                          @PathVariable ("page") int page,
                                          @PathVariable("size") int size){
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<Item> items = itemRepositrory.findByNameStartingWith("qw" ,new PageRequest(page, size));
+        Page<Item> items = itemRepository.findByNameStartingWith("qw" ,new PageRequest(page, size));
 
         return items.getContent();
     }

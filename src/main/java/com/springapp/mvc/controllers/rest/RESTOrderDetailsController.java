@@ -1,7 +1,7 @@
 package com.springapp.mvc.controllers.rest;
 
 import com.springapp.mvc.model.OrderDetails;
-import com.springapp.mvc.repositories.OrderDetaitlsRepositrory;
+import com.springapp.mvc.repositories.OrderDetaitlsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,38 +15,38 @@ import java.util.List;
 public class RESTOrderDetailsController {
 
     @Autowired
-    private OrderDetaitlsRepositrory orderDetaitlsRepositrory;
+    private OrderDetaitlsRepository orderDetaitlsRepository;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public OrderDetails getOrdersDetailsById(@PathVariable("id") Long id){
-        return orderDetaitlsRepositrory.findOne(id);
+        return orderDetaitlsRepository.findOne(id);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     public List<OrderDetails> getAllOrdersDetails(){
-        return orderDetaitlsRepositrory.findAll();
+        return orderDetaitlsRepository.findAll();
 
     }
 
     @RequestMapping( value = "/delete/{id}")
     public String deleteOrderDetails(@PathVariable("id") Long id) {
-        orderDetaitlsRepositrory.delete(orderDetaitlsRepositrory.findOne(id));
+        orderDetaitlsRepository.delete(orderDetaitlsRepository.findOne(id));
 
         return "redirect:/";  //TODO: URL
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addOrderDetails(@ModelAttribute("orderDetails")OrderDetails orderDetails){
-        orderDetaitlsRepositrory.save(orderDetails);
+        orderDetaitlsRepository.save(orderDetails);
 
         return "redirect:/"; //TODO: URL
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String updateOrderDetails(@ModelAttribute("orderDetails")OrderDetails orderDetails){
-        orderDetaitlsRepositrory.save(orderDetails);
+        orderDetaitlsRepository.save(orderDetails);
 
         return "redirect:/"; //TODO: URL
     }
@@ -62,7 +62,7 @@ public class RESTOrderDetailsController {
     public List<OrderDetails> getPageOrderDetails(@PathVariable ("page") int page,
                                             @PathVariable("size") int size){
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<OrderDetails> orderDetailses = orderDetaitlsRepositrory.findAll(new PageRequest(page, size));
+        Page<OrderDetails> orderDetailses = orderDetaitlsRepository.findAll(new PageRequest(page, size));
         return orderDetailses.getContent();
     }
 

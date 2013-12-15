@@ -2,9 +2,9 @@ package com.springapp.mvc.model;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
-public class CreditCardInfo
-{
+public class CreditCardInfo {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +38,9 @@ public class CreditCardInfo
         this.id = id;
     }
 
-    public enum CreditCardType {Visa, MasterCard, AmericanExpress, Maestro }
+    public enum CreditCardType {
+        Visa, MasterCard, AmericanExpress, Maestro
+    }
 
     public String getCreditCardNumber() {
         return creditCardNumber;
@@ -87,10 +89,5 @@ public class CreditCardInfo
     public void setType(CreditCardType type) {
         this.type = type;
     }
-
-
-
-
-
 
 }
