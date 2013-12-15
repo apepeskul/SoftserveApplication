@@ -25,7 +25,9 @@ public class UserInfo {
         this.id = id;
     }
 
-    public enum CustomerType {Standard, Silver, Gold, Platinum};
+    public enum CustomerType {
+        Standard, Silver, Gold, Platinum
+    };
 
     public User getUserId() {
         return userId;

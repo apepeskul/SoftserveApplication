@@ -1,9 +1,15 @@
 package com.springapp.mvc.model;
 
-import javax.persistence.*;import javax.persistence.Basic;import javax.persistence.Entity;import javax.persistence.GeneratedValue;import javax.persistence.GenerationType;import javax.persistence.Id;import java.lang.Integer;import java.lang.Long;import java.lang.String;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.lang.Integer;
+import java.lang.Long;
+import java.lang.String;
 @Entity
-public class Item
-{
+public class Item {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,33 +23,27 @@ public class Item
     @Basic
     private Integer quantity;
 
-    public void setId (Long id)
-    {
+    public void setId (Long id) {
         this.id = id;
     }
 
-    public void setName (String name)
-    {
+    public void setName (String name) {
         this.name = name;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public Long getId ()
-    {
+    public Long getId () {
         return id;
     }
 
-    public String getName ()
-    {
+    public String getName () {
         return name;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
@@ -54,6 +54,7 @@ public class Item
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
 }
 
 

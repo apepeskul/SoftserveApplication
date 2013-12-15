@@ -7,8 +7,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Entity (name = "order_")
-public class Order
-{
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,13 +53,10 @@ public class Order
         }
     }
 
-
-
     public Collection<OrderDetails> getOrderDetails() {
-
         return orderDetailsArray;
-
     }
+
     public void  setOrderDetailsArray (Collection <OrderDetails> orderDetailsArray){
         this.orderDetailsArray=orderDetailsArray;
     }
@@ -72,7 +68,9 @@ public class Order
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private CreditCardInfo payment;
 
-    public enum Status { Created, Pending, Ordered, Delivered }
+    public enum Status {
+        Created, Pending, Ordered, Delivered
+    }
 
     public Long getId() {
         return id;

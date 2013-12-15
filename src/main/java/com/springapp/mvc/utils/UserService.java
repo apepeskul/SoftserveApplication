@@ -29,6 +29,7 @@ public class UserService {
 
         return user;
     }
+
     public void sendingEmainCheck(User user){
 
         String message= "Dear " + user.getLogin() + ",<br>" +
@@ -39,7 +40,6 @@ public class UserService {
                 "Thanks for helping us maintain the security of your account.<br>" +
                 "<i>The Dev Support Team.</i>";
         sender.send("Welcome  to our service", message, user.getEmail());
-
     }
 
     public String toHash (String login) {

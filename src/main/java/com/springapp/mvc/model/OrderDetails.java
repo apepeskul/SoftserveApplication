@@ -1,8 +1,9 @@
 package com.springapp.mvc.model;
 
 import javax.persistence.*;
+
 @Entity
- public class OrderDetails{
+ public class OrderDetails {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
