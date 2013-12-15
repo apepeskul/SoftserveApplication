@@ -38,14 +38,14 @@ public class OrderController {
     UserRepository userRepository;
 
     @Autowired
-    OrderDetaitlsRepositrory orderDetaitlsRepositrory;
+    OrderDetaitlsRepository orderDetaitlsRepository;
 
     @Autowired
     CreditCardInfoRepository creditCardInfoRepository;
     @Autowired
     DimensionRepository dimensionRepository;
     @Autowired
-    ItemRepositrory itemRepository;
+    ItemRepository itemRepository;
     @Autowired
     PriceRepository priceRepository;
     /*
@@ -181,7 +181,7 @@ public class OrderController {
     @ResponseBody
     public String getOrderDetails(@PathVariable("id") Long id) throws JSONException {
         JSONArray orderDetailsArray = new JSONArray();
-        OrderDetails orderDetails = orderDetaitlsRepositrory.findOne(id);
+        OrderDetails orderDetails = orderDetaitlsRepository.findOne(id);
         JSONObject orderDetailsJSON = new JSONObject();
         orderDetailsJSON.put("id", orderDetails.getId());
         //orderDetailsJSON.put("dimension", orderDetails.getDimension());
@@ -197,7 +197,7 @@ public class OrderController {
      */
     @RequestMapping(value = "/details/edit", method = RequestMethod.PUT)
     public String editOrderDetails(OrderDetails orderDetails){
-        orderDetaitlsRepositrory.save(orderDetails);
+        orderDetaitlsRepository.save(orderDetails);
         return "redirect:/"; //TODO: URL
     }
 
@@ -217,7 +217,7 @@ public class OrderController {
 
         order.addOrderDetail(orderDetails);
         order.setTotalPrice(order.getTotalPrice().add(new BigDecimal(orderDetails.getPrice().getPrice()*orderDetails.getQuantity())));
-        orderDetaitlsRepositrory.save(orderDetails);
+        orderDetaitlsRepository.save(orderDetails);
         //orderDetaitlsRepositrory.save(orderDetails);
         orderRepository.save(order);
         return "redirect:/order/"+order.getId();
@@ -258,7 +258,7 @@ public class OrderController {
     * */
     @RequestMapping( value = "/details/delete/{id}", method = RequestMethod.DELETE)
     public String deleteOrderDetails(@PathVariable("id") Long id) {
-        orderDetaitlsRepositrory.delete(orderDetaitlsRepositrory.findOne(id));
+        orderDetaitlsRepository.delete(orderDetaitlsRepository.findOne(id));
         return "redirect:/";  //TODO: URL
     }
 
@@ -273,7 +273,7 @@ public class OrderController {
     public List<OrderDetails> getPageOrderDetails(@PathVariable ("page") int page,
                                                   @PathVariable("size") int size){
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<OrderDetails> orderDetailses = orderDetaitlsRepositrory.findAll(new PageRequest(page, size));
+        Page<OrderDetails> orderDetailses = orderDetaitlsRepository.findAll(new PageRequest(page, size));
         return orderDetailses.getContent();
     }
 

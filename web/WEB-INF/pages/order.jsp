@@ -254,7 +254,7 @@
                         <form:option value="AmericanExpress"></form:option>
                         <form:option value="Maestro"></form:option>
                     </form:select>
-                    <img id="cc"  width="20%" height="20%"/>
+                    <img id="cc"  width="58px" height="36px"/>
                 </div>
 
             </div>
@@ -642,7 +642,8 @@
 
                 //show American Express icon
                 break;
-
+            case "Maestro":
+                $('#cc').attr('src',"/../../static/img/maestro.jpg");
             default:
             //clear all icons?
             //show error?
