@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -213,7 +214,9 @@ public class OrderController {
         orderDetails.setPrice(priceRepository.findOne(id));
        // orderDetails.setOrder(order);
         //
+
         order.addOrderDetail(orderDetails);
+        order.setTotalPrice(order.getTotalPrice().add(new BigDecimal(orderDetails.getPrice().getPrice()*orderDetails.getQuantity())));
         orderDetaitlsRepositrory.save(orderDetails);
         //orderDetaitlsRepositrory.save(orderDetails);
         orderRepository.save(order);

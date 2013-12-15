@@ -248,14 +248,17 @@
                 <input type="hidden" id="orderId" name="orderId" value="${order.id}">
                 <form:label cssClass="control-label" path="payment.type">Credit card type:</form:label>
                 <div class="controls">
-                    <form:select path="payment.type">
+                    <form:select id="cctype" path="payment.type">
                         <form:option value="Visa"></form:option>
                         <form:option value="MasterCard"></form:option>
                         <form:option value="AmericanExpress"></form:option>
                         <form:option value="Maestro"></form:option>
                     </form:select>
+                    <img id="cc"  width="20%" height="20%"/>
                 </div>
+
             </div>
+
             <div class="control-group">
                 <form:label cssClass="control-label" path="payment.creditCardNumber">Credit card number:</form:label>
                 <div class="controls">
@@ -547,6 +550,104 @@
     });
 
 
+</script>
+<script type="text/javascript">
+    function getCreditCardType(accountNumber)
+    {
+
+        //start without knowing the credit card type
+        var result = "unknown";
+
+        //first check for MasterCard
+        if (/^5[1-5]/.test(accountNumber))
+        {
+            result = "mastercard";
+        }
+
+        //then check for Visa
+        else if (/^4/.test(accountNumber))
+        {
+            result = "visa";
+        }
+
+        //then check for AmEx
+        else if (/^3[47]/.test(accountNumber))
+        {
+            result = "amex";
+        }
+
+        return result;
+    }
+</script>
+<script type="text/javascript">
+    function handleEvent(event)
+    {
+        var value   = event.target.value,
+                type    = getCreditCardType(value);
+
+        switch (type)
+        {
+            case "mastercard":
+
+                $('#cc').attr('src',"/../../static/img/mastercard.jpg");
+                $('#cctype').val("MasterCard");
+
+                break;
+
+            case "visa":
+                $('#cc').attr('src',"/../../static/img/visa.jpg");
+                $('#cctype').val("Visa");
+                //show Visa icon
+                break;
+
+            case "amex":
+                $('#cc').attr('src',"/../../static/img/americanexpress.jpg");
+                $('#cctype').val("AmericanExpress");
+                //show American Express icon
+                break;
+
+            default:
+            //clear all icons?
+            //show error?
+        }
+    }
+
+    // or window.onload
+    document.addEventListener("DOMContentLoaded", function(){
+        var textbox = document.getElementById("payment.creditCardNumber");
+        textbox.addEventListener("keyup", handleEvent, false);
+        textbox.addEventListener("blur", handleEvent, false);
+    }, false);
+</script>
+<script type="text/javascript">
+    $('#cctype').on('change', function(){
+
+        switch (this.value)
+        {
+            case "MasterCard":
+
+                $('#cc').attr('src',"/../../static/img/mastercard.jpg");
+
+
+                break;
+
+            case "Visa":
+                $('#cc').attr('src',"/../../static/img/visa.jpg");
+
+                //show Visa icon
+                break;
+
+            case "AmericanExpress":
+                $('#cc').attr('src',"/../../static/img/americanexpress.jpg");
+
+                //show American Express icon
+                break;
+
+            default:
+            //clear all icons?
+            //show error?
+        }
+    })
 </script>
 
 </html>

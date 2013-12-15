@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sun.util.resources.LocaleData;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class UrlController {
     public String showOrder(ModelMap model) {
         Order order = new Order();
         order.setCreationDate(new Date());
+        order.setTotalPrice(new BigDecimal(0));
         orderRepository.save(order);
         //orderRepository.save(order);
         String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
