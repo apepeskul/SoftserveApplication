@@ -168,6 +168,20 @@
             </tr>
             </tfoot>
         </table>
+        <tfoot>
+        <tr>
+            <th>Totals:</th>
+            <th></th>
+            <th class="totalTotal"></th>
+            <th class="bookedTotal"></th>
+            <th class="availTotal"></th>
+            <th class="sickTotal"></th>
+            <th class="vacTotal"></th>
+            <th class="otTotal"></th>
+            <th class="naTotal"></th>
+        </tr>
+        </tfoot>
+
     </div>
    </div>
      <div class="row">
@@ -527,10 +541,6 @@
 
             ],
 
-            /*"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-
-            },*/
-
 
 
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
@@ -540,12 +550,8 @@
             },
             "iDisplayLength": 5,
             "aLengthMenu": [[5], [5]],
-            "bProcessing": true
-
-
-
-
-        } )
+            "bProcessing": true,
+           })
 
     });
 

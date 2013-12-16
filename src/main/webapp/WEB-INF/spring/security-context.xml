@@ -19,7 +19,7 @@
         <!--You'll change isAuthenticated() to permitAll if you fed to login every time-->
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/static/**" access="permitAll"/>
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/src/main/webapp" access="isAuthenticated()"/>
 
         <form-login login-page="/login"
                     default-target-url="/"

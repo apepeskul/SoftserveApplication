@@ -21,7 +21,9 @@
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
 
     <script src="/static/js/bootstrap.js"></script>
+    <script src="http://ethaizone.github.io/Bootstrap-Confirmation/assets/js/bootstrap-tooltip.js"></script>
 
+    <script src="/static/js/bootstrap-confirmation.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
     <script type="text/javascript" src="static/js/DT_bootstrap.js"></script>
 
@@ -223,7 +225,7 @@
             <div class="pagination-centered">
                 <div class="control-group">
                     <div class="controls">
-                        <input type="submit"  value="Add User" class="btn btn-success"/>
+                        <input type="submit"  value="Add User" class="btn btn-success" data-toggle="confirmation"/>
                         </form:form>
                     </div>
                 </div>
@@ -382,8 +384,8 @@
                  { "mDataProp": "email" },
                  { "mDataProp": "region" },
                  {   "sDefaultContent": "",
-                     "fnRender": function(o) { return '<form action="delete/' + o.aData["id"] + '" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
-                 },
+                     "fnRender": function(o) { return '<input type="button" id="delete/'+o.aData["id"]+ '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/delete/'+o.aData["id"]+'" /></form>'}
+                 },                                                                                                                                                          //
                  {   "sDefaultContent": "",
                      "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
                  }
@@ -398,7 +400,10 @@
             },
             "iDisplayLength": 5,
             "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
-            "bProcessing": true
+            "bProcessing": true,
+             "fnDrawCallback": function() {
+                 $("[id^=delete]").confirmation({singleton: true});
+             }
        } )
                  .columnFilter({
                      aoColumns: [
@@ -409,6 +414,7 @@
                          {type:"select", values : ['North', 'South', 'West', 'East']},
                          null,
                          null]});
+
 
     } );
 
@@ -459,6 +465,7 @@
 
     })
 </script>
+
 <script type="text/javascript">
     $(document).ready(function(){
                 $('form').each(function () {
