@@ -1,6 +1,7 @@
 package com.springapp.mvc.utils;
 
 import com.send.Sender;
+import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import com.springapp.mvc.repositories.UserRepository;
@@ -18,12 +19,17 @@ public class UserService {
 
     private Sender sender = new Sender();
 
+    Logger logger = Logger.getLogger(this.getClass());
+
+    private final String secretWord = "always wanna fly";
+
     public User getAuthenticatedUser(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user;
         try {
             user = userRepository.findByLogin(username);
         } catch (NullPointerException e){
+            logger.error("Attempt to access a non-existent user " + e);
             return null;
         }
 
@@ -43,13 +49,13 @@ public class UserService {
     }
 
     public String toHash (String login) {
-        login = "always wanna fly" + login;
+        login = secretWord + login;
 
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();  //TODO: exception Handling
+            logger.error("No access to the environment " + e);
         }
         md.update(login.getBytes());
 

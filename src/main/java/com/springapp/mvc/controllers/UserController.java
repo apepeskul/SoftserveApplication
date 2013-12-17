@@ -6,6 +6,7 @@ import com.springapp.mvc.model.UserSpecs;
 import com.springapp.mvc.repositories.RoleRepository;
 import com.springapp.mvc.repositories.UserRepository;
 import com.springapp.mvc.utils.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,8 @@ public class UserController {
     protected RoleRepository roleRepository;
 
     private UserService userService = new UserService();
+
+    Logger logger = Logger.getLogger(this.getClass());
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
@@ -140,7 +143,7 @@ public class UserController {
                 return "/activated";//TODO: url
             }
         } catch (RuntimeException e) {
-            e.printStackTrace(); //TODO: exception Handling
+            logger.error("Smth is wrong with the user "+ " " + e);
         }
 
         return "/activated";

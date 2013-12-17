@@ -6,6 +6,7 @@ import com.springapp.mvc.model.Price;
 import com.springapp.mvc.repositories.DimensionRepository;
 import com.springapp.mvc.repositories.ItemRepository;
 import com.springapp.mvc.repositories.PriceRepository;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

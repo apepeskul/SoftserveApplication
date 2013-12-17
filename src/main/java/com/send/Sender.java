@@ -1,5 +1,7 @@
 package com.send;
 
+import org.apache.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,17 +15,22 @@ import javax.mail.internet.MimeMessage;
 public class Sender {
 
     private String user;
+
     private String pass;
+
     private Properties properties;
+
+    Logger logger = Logger.getLogger(this.getClass());
 
     public Sender() {
         properties = new Properties();
         try {
-            properties.load(new InputStreamReader(new FileInputStream( "C:\\Users\\apepeskul\\workspace\\SoftserveApplication\\src\\main\\resources\\META-INF\\config.properties"),"UTF-8"));
+            properties.load(new InputStreamReader(new FileInputStream( "C:\\gitMaster17\\SoftserveApplication\\src\\main\\resources\\META-INF\\" +
+                    "config.properties"),"UTF-8"));
         } catch(FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("File config.properties isn't found " + e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Cannot read the file config.properties " + e);
         }
         this.user = properties.getProperty("mail.smtp.user");
         this.pass = properties.getProperty("mail.smtp.password");
@@ -43,7 +50,7 @@ public class Sender {
             message.setContent(text, "text/html");
             Transport.send(message);
         } catch (MessagingException e) {
-            throw new RuntimeException(e); // TODO: exception Handling
+            logger.error("The message wasn't sanding " + e);
         }
     }
 }

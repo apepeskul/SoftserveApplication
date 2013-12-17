@@ -1,6 +1,5 @@
 package com.springapp.mvc.controllers;
 
-import com.springapp.mvc.utils.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
