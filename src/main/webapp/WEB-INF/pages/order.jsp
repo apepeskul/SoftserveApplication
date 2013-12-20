@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/cupertino/jquery-ui.css" />
 
     <script src="/static/js/bootstrap.js"></script>
-
+    <script src="/static/js/bootstrap-confirmation.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../../static/js/DT_bootstrap.js"></script>
 
@@ -168,19 +168,7 @@
             </tr>
             </tfoot>
         </table>
-        <tfoot>
-        <tr>
-            <th>Totals:</th>
-            <th></th>
-            <th class="totalTotal"></th>
-            <th class="bookedTotal"></th>
-            <th class="availTotal"></th>
-            <th class="sickTotal"></th>
-            <th class="vacTotal"></th>
-            <th class="otTotal"></th>
-            <th class="naTotal"></th>
-        </tr>
-        </tfoot>
+
 
     </div>
    </div>
@@ -536,7 +524,8 @@
                 { "mDataProp": "quantity" },
 
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<button class="btn-mini btn-danger" id="deleteBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Delete</button>'}
+                    "fnRender": function(o) { return '<input type="button" id="delete/'+o.aData["id"]+ '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/rest/order/details/delete/'+${order.id}+'/'+o.aData["id"]+'" />'}
+                    //{ return '<button class="btn-mini btn-danger" id="deleteBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'">Delete</button>'}
                 }
 
             ],
@@ -551,6 +540,9 @@
             "iDisplayLength": 5,
             "aLengthMenu": [[5], [5]],
             "bProcessing": true,
+            "fnDrawCallback": function() {
+                $("[id^=delete]").confirmation({singleton: true, popout:true});
+            }
            })
 
     });

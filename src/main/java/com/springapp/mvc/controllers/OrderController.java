@@ -197,10 +197,14 @@ public class OrderController {
         return orderDetailsArray.toString();
     }*/
 
-    @RequestMapping( value = "/details/delete/{id}", method = RequestMethod.DELETE)
-    public String deleteOrderDetails(@PathVariable("id") Long id) {
-        orderDetaitlsRepository.delete(orderDetaitlsRepository.findOne(id));
-        return "redirect:/";  //TODO: URL
+    @RequestMapping( value = "/details/delete/{oid}/{id}")
+    public String deleteOrderDetails(@PathVariable ("oid") Long oid, @PathVariable("id") Long id) {
+        Order order = orderRepository.findOne(oid);
+        OrderDetails orderDetails =orderDetaitlsRepository.findOne(id);
+        order.deleteOrderDetail(orderDetails);
+        orderDetaitlsRepository.delete(orderDetails);
+        orderRepository.save(order);
+        return"redirect:/order/"+order.getId();
     }
 
     @RequestMapping(value = "/card/{id}", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})

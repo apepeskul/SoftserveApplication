@@ -384,7 +384,7 @@
                  { "mDataProp": "email" },
                  { "mDataProp": "region" },
                  {   "sDefaultContent": "",
-                     "fnRender": function(o) { return '<input type="button" id="delete/'+o.aData["id"]+ '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/delete/'+o.aData["id"]+'" /></form>'}
+                     "fnRender": function(o) { return '<input type="button" id="delete/'+o.aData["id"]+ '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/delete/'+o.aData["id"]+'" />'}
                  },                                                                                                                                                          //
                  {   "sDefaultContent": "",
                      "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
@@ -402,7 +402,7 @@
             "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
             "bProcessing": true,
              "fnDrawCallback": function() {
-                 $("[id^=delete]").confirmation({singleton: true});
+                 $("[id^=delete]").confirmation({singleton: true, popout:true});
              }
        } )
                  .columnFilter({

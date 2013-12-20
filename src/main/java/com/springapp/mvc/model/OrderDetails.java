@@ -58,6 +58,29 @@ import javax.persistence.*;
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrderDetails other = (OrderDetails) obj;
+
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + (this.id != null ? this.id.hashCode() : 0);
+       // hash = 53 * hash + this.age;
+        return hash;
+    }
    /* Item getItemId() {
         return itemId;
     }

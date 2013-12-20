@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
 
     <script src="/static/js/bootstrap.js"></script>
-
+    <script src="/static/js/bootstrap-confirmation.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
     <script type="text/javascript" src="/static/js/DT_bootstrap.js"></script>
 
@@ -201,7 +201,8 @@
                 { "mDataProp": "quantity" },
 
                 {   "sDefaultContent": "",
-                    "fnRender": function(o) { return '<form action="/rest/item/delete/' + o.aData["id"] + '" method="get"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>'}
+                    "fnRender": function(o)  { return '<input type="button" id="delete/'+o.aData["id"]+ '" class="btn btn-danger btn-mini"  value="Delete" data-toggle="confirmation" data-href="/rest/item/delete/'+o.aData["id"]+'" />'}
+
                 },
                 {   "sDefaultContent": "",
                     "fnRender": function(o) { return '<button class="btn-mini btn-warning" id="editBtn' + o.aData["id"] + '" value="'+o.aData["id"]+'" data-toggle="modal">Edit</button>'}
@@ -217,7 +218,10 @@
             },
             "iDisplayLength": 5,
             "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
-            "bProcessing": true
+            "bProcessing": true,
+            "fnDrawCallback": function() {
+                $("[id^=delete]").confirmation({singleton: true, popout:true});
+            }
         } )
 
     } );

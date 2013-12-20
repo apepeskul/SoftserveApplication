@@ -39,7 +39,7 @@ public class Order {
 
     /*@OneToMany  (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn( name="order_deteails_id", referencedColumnName = "id")*/
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn (name = "details_id")
 
     private Collection<OrderDetails> orderDetailsArray;
@@ -59,6 +59,10 @@ public class Order {
 
     public void  setOrderDetailsArray (Collection <OrderDetails> orderDetailsArray){
         this.orderDetailsArray=orderDetailsArray;
+    }
+
+    public void deleteOrderDetail (OrderDetails orderDetails){
+        this.getOrderDetails().remove(orderDetails);
     }
     // private Set<OrderDetails> orderDetailsSet = new HashSet<OrderDetails>();
 
