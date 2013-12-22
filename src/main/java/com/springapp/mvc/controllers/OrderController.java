@@ -202,6 +202,7 @@ public class OrderController {
         Order order = orderRepository.findOne(oid);
         OrderDetails orderDetails =orderDetaitlsRepository.findOne(id);
         order.deleteOrderDetail(orderDetails);
+        order.setTotalPrice(order.getTotalPrice().subtract(new BigDecimal(orderDetails.getPrice().getPrice() * orderDetails.getQuantity())));
         orderDetaitlsRepository.delete(orderDetails);
         orderRepository.save(order);
         return"redirect:/order/"+order.getId();
