@@ -54,19 +54,7 @@ public class User implements UserDetails {
     private Role role;
 
     @Basic
-    @Column(length = 32)
-    private String hashCheck;
-
-    @Basic
     private Boolean validation = false;
-
-    public String getHashCheck() {
-        return hashCheck;
-    }
-
-    public void setHashCheck(String hashCheck) {
-        this.hashCheck = hashCheck;
-    }
 
     public Boolean getValidation() {
         return validation;

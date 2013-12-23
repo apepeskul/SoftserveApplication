@@ -40,7 +40,7 @@ public class UserService {
 
         String message= "Dear " + user.getLogin() + ",<br>" +
                 "In order to help maintain the security of your account, please verify your email address by clicking the following link:<br>" +
-                "http://localhost:8080/validation/" + user.getHashCheck() +"<br>"+
+                "http://localhost:8080/login=" + user.getLogin() + "/validation/" + toHash(user.getLogin()) +"<br>"+
                 "Your email address will be used to assist you in changing your account credentials or regaining access " +
                 "to your account, should you ever need help with those things." +
                 "Thanks for helping us maintain the security of your account.<br>" +

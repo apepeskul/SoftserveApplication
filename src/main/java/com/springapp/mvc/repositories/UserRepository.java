@@ -14,7 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     @Query ("select u from account u where u.login = ?1")
     User findByLogin (String login);
     User findByEmail (String email);
-    User findByHashCheck (String hashCheck);
     List <User> findByRole (Role role);
     Page<User> findByFirstNameStartingWith(String firstName, Pageable pageable);
     Page<User> findAll(Pageable pageable);

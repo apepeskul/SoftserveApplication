@@ -88,9 +88,8 @@ public class UserController {
         }
         role = roleRepository.findById(roleId);
         user.setRole(role);
-        user.setHashCheck(userService.toHash(user.getLogin()));
         userRepository.save(user);
-        userService.sendingEmainCheck(userRepository.findByLogin(user.getLogin()));
+        userService.sendingEmainCheck(user);
 
         return "redirect:/";
     }
@@ -132,20 +131,21 @@ public class UserController {
     /*
     Update 10.12.2013
      */
-    @RequestMapping(value = "/validation/{hash}")
-    public String userValidation(@PathVariable("hash") String hashCheck) {
+    @RequestMapping(value = "/login={login}/validation/{hash}")
+    public String userValidation(@PathVariable("login") String login, @PathVariable("hash") String hashCheck) {
         try{
-            User user = userRepository.findByHashCheck(hashCheck);
-            if(user.getValidation()==false){
+            User user = userRepository.findByLogin(login);
+            if(user.getValidation()==false && userService.toHash(login).equals(hashCheck)){
+                System.out.println("login = [" + login + "], hashCheck = [" + hashCheck + "]");
                 user.setValidation(true);
                 userRepository.save(user);
             } else{
-                return "/activated";//TODO: url
+                return "/errors/409";
             }
         } catch (RuntimeException e) {
             logger.error("Smth is wrong with the user "+ " " + e);
         }
 
-        return "/activated";
+        return "/errors/200";
     }
 }
