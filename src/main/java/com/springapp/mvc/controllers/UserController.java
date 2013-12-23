@@ -84,7 +84,7 @@ public class UserController {
         String userExistsError = userExistsError(user);
         if(userExistsError != null) {
             request.getSession().setAttribute("errorCause", userExistsError);
-            return "redirect:/error";
+            return "redirect:/errors/409";
         }
         role = roleRepository.findById(roleId);
         user.setRole(role);
@@ -105,11 +105,11 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/error")
+    @RequestMapping(value = "/errors/409")
     public String userExistsError(ModelMap model, HttpServletRequest request) {
         model.addAttribute("errorCause", request.getSession().getAttribute("errorCause"));
 
-        return "/error";
+        return "/errors/409";
     }
 
     @RequestMapping("/delete/{userId}")
