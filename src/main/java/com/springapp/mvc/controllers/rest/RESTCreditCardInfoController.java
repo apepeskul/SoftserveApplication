@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/cardd")
+@RequestMapping(value = "/data/card")
 public class RESTCreditCardInfoController {
 
     @Autowired
@@ -34,21 +34,21 @@ public class RESTCreditCardInfoController {
     public String deleteCreditCardInfo(@PathVariable("id") Long id) {
         creditCardInfoRepository.delete(creditCardInfoRepository.findOne(id));
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String addCreditCardInfo(@ModelAttribute("creditCardInfo")CreditCardInfo creditCardInfo){
         creditCardInfoRepository.save(creditCardInfo);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String updateCreditCardInfo(@ModelAttribute("creditCardInfo")CreditCardInfo creditCardInfo){
         creditCardInfoRepository.save(creditCardInfo);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     /*

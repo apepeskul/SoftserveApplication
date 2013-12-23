@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/detailss")
+@RequestMapping(value = "/data/details")
 public class RESTOrderDetailsController {
 
     @Autowired
@@ -34,21 +34,21 @@ public class RESTOrderDetailsController {
     public String deleteOrderDetails(@PathVariable("id") Long id) {
         orderDetaitlsRepository.delete(orderDetaitlsRepository.findOne(id));
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addOrderDetails(@ModelAttribute("orderDetails")OrderDetails orderDetails){
         orderDetaitlsRepository.save(orderDetails);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String updateOrderDetails(@ModelAttribute("orderDetails")OrderDetails orderDetails){
         orderDetaitlsRepository.save(orderDetails);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     /*

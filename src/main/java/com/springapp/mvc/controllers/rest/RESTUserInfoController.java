@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/infoo")
+@RequestMapping(value = "/data/info")
 public class RESTUserInfoController {
 
     @Autowired
@@ -32,26 +32,26 @@ public class RESTUserInfoController {
 
     @RequestMapping (value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public String addUserInfo (@ModelAttribute("userInfo")UserInfo userInfo, String test){
+    public String addUserInfo (@ModelAttribute("userInfo")UserInfo userInfo){
         userInfoRepository.save(userInfo);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
 
-    @RequestMapping (value = "/update}", method = RequestMethod.PUT)
+    @RequestMapping (value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     public String updateUserInfo (@ModelAttribute("userInfo")UserInfo userInfo) {
         userInfoRepository.save(userInfo);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/delete/{userId}")
+    @RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
     public String deleteUserInfo(@PathVariable("userId") Long userId) {
         userInfoRepository.delete(userInfoRepository.findOne(userId));
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
     /*

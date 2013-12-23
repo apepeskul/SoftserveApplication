@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/orderr")
+@RequestMapping(value = "/data/order")
 
 public class RESTOrderController {
 
@@ -29,18 +29,18 @@ public class RESTOrderController {
         return orderRepository.findOne(id);
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editOrder(Order order){
         orderRepository.save(order);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String addOrder(Order order){
         orderRepository.save(order);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -54,7 +54,7 @@ public class RESTOrderController {
     public String deleteOrder(@PathVariable("id") Long id) {
         orderRepository.delete(orderRepository.findOne(id));
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     /*

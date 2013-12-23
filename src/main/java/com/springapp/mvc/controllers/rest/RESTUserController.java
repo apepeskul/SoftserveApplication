@@ -1,5 +1,6 @@
 package com.springapp.mvc.controllers.rest;
 
+import com.springapp.mvc.model.Role;
 import com.springapp.mvc.model.User;
 import com.springapp.mvc.repositories.UserRepository;
 import org.json.JSONException;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/userr")
+@RequestMapping(value = "/data/user")
 public class RESTUserController {
 
     @Autowired
@@ -31,18 +32,19 @@ public class RESTUserController {
         return userRepository.findAll();
     }
 
-    @RequestMapping (value = "/create", method = RequestMethod.POST)
-    public String createUser (@ModelAttribute("user") User user){
+    @RequestMapping (value = "/create", method = RequestMethod.PUT)
+    public String createUser (@ModelAttribute("user") User user,@ModelAttribute("roleId") Role roleId) {
+        user.setRole(roleId);
         userRepository.save(user);
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping (value = "/update", method = RequestMethod.PUT)
+    @RequestMapping (value = "/update", method = RequestMethod.POST)
     public String updateUser (@ModelAttribute("user")User user){
         userRepository.save(user);
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
     @Transactional
@@ -50,7 +52,7 @@ public class RESTUserController {
     public String deleteUser(@PathVariable("userId") Long userId) {
         userRepository.delete(userRepository.findOne(userId));
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
     /*

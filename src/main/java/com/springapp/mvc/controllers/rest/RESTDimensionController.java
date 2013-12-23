@@ -14,7 +14,7 @@ import java.util.List;
 //Representational State Transfer
 
 @Controller
-@RequestMapping(value = "/rest/dimensionn")
+@RequestMapping(value = "/data/dimension")
 public class RESTDimensionController {
     @Autowired
     private DimensionRepository dimensionRepository;
@@ -31,25 +31,25 @@ public class RESTDimensionController {
         return dimensionRepository.findAll();
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editDimension(@ModelAttribute("dimension")Dimension dimension){
         dimensionRepository.save(dimension);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String addDimension(@ModelAttribute("dimension")Dimension dimension){
         dimensionRepository.save(dimension);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteDimension(@PathVariable("id") Long id) {
         dimensionRepository.delete(dimensionRepository.findOne(id));
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     /*

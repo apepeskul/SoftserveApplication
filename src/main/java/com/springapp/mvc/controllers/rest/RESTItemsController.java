@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/itemm")
+@RequestMapping(value = "/data/item")
 public class RESTItemsController {
 
     @Autowired
@@ -30,25 +30,25 @@ public class RESTItemsController {
         return itemRepository.findAll();
     }
 
-    @RequestMapping( value = "/delete/{id}")
+    @RequestMapping( value = "/delete/{id}", method = RequestMethod.DELETE)
     public String deleteItem(@PathVariable("id") Long id) {
         itemRepository.delete(itemRepository.findOne(id));
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String addItem(@ModelAttribute("creditCardInfo")Item item){
         itemRepository.save(item);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateItem(@ModelAttribute("creditCardInfo")Item item){
         itemRepository.save(item);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     /*

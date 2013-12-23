@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/pricee")
+@RequestMapping(value = "/data/price")
 public class RESTPriceController {
     @Autowired
     private PriceRepository priceRepository;
@@ -29,25 +29,25 @@ public class RESTPriceController {
         return priceRepository.findAll();
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editPrice(@ModelAttribute("price")Price price){
         priceRepository.save(price);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String addPrice(@ModelAttribute("price")Price price){
         priceRepository.save(price);
 
-        return "redirect:/"; //TODO: URL
+        return "/errors/200";
     }
 
     @RequestMapping(value = "/delete/{userId}")
     public String deletePrice(@PathVariable("priceId") Long priceId) {
         priceRepository.delete(priceRepository.findOne(priceId));
 
-        return "redirect:/";  //TODO: URL
+        return "/errors/200";
     }
 
     /*

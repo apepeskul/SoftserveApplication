@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/rest/rolee")
+@RequestMapping(value = "/data/role")
 public class RESTRoleController {
 
     @Autowired
@@ -33,19 +33,22 @@ public class RESTRoleController {
     @RequestMapping (value = "/create", method = RequestMethod.POST)
     public String createRole (@ModelAttribute("user")Role role){
         roleRepository.save(role);
-        return "redirect:/";  //TODO: URL
+
+        return "/errors/200";
     }
 
     @RequestMapping (value = "/update", method = RequestMethod.PUT)
     public String updateRole (@ModelAttribute("user")Role role){
         roleRepository.save(role);
-        return "redirect:/";  //TODO: URL
+
+        return "/errors/200";
     }
 
-    @RequestMapping(value = "/delete/{roleId}")
+    @RequestMapping(value = "/delete/{roleId}",  method = RequestMethod.DELETE)
     public String deleteRole(@PathVariable("roleId") Long roleId) {
         roleRepository.delete(roleRepository.findOne(roleId));
-        return "redirect:/";  //TODO: URL
+
+        return "/errors/200";
     }
     /*
     update
@@ -59,6 +62,7 @@ public class RESTRoleController {
                                             @PathVariable("size") int size) {
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
         Page<Role> roles = roleRepository.findAll(new PageRequest(page, size));
+
         return roles.getContent();
     }
 
@@ -71,6 +75,7 @@ public class RESTRoleController {
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
         Page<Role> roles = roleRepository.findByDescriptionStartingWith("Ad",
                 new PageRequest(page, size));
+
         return roles.getContent();
     }
 }
