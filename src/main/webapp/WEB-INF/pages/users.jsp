@@ -22,12 +22,12 @@
 
     <script src="/static/js/bootstrap.js"></script>
     <script src="http://ethaizone.github.io/Bootstrap-Confirmation/assets/js/bootstrap-tooltip.js"></script>
-
+    <script src="/static/js/tooltip.js"></script>
     <script src="/static/js/bootstrap-confirmation.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
     <script type="text/javascript" src="static/js/DT_bootstrap.js"></script>
 
-    <script src="/static/js/filltable.js"></script>
+
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
     <script src="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/media/js/jquery.dataTables.columnFilter.js"></script>
 
@@ -88,7 +88,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Order Managment System</a>
+            <a class="brand" href="#">Order Management System</a>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
@@ -146,46 +146,46 @@
                     <form:form id="userform"  method="post" action="add"  commandName="user" class="form-horizontal">
 
                     <div class="control-group inline">
-                        <form:label cssClass="control-label" path="login">Login:</form:label>
+                        <form:label cssClass="control-label" path="login" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type login off new user">Login:</form:label>
                         <div  class="controls">
                             <form:input id="login" path="login"/>
 
                         </div>
                     </div>
                     <div class="control-group">
-                        <form:label cssClass="control-label" path="firstName">First Name:</form:label>
+                        <form:label cssClass="control-label" path="firstName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type firstname">First Name:</form:label>
                         <div class="controls">
                             <form:input id="firstName" path="firstName"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
+                        <form:label cssClass="control-label" path="lastName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type lastname">Last Name:</form:label>
                         <div class="controls">
                             <form:input id="lastName" path="lastName"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <form:label cssClass="control-label" path="password">Password:</form:label>
+                        <form:label cssClass="control-label" path="password" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type password">Password:</form:label>
                         <div class="controls">
                             <form:password id="password" path="password"/>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label for="confirmPassword" class="control-label">Confirm password:</label>
+                        <label for="confirmPassword" class="control-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Confirm password">Confirm password:</label>
                         <div class="controls">
 
                             <input type="password" id="confirmPassword" name="confirmPassword"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <form:label cssClass="control-label" path="email">Email:</form:label>
+                        <form:label cssClass="control-label" path="email" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type e-mail">Email:</form:label>
                         <div class="controls">
                             <form:input id="email" path="email"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <form:label cssClass="control-label" path="region">Region:</form:label>
+                        <form:label cssClass="control-label" path="region" data-toggle="tooltip" data-placement="top" title="" data-original-title="Select region">Region:</form:label>
                         <div class="controls">
                             <form:select path="region">
                                 <form:option value="North"></form:option>
@@ -204,7 +204,7 @@
                         <br>
                         <br>
                         <br>
-                        <label class="label">Roles:</label>
+                        <label class="label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Choose role of new user">Roles:</label>
                         <br>
 
                         <div class="controls">
@@ -225,7 +225,8 @@
             <div class="pagination-centered">
                 <div class="control-group">
                     <div class="controls">
-                        <input type="submit"  value="Add User" class="btn btn-success" data-toggle="confirmation"/>
+                        <input type="submit"  value="Add User" class="btn btn-success" data-toggle="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Click to create a new user"/>
+
                         </form:form>
                     </div>
                 </div>
@@ -241,50 +242,50 @@
                     <div class="modal-body" id="body" style="max-height: 600px">
                         <div class="row-fluid">
 
-                            <div class="span8" >
+                            <div class="span8" style="margin-top: 30px" >
                                 <form:form  method="post" action="update"  commandName="user" class="form-horizontal" >
 
                                 <div class="control-group">
                                     <form:hidden id="modalId" path="id"/>
-                                    <form:label cssClass="control-label" path="login">Login:</form:label>
+                                    <form:label cssClass="control-label" path="login" data-toggle="tooltip" data-placement="top" title="" data-original-title="Retype if you want to change login">Login:</form:label>
                                     <div class="controls">
                                         <form:input id="modalLogin" path="login"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <form:label cssClass="control-label" path="firstName">First Name:</form:label>
+                                    <form:label cssClass="control-label" path="firstName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Retype if you want to change firstname">First Name:</form:label>
                                     <div class="controls">
                                         <form:input id="modalFirstName" path="firstName"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <form:label cssClass="control-label" path="lastName">Last Name:</form:label>
+                                    <form:label cssClass="control-label" path="lastName" data-toggle="tooltip" data-placement="top" title="" data-original-title="Retype if you want to change lastname">Last Name:</form:label>
                                     <div class="controls">
                                         <form:input id="modalLastName" path="lastName"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <form:label cssClass="control-label" path="password">Password:</form:label>
+                                    <form:label cssClass="control-label" path="password" data-toggle="tooltip" data-placement="top" title="" data-original-title="Retype if you want to change password">Password:</form:label>
                                     <div class="controls">
                                         <form:password id="modalPassword" path="password"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label for="modalConfirmPassword" class="control-label">Confirm password:</label>
+                                    <label for="modalConfirmPassword" class="control-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Confirm password">Confirm password:</label>
                                     <div class="controls">
 
                                         <input type="password" id="modalConfirmPassword" name="modalConfirmPassword"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <form:label cssClass="control-label" path="email">Email:</form:label>
+                                    <form:label cssClass="control-label" path="email" data-toggle="tooltip" data-placement="top" title="" data-original-title="Retype if you want to change e-mail">Email:</form:label>
                                     <div class="controls">
                                         <form:input id="modalEmail" path="email"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <form:label cssClass="control-label" path="region">Region:</form:label>
+                                    <form:label cssClass="control-label" path="region" data-toggle="tooltip" data-placement="top" title="" data-original-title="Select region">Region:</form:label>
                                     <div class="controls">
                                         <form:select id="modalRegion" path="region">
                                             <form:option value="North"></form:option>
@@ -301,7 +302,7 @@
                                     <br>
                                     <br>
                                     <br>
-                                    <label class="label">Roles:</label>
+                                    <label class="label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Choose role">Roles:</label>
                                     <br>
                                     <div class="controls">
                                         <c:forEach items="${roles}" var="forrole">
