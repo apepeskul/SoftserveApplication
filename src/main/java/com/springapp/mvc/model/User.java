@@ -31,6 +31,7 @@ public class User implements UserDetails {
     private String lastName;
 
     @Basic
+    @Column(unique = true)
     @Email
     private String email;
 
@@ -40,7 +41,7 @@ public class User implements UserDetails {
     private String password;
 
     @Basic
-    @Column(length = 10)
+    @Column(length = 10, unique = true)
     @NotEmpty
     private String login;
 

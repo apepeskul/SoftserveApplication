@@ -29,7 +29,7 @@ public class UserController {
 
     Logger logger = Logger.getLogger(this.getClass());
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
      //   model.addAttribute("temprole", new Role());
         model.addAttribute("user", new User());

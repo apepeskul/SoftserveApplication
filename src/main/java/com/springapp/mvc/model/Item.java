@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
@@ -15,12 +17,15 @@ public class Item {
     private Long id;
 
     @Basic
+    @NotNull
     private String name;
 
     @Basic
     private String description;
 
     @Basic
+    @NotNull
+    @Min(value = 0)
     private Integer quantity;
 
     public void setId (Long id) {

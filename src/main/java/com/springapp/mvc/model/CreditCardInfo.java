@@ -1,6 +1,9 @@
 package com.springapp.mvc.model;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -10,24 +13,30 @@ public class CreditCardInfo {
     private Long id;
 
     @Basic
+    @NotNull
     private CreditCardType type;
 
     @Basic
+    @Size(min = 16, max = 16)
     @Column (length = 16)
     private String creditCardNumber;
 
     @Basic
+    @NotNull
     private Long CVV2Code;
 
     @Basic
+    @NotNull
     @Temporal(value=TemporalType.DATE)
     private Date expiryDate;
 
     @Basic
+    @NotNull
     @Temporal(value=TemporalType.DATE)
     private Date startDate;       // maestro only
 
     @Basic
+    @NotNull
     private Long issueNumber; // maestro only
 
     public Long getId() {

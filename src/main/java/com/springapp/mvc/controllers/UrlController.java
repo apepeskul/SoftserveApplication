@@ -3,7 +3,10 @@ package com.springapp.mvc.controllers;
 import com.springapp.mvc.model.*;
 import com.springapp.mvc.repositories.*;
 
+import com.springapp.mvc.security.CustomAuthenticationProvider;
+import com.springapp.mvc.utils.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -37,6 +41,29 @@ public class UrlController {
 
     @Autowired
     ItemRepository itemRepository;
+
+    @Autowired
+    UserService userService;
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getStartUrl(ModelMap model) {
+        HashMap<String, String> pageForRole = new HashMap<String, String>();
+        pageForRole.put("Admin", "admin");
+        pageForRole.put("Customer", "orders");
+        pageForRole.put("Merchandiser", "orders");
+        pageForRole.put("Supervisor", "items");
+        pageForRole.put("Anonymous", "login");
+        pageForRole.put("God", "admin");
+
+        String userRoleDescription;
+
+        try {
+            userRoleDescription = userService.getAuthenticatedUser().getRole().getDescription();
+        } catch (NullPointerException e){
+            userRoleDescription = "Admin";
+        }
+        return "redirect:/" + pageForRole.get(userRoleDescription);
+    }
 
     @RequestMapping(value = "/orders",  method = RequestMethod.GET)
     public String listOrders(ModelMap model) {

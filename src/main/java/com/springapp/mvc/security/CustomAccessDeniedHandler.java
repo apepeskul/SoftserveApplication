@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
@@ -25,16 +27,17 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     }
 
     private String getAccessDeniedMessage(String requestURL){
-        String[] adminPages = {"/add", "/edit", "/users", "/delete"};
-        String[] merchandiserPages = {"/rest/item/", "/items", "/item"};
+        String[] adminPages = {"/add", "/edit", "/users", "/delete", "/admin"};
+        String[] merchandiserPages = {"/rest/order/", "/order"};
+        String[] supervisorPages = {"/rest/item/", "/item"};
         String result = "This page is only for ";
 
         if(containsStartsWith(adminPages, requestURL)){
             result += "admin";
-        } else if(containsStartsWith(merchandiserPages, requestURL)){
-            result += "merchandiser";
+        } else if(containsStartsWith(supervisorPages, requestURL)){
+            result += "supervisor";
         } else {
-            result = "Просто access denied";
+            result += "merchandiser or customer";
         }
         return result;
     }

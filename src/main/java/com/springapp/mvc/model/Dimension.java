@@ -1,6 +1,7 @@
 package com.springapp.mvc.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Dimension {
@@ -9,9 +10,11 @@ public class Dimension {
     private Long id;
 
     @Basic
+    @NotNull
     private String name;
 
     @Basic
+    @NotNull
     private Integer multiplex;
 
     public Long getDimensionId() {

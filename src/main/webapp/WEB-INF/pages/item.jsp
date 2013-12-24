@@ -64,7 +64,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
-                    <li><a href="/"><i class="icon-user icon white"></i> Administration</a></li>
+                    <li><a href="/admin"><i class="icon-user icon white"></i> Administration</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-shopping-cart icon white"></i> Orders <b class="caret"></b></a>
                         <ul class="dropdown-menu">
