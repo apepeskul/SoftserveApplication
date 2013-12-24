@@ -25,7 +25,7 @@
     <script src="/static/js/bootstrap-confirmation.js"></script>
     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../../static/js/DT_bootstrap.js"></script>
-
+    <script src="/static/js/tooltip.js"></script>
 
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
     <script src="http://jquery-datatables-column-filter.googlecode.com/svn/trunk/media/js/jquery.dataTables.columnFilter.js"></script>
@@ -87,7 +87,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Order Managment System</a>
+            <a class="brand" href="#">Order Management System</a>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
@@ -135,7 +135,7 @@
 
    <div class="row" style="margin-top: 40px">
     <div class="span 12">
-        <button class="btn btn-primary" id="add_item" name = "add_item">Add item</button>
+        <button class="btn btn-primary" id="add_item" name = "add_item" data-toggle="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Click to add item">Add item</button>
         <h1 align="center">Order details</h1>
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="orderDetailsTable">
             <thead>
@@ -180,14 +180,14 @@
 
              <form:hidden path="customerId" value= "${user.id}" />
             <div class="control-group">
-                <form:label cssClass="control-label" path="id">Order #:</form:label>
+                <form:label cssClass="control-label" path="id"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Number of current order">Order #:</form:label>
                 <div  class="controls">
                     <form:input id="id" path="id"/>
 
                 </div>
             </div>
                 <div class="control-group">
-                    <form:label cssClass="control-label" path="status">Status:</form:label>
+                    <form:label cssClass="control-label" path="status" data-toggle="tooltip" data-placement="top" title="" data-original-title="Status of current order">Status:</form:label>
                     <div class="controls">
                         <form:select path="status">
                             <form:option value="Created"></form:option>
@@ -198,7 +198,7 @@
                     </div>
                 </div>
             <div class="control-group">
-                <form:label cssClass="control-label" path="totalPrice">Total price:</form:label>
+                <form:label cssClass="control-label" path="totalPrice" data-toggle="tooltip" data-placement="top" title="" data-original-title="Price of all ordered items">Total price:</form:label>
                 <div class="controls">
                     <form:input id="totalPrice" path="totalPrice"/>
                 </div>
@@ -210,30 +210,30 @@
                     </div>
                 </div>
             <div class="control-group">
-                 <form:label cssClass="control-label" path="creationDate">Date of ordering:</form:label>
+                 <form:label cssClass="control-label" path="creationDate"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Date of creation order" >Date of ordering:</form:label>
                 <div class="controls">
                     <fmt:formatDate value="${order.creationDate}" var="creationDate" pattern="dd/MM/yyyy" />
-                    <form:input id="creationDate" path="creationDate" value="${creationDate}" />
+                    <form:input id="creationDate" path="creationDate" value="${creationDate}" disabled="true" />
                    <%-- <form:input id="creationDate" path="creationDate"/>--%>
                 </div>
             </div>
                 <div class="control-group">
-                    <form:label cssClass="control-label" path="preferableDate">Preferable delivery date:</form:label>
+                    <form:label cssClass="control-label" path="preferableDate"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Choose preferable date of delivering">Preferable delivery date:</form:label>
                     <div class="controls">
                         <fmt:formatDate value="${order.preferableDate}" var="preferableDate" pattern="dd/MM/yyyy" />
                         <form:input id="preferableDate" path="preferableDate" value="${preferableDate}"  />
                     </div>
                 </div>
                 <div class="control-group">
-                    <form:label cssClass="control-label" path="deliveryDate">Delivery date:</form:label>
+                    <form:label cssClass="control-label" path="deliveryDate"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Date of delivering">Delivery date:</form:label>
                     <div class="controls">
                         <fmt:formatDate value="${order.deliveryDate}" var="deliveryDate" pattern="dd/MM/yyyy" />
-                        <form:input id="deliveryDate" path="deliveryDate" value="${deliveryDate}" />
+                        <form:input id="deliveryDate" path="deliveryDate" value="${deliveryDate}" disabled="true" />
                     </div>
                 </div>
 
         <div class="control-group">
-            <form:label cssClass="control-label" path="merchId">Assignee:</form:label>
+            <form:label cssClass="control-label" path="merchId"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Please select merchandiser">Assignee:</form:label>
             <div class="controls">
                 <form:select path="merchId">
                     <c:forEach items="${merchs}" var="merch">
@@ -248,7 +248,7 @@
         <div class=" span5 offset1" style="margin-top: 40px">
             <div class="control-group">
                 <input type="hidden" id="orderId" name="orderId" value="${order.id}">
-                <form:label cssClass="control-label" path="payment.type">Credit card type:</form:label>
+                <form:label cssClass="control-label" path="payment.type"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Choose type of credit card or skip this and enter credit card number. Type will be chosen automaticly">Credit card type:</form:label>
                 <div class="controls">
                     <form:select id="cctype" path="payment.type">
                         <form:option value="Visa"></form:option>
@@ -262,35 +262,35 @@
             </div>
 
             <div class="control-group">
-                <form:label cssClass="control-label" path="payment.creditCardNumber">Credit card number:</form:label>
+                <form:label cssClass="control-label" path="payment.creditCardNumber" data-toggle="tooltip" data-placement="top" title="" data-original-title="Enter your credit card number" >Credit card number:</form:label>
                 <div class="controls">
                     <form:input id="payment.creditCardNumber" path="payment.creditCardNumber"/>
                 </div>
             </div>
             <div class="control-group">
-                <form:label cssClass="control-label" path="payment.CVV2Code">CVV2 code:</form:label>
+                <form:label cssClass="control-label" path="payment.CVV2Code" data-toggle="tooltip" data-placement="top" title="" data-original-title="Enter CVV2 code">CVV2 code:</form:label>
                 <div class="controls">
                     <form:input id="payment.CVV2Code" path="payment.CVV2Code"/>
                 </div>
             </div>
             <div class="control-group">
-                <form:label cssClass="control-label" path="payment.expiryDate">Expiry date:</form:label>
+                <form:label cssClass="control-label" path="payment.expiryDate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Select credit card expiry date">Expiry date:</form:label>
                 <div class="controls">
                     <fmt:formatDate value="${order.payment.expiryDate}" var="expiryDate" pattern="dd/MM/yyyy" />
                     <form:input id="expiryDate" path="payment.expiryDate" value="${expiryDate}" />
                 </div>
             </div>
             <div class="control-group">
-                <form:label cssClass="control-label" path="payment.startDate">Start date (Maestro only):</form:label>
+                <form:label cssClass="control-label" path="payment.startDate" data-toggle="tooltip" data-placement="top" title="" data-original-title="This option is aviable only for Maestro cards">Start date (Maestro only):</form:label>
                 <div class="controls">
                     <fmt:formatDate value="${order.payment.startDate}" var="startDate" pattern="dd/MM/yyyy" />
-                    <form:input id="startDate" path="payment.startDate" value="${startDate}" />
+                    <form:input id="startDate" path="payment.startDate" value="${startDate}" disabled="true" />
                 </div>
             </div>
             <div class="control-group">
-                <form:label cssClass="control-label" path="payment.issueNumber">Issue number (Maestro only):</form:label>
+                <form:label cssClass="control-label" path="payment.issueNumber" data-toggle="tooltip" data-placement="top" title="" data-original-title="This option is aviable only for Maestro cards">Issue number (Maestro only):</form:label>
                 <div class="controls">
-                    <form:input id="payment.issueNumber" path="payment.issueNumber"/>
+                    <form:input id="payment.issueNumber" path="payment.issueNumber" disabled="true"/>
                 </div>
             </div>
             </div>
@@ -299,7 +299,7 @@
         <div class="pagination-centered">
             <div class="control-group">
                 <div class="controls">
-                    <input type="submit"  value="Add Order" class="btn btn-success"/>
+                    <input type="submit"  value="Add Order" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to create or update your order"/>
                     </form:form>
                 </div>
             </div>
@@ -343,20 +343,20 @@
                      <input type="hidden" id="oid" name="oid" value="${order.id}"/>
                  <div class="control-group">
                      <input type="hidden" name="pid"  id="priceId"/>
-                        <form:label cssClass="control-label" path="price.itemId">Item:</form:label>
+                        <form:label cssClass="control-label" path="price.itemId" data-toggle="tooltip" data-placement="top" title="" data-original-title="You add this item to cart">Item:</form:label>
                     <div class="controls">
                         <form:input id="item" type="text" path="price.itemId" disabled="true"/>
                     </div>
                      </div>
 
                      <div class="control-group">
-                         <form:label path="price.price" cssClass="control-label">Price:</form:label>
+                         <form:label path="price.price" cssClass="control-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Price for each additional dimension">Price:</form:label>
                          <div class="controls">
                              <form:input id="price" path="price.price" type="text" disabled="true"/>
                          </div>
                      </div>
                      <div class="control-group">
-                         <form:label path="quantity" cssClass="control-label">Quantity:</form:label>
+                         <form:label path="quantity" cssClass="control-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type quantity of dimension">Quantity:</form:label>
                          <div class="controls">
                              <form:input path="quantity" id="quantity" type="text"/>
                          </div>
@@ -368,7 +368,7 @@
                     </div>
                 </div>--%>
                      <div class="control-group">
-                         <form:label path="price.dimensionId" cssClass="control-label">Dimension:</form:label>
+                         <form:label path="price.dimensionId" cssClass="control-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Select dimansion">Dimension:</form:label>
                          <div class="controls">
                              <form:select id="dimensionId" name="dm" path="price.dimensionId" >
 

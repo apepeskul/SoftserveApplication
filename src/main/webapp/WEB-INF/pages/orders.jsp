@@ -79,7 +79,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Order Managment System</a>
+            <a class="brand" href="#">Order Management System</a>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>

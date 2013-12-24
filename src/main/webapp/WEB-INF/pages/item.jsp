@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Order Managment System</title>
+    <title>Order Management System</title>
 
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.css" />
     <script src="/static/js/bootstrap.js"></script>
     <script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
-
+    <script src="/static/js/tooltip.js"></script>
     <style>
         label.valid {
             width: 24px;
@@ -60,7 +60,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Order Managment System</a>
+            <a class="brand" href="#">Order Management System</a>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
@@ -116,27 +116,27 @@
             <form:form id="itemform"  method="post" action="/rest/item/add"  commandName="item" class="form-horizontal">
 
                 <div class="control-group">
-                    <form:label cssClass="control-label" path="name">Name:</form:label>
+                    <form:label cssClass="control-label" path="name" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type item name">Name:</form:label>
                     <div  class="controls">
                         <form:input id="name" path="name"/>
 
                     </div>
                 </div>
                 <div class="control-group">
-                    <form:label cssClass="control-label" path="description">Description:</form:label>
+                    <form:label cssClass="control-label" path="description" data-toggle="tooltip" data-placement="top" title="" data-original-title="Select description">Description:</form:label>
                     <div class="controls">
                         <form:textarea id="description" path="description"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <form:label cssClass="control-label" path="quantity">Quantity:</form:label>
+                    <form:label cssClass="control-label" path="quantity" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type aviable quantity">Quantity:</form:label>
                     <div class="controls">
                         <form:input id="quantity" path="quantity"/>
                     </div>
                 </div>
 
 
-                <input style="margin-left: 200px" type="submit"  value="Add item" class="btn btn-success"/>
+                <input style="margin-left: 200px" type="submit"  value="Add item" class="btn btn-success" data-toggle="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Click to create a new item"/>
 
             </form:form>
         </div>
@@ -146,7 +146,7 @@
             <form:form id="priceform"  method="post" action="/rest/item/price/add"  commandName="price" class="form-horizontal">
 
                 <div class="control-group">
-                    <label for="items" class="control-label">Item:</label>
+                    <label for="items" class="control-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Select item from list">Item:</label>
                     <div class="controls">
                         <select id="items" name="itm">
                             <c:forEach items="${items}" var="item">
@@ -157,7 +157,7 @@
                 </div>
 
             <div class="control-group">
-                <label for="dimensions" class="control-label">Dimension:</label>
+                <label for="dimensions" class="control-label" data-toggle="tooltip" data-placement="top" title="" data-original-title="Select dimansion">Dimension:</label>
                 <div class="controls">
             <select id="dimensions" name="dm" >
 
@@ -171,12 +171,12 @@
 
 
             <div class="control-group">
-                <form:label cssClass="control-label" path="price">Price:</form:label>
+                <form:label cssClass="control-label" path="price" data-toggle="tooltip" data-placement="top" title="" data-original-title="Type price for each dimansion">Price:</form:label>
                 <div class="controls">
                     <form:input id="price" path="price"/>
                     </div>
                 </div>
-                <input style="margin-left: 200px" type="submit"  value="Add price" class="btn btn-success"/>
+                <input style="margin-left: 200px" type="submit"  value="Add price" class="btn btn-success" data-toggle="tooltip" data-toggle="tooltip" data-placement="right" title="" data-original-title="Click to set price"/>
             </form:form>
         </div>
     </div>
