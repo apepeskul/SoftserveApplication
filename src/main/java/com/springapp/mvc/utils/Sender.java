@@ -1,4 +1,4 @@
-package com.send;
+package com.springapp.mvc.utils;
 
 import org.apache.log4j.Logger;
 

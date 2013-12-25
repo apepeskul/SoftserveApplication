@@ -1,6 +1,5 @@
 package com.springapp.mvc.utils;
 
-import com.send.Sender;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
