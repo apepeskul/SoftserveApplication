@@ -213,7 +213,7 @@
                  <form:label cssClass="control-label" path="creationDate"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Date of creation order" >Date of ordering:</form:label>
                 <div class="controls">
                     <fmt:formatDate value="${order.creationDate}" var="creationDate" pattern="dd/MM/yyyy" />
-                    <form:input id="creationDate" path="creationDate" value="${creationDate}" disabled="true" />
+                    <form:input id="creationDate" path="creationDate" value="${creationDate}"/>
                    <%-- <form:input id="creationDate" path="creationDate"/>--%>
                 </div>
             </div>
@@ -290,7 +290,7 @@
             <div class="control-group">
                 <form:label cssClass="control-label" path="payment.issueNumber" data-toggle="tooltip" data-placement="top" title="" data-original-title="This option is aviable only for Maestro cards">Issue number (Maestro only):</form:label>
                 <div class="controls">
-                    <form:input id="payment.issueNumber" path="payment.issueNumber" disabled="true"/>
+                    <form:input id="issueNumber" path="payment.issueNumber" disabled="true"/>
                 </div>
             </div>
             </div>
@@ -589,18 +589,24 @@
 
                 $('#cc').attr('src',"/../../static/img/mastercard.jpg");
                 $('#cctype').val("MasterCard");
+                $('#issueNumber').attr('disabled', true);
+                $('#startDate').attr('disabled', true);
 
                 break;
 
             case "visa":
                 $('#cc').attr('src',"/../../static/img/visa.jpg");
                 $('#cctype').val("Visa");
+                $('#issueNumber').attr('disabled', true);
+                $('#startDate').attr('disabled', true);
                 //show Visa icon
                 break;
 
             case "amex":
                 $('#cc').attr('src',"/../../static/img/americanexpress.jpg");
                 $('#cctype').val("AmericanExpress");
+                $('#issueNumber').attr('disabled', true);
+                $('#startDate').attr('disabled', true);
                 //show American Express icon
                 break;
 
@@ -618,35 +624,115 @@
     }, false);
 </script>
 <script type="text/javascript">
+    $(document).ready(function() {
+      if ($('#cctype').val()=="Visa"){
+          $('#cc').attr('src',"/../../static/img/visa.jpg"); }
+          else if ($('#cctype').val()=="MasterCard"){
+          $('#cc').attr('src',"/../../static/img/mastercard.jpg");
+          }
+          else if ($('#cctype').val()=="AmericanExpress"){
+          $('#cc').attr('src',"/../../static/img/americanexpress.jpg");
+      }
+      else if ($('#cctype').val()=="Maestro"){
+          $('#cc').attr('src',"/../../static/img/maestro.jpg");
+          $('#issueNumber').attr('disabled', false);
+          $('#startDate').attr('disabled', false);
+      }
+
+
+    })
+</script>
+<script type="text/javascript">
     $('#cctype').on('change', function(){
 
         switch (this.value)
         {
-            case "MasterCard":
-
+            case "MasterCard":{
+                $('#issueNumber').attr('disabled', true);
+                $('#startDate').attr('disabled', true);
                 $('#cc').attr('src',"/../../static/img/mastercard.jpg");
+            }
 
 
                 break;
 
-            case "Visa":
+            case "Visa":{
+                $('#issueNumber').attr('disabled', true);
+                $('#startDate').attr('disabled', true);
                 $('#cc').attr('src',"/../../static/img/visa.jpg");
+            }
 
                 //show Visa icon
                 break;
 
-            case "AmericanExpress":
+            case "AmericanExpress": {
+                $('#issueNumber').attr('disabled', true);
+                $('#startDate').attr('disabled', true);
                 $('#cc').attr('src',"/../../static/img/americanexpress.jpg");
+            }
 
                 //show American Express icon
                 break;
-            case "Maestro":
+            case "Maestro": {
                 $('#cc').attr('src',"/../../static/img/maestro.jpg");
+                $('#issueNumber').attr('disabled', false);
+                $('#startDate').attr('disabled', false);
+            }
             default:
             //clear all icons?
             //show error?
         }
     })
 </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+                $('#orderform').validate(
+
+                                    {
+                                        rules: {
+                                            id: {
+                                                digits: 2,
+                                                required: true
+                                            },
+                                            totalPrice: {
+                                                required: true
+
+                                            },
+                                            "payment.creditCardNumber": {
+                                                minlength: 12,
+                                                digits: true,
+                                                required: true
+
+                                            },
+                                            "payment.CVV2Code": {
+                                                minlength: 3,
+                                                maxlength: 3,
+                                                digits: true,
+                                                required: true
+
+                                            }
+
+
+
+                                        },
+                                        highlight: function(element) {
+                                            $(element).closest('.control-group').removeClass('success').addClass('error');
+                                        },
+                                        success: function(element) {
+                                            element
+                                                    .text('OK!').addClass('valid')
+                                                    .closest('.control-group').removeClass('error').addClass('success');
+                                        }
+
+                                    })
+                $('#creationDate').attr('disabled', true);
+                        }
+
+
+
+    );
+    // end document.ready
+</script>
+
 
 </html>

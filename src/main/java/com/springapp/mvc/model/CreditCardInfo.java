@@ -31,12 +31,12 @@ public class CreditCardInfo {
     private Date expiryDate;
 
     @Basic
-    @NotNull
+
     @Temporal(value=TemporalType.DATE)
     private Date startDate;       // maestro only
 
     @Basic
-    @NotNull
+
     private Long issueNumber; // maestro only
 
     public Long getId() {
