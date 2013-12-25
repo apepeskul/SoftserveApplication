@@ -35,6 +35,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Wrong password.");
         }
 
+//        if(!user.isEnabled()){
+//            throw new BadCredentialsException("User not authenticated");
+//        }
+
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
 
         return new UsernamePasswordAuthenticationToken(username, user.getPassword(), authorities);
