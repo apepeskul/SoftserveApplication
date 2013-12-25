@@ -6,5 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderDetaitlsRepository extends JpaRepository<OrderDetails, Long> {
+
     Page<OrderDetails> findAll(Pageable pageable);
+
 }
