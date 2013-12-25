@@ -133,7 +133,7 @@ public class UserController {
         try{
             User user = userRepository.findByLogin(login);
             if(user.getValidation()==false && userService.toHash(login).equals(hashCheck)){
-                System.out.println("login = [" + login + "], hashCheck = [" + hashCheck + "]");
+                logger.info("login = [" + login + "], hashCheck = [" + hashCheck + "]");
                 user.setValidation(true);
                 userRepository.save(user);
             } else{
