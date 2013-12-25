@@ -14,14 +14,15 @@
         <intercept-url pattern="/edit/**" access="hasAnyRole('Admin', 'God')"/>
         <intercept-url pattern="/users/**" access="hasAnyRole('Admin', 'God')"/>
 
-        <intercept-url pattern="/item/**" access="hasAnyRole('Supervisor', 'God')"/>
+        <intercept-url pattern="/item/**" access="hasAnyRole('Supervisor', 'God',)"/>
         <intercept-url pattern="/items/**" access="hasAnyRole('Supervisor', 'God')"/>
-        <intercept-url pattern="/rest/item/**" access="hasAnyRole('Supervisor', 'God')"/>
 
-        <intercept-url pattern="/order/**" access="hasAnyRole('Customer', 'God')"/>
-        <intercept-url pattern="/orders/**" access="hasAnyRole('Customer', 'God')"/>
-        <intercept-url pattern="/order/**" access="hasAnyRole('Merchandiser', 'God')"/>
-        <intercept-url pattern="/orders/**" access="hasAnyRole('Merchandiser', 'God')"/>
+        <intercept-url pattern="/rest/item/**" access="hasAnyRole('Supervisor', 'God', 'Customer', 'Merchandiser')"/>
+        <intercept-url pattern="/rest/items/**" access="hasAnyRole('Supervisor', 'God', 'Customer', 'Merchandiser')"/>
+        <intercept-url pattern="/order/**" access="hasAnyRole('Customer', 'God', 'Merchandiser')"/>
+        <intercept-url pattern="/orders/**" access="hasAnyRole('Customer', 'God', 'Merchandiser')"/>
+        <intercept-url pattern="/rest/order/**" access="hasAnyRole('Customer', 'God', 'Merchandiser')"/>
+        <intercept-url pattern="/rest/orders/**" access="hasAnyRole('Customer', 'God', 'Merchandiser')"/>
 
         <!--You'll change isAuthenticated() to permitAll if you fed to login every time-->
         <intercept-url pattern="/login" access="permitAll"/>
