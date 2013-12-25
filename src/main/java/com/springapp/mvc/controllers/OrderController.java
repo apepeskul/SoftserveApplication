@@ -2,7 +2,6 @@ package com.springapp.mvc.controllers;
 
 import com.springapp.mvc.model.*;
 import com.springapp.mvc.repositories.*;
-import org.hsqldb.types.Collation;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,25 +23,25 @@ import java.util.*;
 public class OrderController {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    OrderDetaitlsRepository orderDetaitlsRepository;
+    private OrderDetaitlsRepository orderDetaitlsRepository;
 
     @Autowired
-    CreditCardInfoRepository creditCardInfoRepository;
+    private CreditCardInfoRepository creditCardInfoRepository;
 
     @Autowired
-    DimensionRepository dimensionRepository;
+    private DimensionRepository dimensionRepository;
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    PriceRepository priceRepository;
+    private PriceRepository priceRepository;
 
    /* @InitBinder
     public void priceBinder(WebDataBinder binder) {
@@ -205,6 +204,7 @@ public class OrderController {
         order.setTotalPrice(order.getTotalPrice().subtract(new BigDecimal(orderDetails.getPrice().getPrice() * orderDetails.getQuantity())));
         orderDetaitlsRepository.delete(orderDetails);
         orderRepository.save(order);
+
         return"redirect:/order/"+order.getId();
     }
 
@@ -217,6 +217,7 @@ public class OrderController {
     @RequestMapping(value = "/card/edit", method = RequestMethod.PUT, produces={"application/json; charset=UTF-8"})
     public String editCardInfo(CreditCardInfo creditCardInfo){
         creditCardInfoRepository.save(creditCardInfo);
+
         return "redirect:/"; //TODO: URL
     }
 
@@ -234,34 +235,18 @@ public class OrderController {
         return "redirect:/";  //TODO: URL
     }
 
-    /*
-    update
-     */
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
-
-    @RequestMapping(value = "/card/page/{page}/{size}", method = RequestMethod.GET)
+    //exp 500. dont use !
+    @RequestMapping(value = "/page/{page}/{size}", method = RequestMethod.GET)
     @ResponseBody
-    public List<CreditCardInfo> getPageInfo(@PathVariable ("page") int page,
-                                            @PathVariable("size") int size) {
+    public List<Order> getPageOrder(@PathVariable ("page") int page,
+                                    @PathVariable("size") int size){
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<CreditCardInfo> infos = creditCardInfoRepository.findAll(new PageRequest(page, size));
+        Page<Order> orders = orderRepository.findByOrderNumberContaining((long)1, new PageRequest(page, size));
 
-        return infos.getContent();
-    }
-
-    //TODO: @param name
-    @RequestMapping(value = "/card/page/starting/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<CreditCardInfo> getSomeInfoByName(
-            @PathVariable ("page") int page,
-            @PathVariable("size") int size){
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-
-        Page<CreditCardInfo> infos = creditCardInfoRepository.findByCreditCardNumberStartingWith("32",
-                new PageRequest(page, size));
-
-        return infos.getContent();
+        return orders.getContent();
     }
 
 }

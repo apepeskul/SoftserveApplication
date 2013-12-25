@@ -8,6 +8,8 @@ import com.springapp.mvc.repositories.UserRepository;
 import com.springapp.mvc.utils.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,7 +25,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    protected RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     private UserService userService = new UserService();
 
@@ -75,9 +77,6 @@ public class UserController {
         return "users";
     }
 
-    /*
-    updated 10.12.13
-     */
     @RequestMapping(value = "/add")
     public String addUser(@ModelAttribute User user, @RequestParam (value = "rid", required = false) Long roleId,
                           Role role, BindingResult result, HttpServletRequest request) {
@@ -97,10 +96,10 @@ public class UserController {
     @RequestMapping(value = "/update")
     public String updateUser(@ModelAttribute User user, @RequestParam (value = "rid", required = false) Long roleId,
                           Role role, BindingResult result, HttpServletRequest request) {
-
         role = roleRepository.findById(roleId);
         user.setRole(role);
         userRepository.save(user);
+
         return "redirect:/";
     }
 
@@ -128,9 +127,7 @@ public class UserController {
         return null;
     }
 
-    /*
-    Update 10.12.2013
-     */
+
     @RequestMapping(value = "/login={login}/validation/{hash}")
     public String userValidation(@PathVariable("login") String login, @PathVariable("hash") String hashCheck) {
         try{
@@ -148,4 +145,20 @@ public class UserController {
 
         return "/errors/200";
     }
+
+    //TODO: @param name
+    //TODO:     sort field
+    //TODO:     desc asc
+    @RequestMapping(value = "/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getByCondition(
+            @PathVariable ("page") int page,
+            @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<User> users = userRepository.findByLoginContainingAndEmailContainingAndFirstNameContaining("A", "", "",
+                new PageRequest(page, size));
+
+        return users.getContent();
+    }
+
 }

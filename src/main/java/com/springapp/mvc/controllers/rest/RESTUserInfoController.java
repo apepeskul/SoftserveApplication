@@ -54,9 +54,8 @@ public class RESTUserInfoController {
         return "/errors/200";
     }
 
-    /*
-    update
-     */
+
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
 

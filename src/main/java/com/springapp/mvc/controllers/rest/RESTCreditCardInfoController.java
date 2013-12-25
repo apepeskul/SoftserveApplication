@@ -51,9 +51,7 @@ public class RESTCreditCardInfoController {
         return "/errors/200";
     }
 
-    /*
-    update
-     */
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
 
@@ -68,13 +66,15 @@ public class RESTCreditCardInfoController {
     }
 
     //TODO: @param name
+    //TODO:     sort field
+    //TODO:     desc asc
     @RequestMapping(value = "/page/starting/{page}/{size}", method = RequestMethod.GET)
     @ResponseBody
     public List<CreditCardInfo> getSomeInfoByName(
                                          @PathVariable ("page") int page,
                                          @PathVariable("size") int size){
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<CreditCardInfo> infos = creditCardInfoRepository.findByCreditCardNumberStartingWith("32",
+        Page<CreditCardInfo> infos = creditCardInfoRepository.findByCreditCardNumberContaining("32",
                 new PageRequest(page, size));
 
         return infos.getContent();

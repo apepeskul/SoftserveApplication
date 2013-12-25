@@ -6,7 +6,9 @@ import com.springapp.mvc.repositories.ItemRepository;
 import java.beans.PropertyEditorSupport;
 
 public class ItemEditor extends PropertyEditorSupport {
-    ItemRepository itemRepository;
+
+    private ItemRepository itemRepository;
+
     ItemEditor(ItemRepository itemRepositoryRepository){
         this.itemRepository = itemRepository;
     }

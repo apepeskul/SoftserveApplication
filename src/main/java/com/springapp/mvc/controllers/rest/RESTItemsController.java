@@ -51,30 +51,16 @@ public class RESTItemsController {
         return "/errors/200";
     }
 
-    /*
-    update
-     */
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
 
     @RequestMapping(value = "/page/{page}/{size}", method = RequestMethod.GET)
      @ResponseBody
-     public List<Item> getPegaItems(@PathVariable ("page") int page,
+     public List<Item> getPageItems(@PathVariable ("page") int page,
                                     @PathVariable("size") int size) throws JSONException {
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
         Page<Item> items = itemRepository.findAll(new PageRequest(page, size));
-
-        return items.getContent();
-    }
-
-    //TODO: @param name
-    @RequestMapping(value = "/page/starting/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Item> getSomeItemsByName(//@RequestParam (value = "q") String termSearch,
-                                         @PathVariable ("page") int page,
-                                         @PathVariable("size") int size){
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<Item> items = itemRepository.findByNameStartingWith("qw" ,new PageRequest(page, size));
 
         return items.getContent();
     }

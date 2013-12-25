@@ -55,9 +55,7 @@ public class RESTUserController {
         return "/errors/200";
     }
 
-    /*
-    update
-     */
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
 
@@ -71,17 +69,4 @@ public class RESTUserController {
         return users.getContent();
     }
 
-    //TODO: @param name
-    @RequestMapping(value = "/page/starting/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<User> getSomeUsersByName(
-            @PathVariable ("page") int page,
-            @PathVariable("size") int size){
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-
-        Page<User> users = userRepository.findByFirstNameStartingWith("Ad",
-                new PageRequest(page, size));
-
-        return users.getContent();
-    }
 }

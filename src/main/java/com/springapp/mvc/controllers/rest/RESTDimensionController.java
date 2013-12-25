@@ -52,9 +52,7 @@ public class RESTDimensionController {
         return "/errors/200";
     }
 
-    /*
-    update
-     */
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
 
@@ -68,13 +66,16 @@ public class RESTDimensionController {
     }
 
     //TODO: @param name
+    //TODO:     sort field
+    //TODO:     desc asc
     @RequestMapping(value = "/page/starting/{page}/{size}", method = RequestMethod.GET)
     @ResponseBody
     public List<Dimension> getSomeDimensionByName(//@RequestParam (value = "q") String termSearch,
                                          @PathVariable ("page") int page,
                                          @PathVariable("size") int size){
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<Dimension> dimensions = dimensionRepository.findByNameStartingWith("qw" ,new PageRequest(page, size));
+        Page<Dimension> dimensions = dimensionRepository.findByNameContaining("qw" ,new PageRequest(page, size));
         return dimensions.getContent();
     }
+
 }

@@ -6,7 +6,8 @@ import com.springapp.mvc.repositories.DimensionRepository;
 import java.beans.PropertyEditorSupport;
 
 public class DimensionEditor extends PropertyEditorSupport {
-    DimensionRepository dimensionRepository;
+
+    private DimensionRepository dimensionRepository;
     DimensionEditor(DimensionRepository dimensionRepository){
         this.dimensionRepository=dimensionRepository;
     }

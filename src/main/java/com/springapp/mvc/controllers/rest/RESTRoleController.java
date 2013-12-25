@@ -50,9 +50,8 @@ public class RESTRoleController {
 
         return "/errors/200";
     }
-    /*
-    update
-     */
+
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
 
@@ -66,16 +65,4 @@ public class RESTRoleController {
         return roles.getContent();
     }
 
-    //TODO: @param name
-    @RequestMapping(value = "/page/starting/{page}/{size}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Role> getSomeRoleByName(
-            @PathVariable ("page") int page,
-            @PathVariable("size") int size){
-        //Sort sort = new Sort(Sort.Direction.DESC, "name");
-        Page<Role> roles = roleRepository.findByDescriptionStartingWith("Ad",
-                new PageRequest(page, size));
-
-        return roles.getContent();
-    }
 }

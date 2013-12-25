@@ -51,9 +51,7 @@ public class RESTOrderDetailsController {
         return "/errors/200";
     }
 
-    /*
-    update
-     */
+    //TODO: @param name
     //TODO:     sort field
     //TODO:     desc asc
 
@@ -63,6 +61,7 @@ public class RESTOrderDetailsController {
                                             @PathVariable("size") int size){
         //Sort sort = new Sort(Sort.Direction.DESC, "name");
         Page<OrderDetails> orderDetailses = orderDetaitlsRepository.findAll(new PageRequest(page, size));
+
         return orderDetailses.getContent();
     }
 

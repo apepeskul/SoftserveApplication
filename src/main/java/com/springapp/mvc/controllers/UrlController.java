@@ -25,25 +25,25 @@ import java.util.List;
 public class UrlController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    DimensionRepository dimensionRepository;
+    private DimensionRepository dimensionRepository;
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    PriceRepository priceRepository;
+    private PriceRepository priceRepository;
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getStartUrl(ModelMap model) {
@@ -126,4 +126,5 @@ public class UrlController {
 
         return "order";
     }
+
 }

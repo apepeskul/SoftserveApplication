@@ -8,7 +8,7 @@ import java.beans.PropertyEditorSupport;
 
 public class UserEditor extends PropertyEditorSupport {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
     UserEditor(UserRepository userRepository){
      this.userRepository=userRepository;
     }

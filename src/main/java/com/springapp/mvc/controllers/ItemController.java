@@ -9,6 +9,8 @@ import com.springapp.mvc.repositories.PriceRepository;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +23,13 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    DimensionRepository dimensionRepository;
+    private DimensionRepository dimensionRepository;
 
     @Autowired
-    PriceRepository priceRepository;
+    private PriceRepository priceRepository;
 
     @RequestMapping(value = "/{id}")
     @ResponseBody
@@ -95,6 +97,21 @@ public class ItemController {
         priceRepository.save(price);
 
         return "redirect:/item"; //TODO: URL
+    }
+
+    //TODO: @param name
+    //TODO:     sort field
+    //TODO:     desc asc
+    @RequestMapping(value = "/page/{page}/{size}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Item> getItemByCondition(//@RequestParam (value = "q") String termSearch,
+                                         @PathVariable ("page") int page,
+                                         @PathVariable("size") int size){
+        //Sort sort = new Sort(Sort.Direction.DESC, "name");
+        Page<Item> items = itemRepository.findByNameContainingAndDescriptionContaining("", "",
+                new PageRequest(page, size));
+
+        return items.getContent();
     }
 
 }
